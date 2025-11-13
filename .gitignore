@@ -1,2 +1,8 @@
-logs_tk/tokenizer_288x512/checkpoints/tokenizer_288x512.ckpt
-logs_wm/orbis_288x512/checkpoints/last.ckpt
+# Ignore tokenizer checkpoints
+logs_tk/tokenizer_288x512/
+
+# Ignore world model checkpoints
+logs_wm/orbis_288x512/
+
+# Ignore rollout generation outputs
+orbis/logs_wm/orbis_288x512/gen_rollout/
