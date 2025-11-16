@@ -546,7 +546,7 @@ class DiT(nn.Module):
        return self.unpatchify(out)
 
 
-   def forward(self, target, context, t, frame_rate):
+   def forward(self, target, context, t, frame_rate, text_emb=None):
        """
        Forward pass of DiT.
        x: (N, F, C, H, W) tensor of spatial inputs (images or latent representations of images)
@@ -557,7 +557,11 @@ class DiT(nn.Module):
        num_frames_ctx = context.size(1)
        num_frames_pred = target.size(1)
       
-       c = self.get_condition_embeddings(t)
+       c_t = self.get_condition_embeddings(t)
+       if text_emb is not None:
+            c = c_t + text_emb
+        else:
+            c= c_t
       
        x = self.preprocess_inputs(target, context, t, frame_rate)
       
@@ -580,7 +584,7 @@ class STDiT(DiT):
             ])
 
 
-    def forward(self, target, context, t, frame_rate, return_features=False):
+    def forward(self, target, context, t, frame_rate, text_emb=None, return_features=False):
         """
         Forward pass of DiT.
         x: (N, F, C, H, W) tensor of spatial inputs (images or latent representations of images)
@@ -588,7 +592,11 @@ class STDiT(DiT):
         """
         f_pred = target.size(1)
         
-        c = self.get_condition_embeddings(t)                   # (N, D)
+        c_t = self.get_condition_embeddings(t)                   # (N, D)
+        if text_emb is not None:
+            c = c_t + text_emb
+        else:
+            c= c_t
         
         x = self.preprocess_inputs(target, context, t, frame_rate)  # (B, F, N, D)
 
