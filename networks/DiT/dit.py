@@ -560,7 +560,7 @@ class DiT(nn.Module):
        c_t = self.get_condition_embeddings(t)
        if text_emb is not None:
             c = c_t + text_emb
-        else:
+       else:
             c= c_t
       
        x = self.preprocess_inputs(target, context, t, frame_rate)

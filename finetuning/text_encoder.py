@@ -1,3 +1,7 @@
+import torch
+import torch.nn as nn
+import clip
+
 class CLIPTextEncoder(nn.Module):
     def __init__(self, model_name="ViT-B/32", device="cuda"):
         super().__init__()
@@ -10,12 +14,8 @@ class CLIPTextEncoder(nn.Module):
         nn.init.zeros_(self.proj.bias)
 
     def forward(self, captions):
-        """
-        captions: list[str] of length B
-        output:   (B, 1152)
-        """
         tokens = clip.tokenize(captions).to(self.device)
         with torch.no_grad():
-            clip_emb = self.model.encode_text(tokens)   # (B, 512)
+            clip_emb = self.model.encode_text(tokens)
 
-        return self.proj(clip_emb)  # (B, 1152)
+        return self.proj(clip_emb)
