@@ -433,7 +433,10 @@ class DiT(nn.Module):
 
 
        self.t_embedder = TimestepEmbedder(hidden_size)
-
+       self.text_mlp = nn.Sequential(
+       nn.SiLU(),
+       nn.Linear(hidden_size, hidden_size),
+       )
 
        self.pos_embed = nn.Parameter(torch.zeros(1, self.num_patches, hidden_size), requires_grad=False)
 
@@ -559,7 +562,8 @@ class DiT(nn.Module):
       
        c_t = self.get_condition_embeddings(t)
        if text_emb is not None:
-            c = c_t + text_emb
+            text_cond = self.text_mlp(text_emb)
+            c = c_t + text_cond
        else:
             c= c_t
       
@@ -594,7 +598,8 @@ class STDiT(DiT):
         
         c_t = self.get_condition_embeddings(t)                   # (N, D)
         if text_emb is not None:
-            c = c_t + text_emb
+            text_cond = self.text_mlp(text_emb)
+            c = c_t + text_cond
         else:
             c= c_t
         

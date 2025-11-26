@@ -1,12 +1,9 @@
 #!/bin/bash
-#SBATCH --job-name=orbis_text_ft        # Job name  
-#SBATCH --output=text_ft_%j.out         # STDOUT log
-#SBATCH --error=text_ft_%j.err          # STDERR log
-#SBATCH --partition=gpu_a100_il         # GPU partition
-#SBATCH --gres=gpu:1                    # 1x A100 GPU
-#SBATCH --cpus-per-task=8               # Good for DataLoader workers
-#SBATCH --mem=64G                       # Memory
-#SBATCH --time=00:10:00                 # Adjust based on training length
+#SBATCH --partition=gpu_h100_il
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=50G
+#SBATCH --time=10:00:00
 
 ### --- Load modules required for GPU acceleration ---
 module purge
@@ -20,4 +17,4 @@ conda activate orbis_env
 cd /home/fr/fr_fr/fr_aa533/work/orbis
 
 ### --- RUN TRAINING ---
-python finetuning/train_text_finetune.py
+python -m finetuning.train_text_finetune
