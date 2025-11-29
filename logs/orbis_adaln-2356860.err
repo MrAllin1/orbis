@@ -1,0 +1,71 @@
+/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+Downloading data:   0%|          | 0/10001 [00:00<?, ?files/s]Downloading data:   0%|          | 1/10001 [00:00<1:25:01,  1.96files/s]Downloading data:   6%|▌         | 560/10001 [00:00<00:07, 1224.15files/s]Downloading data:   9%|▉         | 917/10001 [00:00<00:05, 1778.42files/s]Downloading data:  13%|█▎        | 1277/10001 [00:00<00:03, 2233.72files/s]Downloading data:  16%|█▋        | 1642/10001 [00:00<00:03, 2606.13files/s]Downloading data:  20%|██        | 2005/10001 [00:01<00:02, 2884.93files/s]Downloading data:  24%|██▎       | 2370/10001 [00:01<00:02, 3089.05files/s]Downloading data:  27%|██▋       | 2732/10001 [00:01<00:02, 3240.75files/s]Downloading data:  31%|███       | 3091/10001 [00:01<00:02, 3333.90files/s]Downloading data:  35%|███▍      | 3460/10001 [00:01<00:01, 3435.44files/s]Downloading data:  38%|███▊      | 3822/10001 [00:01<00:01, 3473.84files/s]Downloading data:  42%|████▏     | 4182/10001 [00:01<00:01, 3502.02files/s]Downloading data:  46%|████▌     | 4556/10001 [00:01<00:01, 3570.08files/s]Downloading data:  49%|████▉     | 4920/10001 [00:01<00:01, 3582.86files/s]Downloading data:  53%|█████▎    | 5284/10001 [00:01<00:01, 3589.11files/s]Downloading data:  56%|█████▋    | 5646/10001 [00:02<00:01, 3576.93files/s]Downloading data:  60%|██████    | 6018/10001 [00:02<00:01, 3604.84files/s]Downloading data:  64%|██████▍   | 6380/10001 [00:02<00:01, 3605.01files/s]Downloading data:  67%|██████▋   | 6743/10001 [00:02<00:00, 3609.70files/s]Downloading data:  71%|███████   | 7108/10001 [00:02<00:00, 3619.14files/s]Downloading data:  75%|███████▍  | 7471/10001 [00:02<00:00, 3610.58files/s]Downloading data:  78%|███████▊  | 7835/10001 [00:02<00:00, 3613.19files/s]Downloading data:  82%|████████▏ | 8197/10001 [00:02<00:00, 3613.80files/s]Downloading data:  86%|████████▌ | 8559/10001 [00:02<00:00, 3613.66files/s]Downloading data:  89%|████████▉ | 8924/10001 [00:02<00:00, 3607.74files/s]Downloading data:  93%|█████████▎| 9292/10001 [00:03<00:00, 3604.85files/s]Downloading data:  97%|█████████▋| 9654/10001 [00:03<00:00, 3599.79files/s]Downloading data: 100%|██████████| 10001/10001 [00:03<00:00, 3106.74files/s]
+Generating train split:   0%|          | 0/10000 [00:00<?, ? examples/s]Generating train split:   0%|          | 0/10000 [00:00<?, ? examples/s]
+Traceback (most recent call last):
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/builder.py", line 1588, in _prepare_split_single
+    example = self.info.features.encode_example(record) if self.info.features is not None else record
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/features/features.py", line 2054, in encode_example
+    return encode_nested_example(self, example)
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/features/features.py", line 1345, in encode_nested_example
+    {k: encode_nested_example(schema[k], obj.get(k), level=level + 1) for k in schema}
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/features/features.py", line 1345, in <dictcomp>
+    {k: encode_nested_example(schema[k], obj.get(k), level=level + 1) for k in schema}
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/features/features.py", line 1368, in encode_nested_example
+    return schema.encode_example(obj) if obj is not None else None
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/features/video.py", line 119, in encode_example
+    from torchcodec.decoders import VideoDecoder
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/torchcodec/__init__.py", line 10, in <module>
+    from . import decoders, samplers  # noqa
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/torchcodec/decoders/__init__.py", line 7, in <module>
+    from .._core import AudioStreamMetadata, VideoStreamMetadata
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/torchcodec/_core/__init__.py", line 8, in <module>
+    from ._metadata import (
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/torchcodec/_core/_metadata.py", line 16, in <module>
+    from torchcodec._core.ops import (
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/torchcodec/_core/ops.py", line 84, in <module>
+    load_torchcodec_shared_libraries()
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/torchcodec/_core/ops.py", line 69, in load_torchcodec_shared_libraries
+    raise RuntimeError(
+RuntimeError: Could not load libtorchcodec. Likely causes:
+          1. FFmpeg is not properly installed in your environment. We support
+             versions 4, 5, 6, and 7 on all platforms, and 8 on Mac and Linux.
+          2. The PyTorch version (2.5.1) is not compatible with
+             this version of TorchCodec. Refer to the version compatibility
+             table:
+             https://github.com/pytorch/torchcodec?tab=readme-ov-file#installing-torchcodec.
+          3. Another runtime dependency; see exceptions below.
+        The following exceptions were raised as we tried to load libtorchcodec:
+        
+[start of libtorchcodec loading traceback]
+FFmpeg version 8: libavutil.so.60: cannot open shared object file: No such file or directory
+FFmpeg version 7: libavutil.so.59: cannot open shared object file: No such file or directory
+FFmpeg version 6: libavutil.so.58: cannot open shared object file: No such file or directory
+FFmpeg version 5: libavutil.so.57: cannot open shared object file: No such file or directory
+FFmpeg version 4: libopenh264.so.5: cannot open shared object file: No such file or directory
+[end of libtorchcodec loading traceback].
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/pfs/data6/home/fr/fr_fr/fr_aa533/work/orbis/finetuning/train_text_finetune.py", line 39, in <module>
+    train_ds = CoVLAOrbisMultiFrame(
+  File "/pfs/data6/home/fr/fr_fr/fr_aa533/work/orbis/data/covla_dataset.py", line 40, in __init__
+    self.dataset = load_dataset(
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/load.py", line 1417, in load_dataset
+    builder_instance.download_and_prepare(
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/builder.py", line 897, in download_and_prepare
+    self._download_and_prepare(
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/builder.py", line 1612, in _download_and_prepare
+    super()._download_and_prepare(
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/builder.py", line 973, in _download_and_prepare
+    self._prepare_split(split_generator, **prepare_split_kwargs)
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/builder.py", line 1450, in _prepare_split
+    for job_id, done, content in self._prepare_split_single(
+  File "/home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/lib/python3.10/site-packages/datasets/builder.py", line 1607, in _prepare_split_single
+    raise DatasetGenerationError("An error occurred while generating the dataset") from e
+datasets.exceptions.DatasetGenerationError: An error occurred while generating the dataset

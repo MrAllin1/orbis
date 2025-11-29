@@ -1,0 +1,26 @@
+=== CoVLA Tutorial Downloader (20 samples) ===
+Node: uc2n837.localdomain
+Start: Sat Nov 29 06:46:06 PM CET 2025
+Using Python: /home/fr/fr_fr/fr_aa533/.conda/envs/orbis_env/bin/python
+Conda env: orbis_env
+HF_DATASETS_VIDEO_DECODER=decord
+[INFO] Python version: 3.10.14 | packaged by conda-forge | (main, Mar 20 2024, 12:45:18) [GCC 12.3.0]
+[INFO] datasets version: 2.21.0
+[INFO] decord version: 0.6.0
+[1/2] Loading CoVLA dataset in STREAMING mode…
+Finished: Sat Nov 29 06:46:23 PM CET 2025
+
+============================= JOB FEEDBACK =============================
+
+NodeName=uc2n837
+Job ID: 2357683
+Cluster: uc3
+User/Group: fr_aa533/fr_fr
+State: COMPLETED (exit code 0)
+Nodes: 1
+Cores per node: 4
+CPU Utilized: 00:00:05
+CPU Efficiency: 4.17% of 00:02:00 core-walltime
+Job Wall-clock time: 00:00:30
+Memory Utilized: 143.31 MB
+Memory Efficiency: 0.87% of 16.00 GB (16.00 GB/node)
