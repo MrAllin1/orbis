@@ -37,9 +37,7 @@ alphas_cumprod = torch.cumprod(alphas, dim=0)
 
 # ===================== Dataset =====================
 train_ds = CoVLAOrbisMultiFrame(
-    split="train",
     num_frames=MAX_FRAMES,
-    streaming=True,
     captions_dir=CAPTIONS_DIR,
 )
 
@@ -203,40 +201,95 @@ def encode_latents(imgs: torch.Tensor) -> torch.Tensor:
 print("\n🚀 Starting AdaLN Fine-Tuning...\n")
 model.train()
 
+import time
+
 for epoch in range(EPOCHS):
     pbar = tqdm(range(STEPS_PER_EPOCH), desc=f"Epoch {epoch}")
 
-    for _ in pbar:
-        s = next(data_stream)
+    for step in pbar:
+        step_start = time.time()
+        print(f"\n====================== STEP {step} ======================")
 
-        imgs = s["images"].unsqueeze(0).to(device)
+        # --------------------------------------------------------
+        # 1) LOAD DATA
+        # --------------------------------------------------------
+        t0 = time.time()
+        print("[STEP] Fetching sample from dataset...")
+        s = next(data_stream)
+        print(f"[OK] Sample loaded in {time.time() - t0:.3f} sec")
+        print(f"       • video_id: {s.get('video_id', 'N/A')}")
+        print(f"       • caption: {s['caption'][:60]}...")
+
+        # --------------------------------------------------------
+        # 2) MOVE IMAGES TO GPU
+        # --------------------------------------------------------
+        imgs = s["images"].unsqueeze(0)
+        print("[STEP] Moving images to GPU...")
+        t0 = time.time()
+        imgs = imgs.to(device)
+        print(f"[OK] Moved to GPU in {time.time() - t0:.3f} sec")
+
+        # --------------------------------------------------------
+        # 3) TOKENIZER → LATENTS
+        # --------------------------------------------------------
+        print("[STEP] Tokenizer: encode_first_stage + quantize...")
+        t0 = time.time()
         latents = encode_latents(imgs)
+        print(f"[OK] Tokenizer forward done in {time.time() - t0:.3f} sec")
+        print(f"       • latents shape: {tuple(latents.shape)}")
 
         context = latents[:, :CONTEXT_FRAMES]
         target  = latents[:, CONTEXT_FRAMES:]
 
-        # ---- CAPTION FIX ----
+        # --------------------------------------------------------
+        # 4) TEXT ENCODER
+        # --------------------------------------------------------
+        print("[STEP] Text encoder forward...")
+        t0 = time.time()
         text = s["caption"]
         if not isinstance(text, str) or len(text.strip()) == 0:
             text = "no caption"
         text_emb = text_encoder([text]).to(device)
+        print(f"[OK] CLIP done in {time.time() - t0:.3f} sec")
 
-        # ---- TIMESTEP ----
+        # --------------------------------------------------------
+        # 5) SAMPLE TIMESTEP + DDPM NOISE
+        # --------------------------------------------------------
+        print("[STEP] DDPM noise prep...")
+        t0 = time.time()
         t = torch.randint(0, DIFF_STEPS, (1,), device=device)
-
-        # ---- CORRECT DDPM NOISE ----
         alpha_bar = alphas_cumprod[t].view(1, 1, 1, 1, 1)
         noise = torch.randn_like(target)
         noisy = torch.sqrt(alpha_bar) * target + torch.sqrt(1 - alpha_bar) * noise
+        print(f"[OK] Noise prepared in {time.time() - t0:.3f} sec")
 
         frame_rate = torch.tensor([s["frame_rate"]], device=device)
 
+        # --------------------------------------------------------
+        # 6) STDiT FORWARD
+        # --------------------------------------------------------
+        print("[STEP] STDiT forward...")
+        t0 = time.time()
         pred = model(noisy, context, t, frame_rate, text_emb=text_emb)
-        loss = torch.mean((pred - noise)**2)
+        print(f"[OK] STDiT forward done in {time.time() - t0:.3f} sec")
 
+        # --------------------------------------------------------
+        # 7) LOSS + BACKWARD + OPTIMIZER
+        # --------------------------------------------------------
+        print("[STEP] Backward + optimizer...")
+        t0 = time.time()
+        loss = torch.mean((pred - noise)**2)
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+        print(f"[OK] Optimizer step in {time.time() - t0:.3f} sec")
+
+        # --------------------------------------------------------
+        # 8) TOTAL STEP TIME
+        # --------------------------------------------------------
+        total = time.time() - step_start
+        print(f"================ STEP {step} DONE: {total:.3f} sec ================\n")
+
         pbar.set_postfix(loss=float(loss))
 
 

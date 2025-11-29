@@ -1,123 +1,166 @@
-import os
 import json
 import numpy as np
 import torch
 from torch.utils.data import Dataset
 from datasets import load_dataset
-from PIL import Image
 from torchvision import transforms
-
-CACHE_DIR = "/home/fr/fr_fr/fr_aa533/work/covla_cache"
-os.makedirs(CACHE_DIR, exist_ok=True)
-
-
-def cache_path(video_id, frame_idx):
-    return os.path.join(CACHE_DIR, f"{video_id}_{frame_idx}.pt")
+from PIL import Image
+import time
 
 
 class CoVLAOrbisMultiFrame(Dataset):
+    """
+    EXTENSIVE DEBUG VERSION
+    Adds logs everywhere to detect slowdown / stuck points.
+    """
+
     def __init__(
         self,
-        split="train",
         num_frames=6,
-        stored_data_frame_rate=10,
+        stored_data_frame_rate=20,
         target_frame_rate=5,
         size=288,
-        streaming=True,
-        num_samples=None,
-        captions_dir="data/covla_captions",
+        captions_dir=None,
+        num_samples=1000,
     ):
+        print("\n================= [INIT] CoVLAOrbisMultiFrame =================")
+        t0 = time.time()
+        print("[INIT] Loading dataset from HuggingFace (streaming=True)…")
+
+        # Load HF dataset in streaming mode
         self.dataset = load_dataset(
             "turing-motors/CoVLA-Dataset",
-            split=split,
-            streaming=streaming,
+            split="train",
+            streaming=True,
         )
-
-        self.streaming = streaming
-
-        if not streaming:
-            self.dataset = list(self.dataset)
-            if num_samples:
-                self.dataset = self.dataset[:num_samples]
-
-        self.iterator = iter(self.dataset)
+        print("[INIT] HuggingFace dataset loaded. (streaming generator object)")
 
         self.num_frames = num_frames
         self.stored_rate = stored_data_frame_rate
         self.target_rate = target_frame_rate
         self.frame_interval = max(1, round(self.stored_rate / self.target_rate))
 
-        self.captions_dir = captions_dir
+        print(f"[INIT] num_frames={num_frames}, frame_interval={self.frame_interval}")
 
         self.transform = transforms.Compose([
             transforms.Resize(size),
             transforms.CenterCrop(size),
             transforms.ToTensor(),
         ])
+        print("[INIT] Transforms initialized.")
 
-    def fetch_sample(self):
-        while True:
-            try:
-                return next(self.iterator)
-            except StopIteration:
-                self.iterator = iter(self.dataset)
-            except Exception:
-                continue
+        self.captions_dir = captions_dir
+        self.num_samples = num_samples
 
+        print("[INIT] Creating dataset iterator…")
+        self.iterator = iter(self.dataset)
+        print("[INIT] Iterator ready.")
+
+        print(f"[INIT] Completed in {time.time() - t0:.2f} seconds")
+        print("================================================================\n")
+
+    # --------------------------------------------------------------
     def load_captions(self, video_id):
-        path = os.path.join(self.captions_dir, f"{video_id}.jsonl")
-        if not os.path.exists(path):
-            return None
+        print(f"[CAPTION] Loading captions for video_id={video_id}")
 
-        caps = {}
-        with open(path, "r") as f:
-            for line in f:
-                data = json.loads(line.strip())
-                fid_str = next(iter(data.keys()))
-                caps[int(fid_str)] = data[fid_str].get("plain_caption", "")
-        return caps
+        if not self.captions_dir:
+            print("[CAPTION] No captions_dir set → return empty dict.")
+            return {}
 
-    def decode_frame(self, video_id, video, i):
-        cp = cache_path(video_id, i)
-        if os.path.exists(cp):
-            return torch.load(cp)
+        path = f"{self.captions_dir}/{video_id}.jsonl"
+        print(f"[CAPTION] Caption file path: {path}")
 
-        arr = video[i].numpy()
-        if arr.ndim == 3 and arr.shape[0] == 3:
-            arr = np.transpose(arr, (1, 2, 0))
-        if arr.ndim == 3 and arr.shape[2] == 1:
-            arr = np.repeat(arr, 3, axis=2)
+        try:
+            with open(path, "r") as f:
+                caps = {
+                    int(list(entry.keys())[0]): entry[list(entry.keys())[0]]["plain_caption"]
+                    for entry in map(json.loads, f)
+                }
+            print(f"[CAPTION] Loaded {len(caps)} caption lines.")
+            return caps
 
-        img = Image.fromarray(arr.astype(np.uint8)).convert("RGB")
-        img = self.transform(img) * 2 - 1
+        except FileNotFoundError:
+            print("[CAPTION] Caption JSONL file missing → return empty dict.")
+            return {}
 
-        torch.save(img, cp)
-        return img
-
+    # --------------------------------------------------------------
     def __getitem__(self, idx):
-        sample = self.fetch_sample() if self.streaming else self.dataset[idx]
 
+        print(f"\n================= [GETITEM] idx={idx} =================")
+
+        # --- Retrieve sample -------------------------
+        print("[GETITEM] Fetching next sample from iterator…")
+        try:
+            sample = next(self.iterator)
+            print("[GETITEM] Received sample OK.")
+        except StopIteration:
+            print("[GETITEM] Iterator exhausted — restarting dataset iterator.")
+            self.iterator = iter(load_dataset(
+                "turing-motors/CoVLA-Dataset",
+                split="train",
+                streaming=True,
+            ))
+            sample = next(self.iterator)
+
+        # --- Parse sample ----------------------------
         video = sample["video"]
-        video_id = sample.get("video_id")
+        video_id = sample["video_id"]
+
+        print(f"[GETITEM] video_id={video_id}")
+        print("[GETITEM] Counting frames…")
+        total_frames = len(video)
+        print(f"[GETITEM] total_frames={total_frames}")
+
+        # --- Load captions ---------------------------
         captions = self.load_captions(video_id)
 
-        total = len(video)
+        # --- Select frame indices --------------------
+        print("[GETITEM] Computing frame indices…")
         need = self.num_frames * self.frame_interval
+        idxs = [min(i, total_frames - 1) for i in range(0, need, self.frame_interval)]
+        print(f"[GETITEM] Selected indices: {idxs}")
 
-        if total < need:
-            idxs = [min(i, total - 1) for i in range(0, need, self.frame_interval)]
-        else:
-            start = np.random.randint(0, total - need + 1)
-            idxs = [start + i * self.frame_interval for i in range(self.num_frames)]
+        frames = []
+        texts = []
 
-        frames, texts = [], []
+        # --- Decode frames ---------------------------
+        print("[GETITEM] Decoding frames now…")
+
         for i in idxs:
-            frames.append(self.decode_frame(video_id, video, i))
-            texts.append(captions.get(i, "") if captions else "")
+            print(f"[GETITEM] Decoding frame {i}…")
 
+            try:
+                frame = video[i].asnumpy()
+                print("[GETITEM] Frame decoded to NumPy.")
+            except Exception as e:
+                print(f"[ERROR] Failed decoding frame {i}: {e}")
+                raise e
+
+            print("[GETITEM] Converting NumPy → PIL")
+            img = Image.fromarray(frame).convert("RGB")
+
+            print("[GETITEM] Applying transforms…")
+            img = self.transform(img) * 2 - 1
+
+            frames.append(img)
+            texts.append(captions.get(i, ""))
+
+            print(f"[GETITEM] Frame {i} processed.")
+
+        # --- Stack frames -----------------------------
+        print("[GETITEM] Stacking frames into a tensor…")
         frames = torch.stack(frames, 0)
-        global_caption = texts[0] if len(texts) > 0 else ""
-        return {"images": frames, "caption": global_caption, "frame_rate": self.target_rate}
 
+        global_caption = texts[0] if texts else ""
+        print(f"[GETITEM] global_caption='{global_caption[:50]}…'")
+
+        print("[GETITEM] Returning output dict.\n")
+        return {
+            "images": frames,
+            "caption": global_caption,
+            "video_id": video_id,
+        }
+
+    # --------------------------------------------------------------
     def __len__(self):
-        raise TypeError("Streaming dataset does not have length.")
+        return self.num_samples
