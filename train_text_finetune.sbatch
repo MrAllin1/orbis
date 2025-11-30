@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=orbis_adaln
-#SBATCH --partition=dev_gpu_h100
+#SBATCH --partition=gpu_a100_short
 #SBATCH --gres=gpu:1
 #SBATCH --time=00:30:00
 #SBATCH --mem=48G
