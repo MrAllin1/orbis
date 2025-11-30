@@ -1,4 +1,6 @@
 import os
+import time
+
 import torch
 import torch.nn as nn
 from tqdm import tqdm
@@ -17,7 +19,12 @@ print(f"Using device: {device}")
 TOKENIZER_CKPT = "/home/fr/fr_fr/fr_aa533/work/orbis/logs_tk/tokenizer_288x512/checkpoints/tokenizer_288x512.ckpt"
 ORBIT_CKPT     = "/home/fr/fr_fr/fr_aa533/work/orbis/logs_wm/orbis_288x512/checkpoints/last.ckpt"
 CAPTIONS_DIR   = "/home/fr/fr_fr/fr_aa533/work/orbis/data/covla_captions"
+VIDEOS_DIR     = "/home/fr/fr_fr/fr_aa533/work/orbis/data/covla_100_videos"
 SAVE_PATH      = "/home/fr/fr_fr/fr_aa533/work/orbis/finetuning/finetuned_orbis_AdaLN.ckpt"
+
+# checkpoint for resuming short jobs
+CHECKPOINT_PATH = "/home/fr/fr_fr/fr_aa533/work/orbis/finetuning/checkpoints/adaln_resume.ckpt"
+os.makedirs(os.path.dirname(CHECKPOINT_PATH), exist_ok=True)
 
 # ====== HYPERPARAMS ======
 BATCH_SIZE      = 1
@@ -28,6 +35,7 @@ CONTEXT_FRAMES  = 3
 TARGET_FRAMES   = 3
 DIFF_STEPS      = 1000
 MAX_FRAMES      = CONTEXT_FRAMES + TARGET_FRAMES
+
 beta_start = 0.0001
 beta_end   = 0.02
 betas = torch.linspace(beta_start, beta_end, DIFF_STEPS, device=device)
@@ -39,6 +47,9 @@ alphas_cumprod = torch.cumprod(alphas, dim=0)
 train_ds = CoVLAOrbisMultiFrame(
     num_frames=MAX_FRAMES,
     captions_dir=CAPTIONS_DIR,
+    videos_dir=VIDEOS_DIR,   # local mp4s
+    num_samples=None,        # or cap it (e.g. 100)
+    debug=False,             # set True for dataset spam
 )
 
 def infinite_stream(ds):
@@ -87,7 +98,7 @@ decoder_cfg = ConfigDict(
     {
         "double_z": False,
         "z_channels": 768,
-        "resolution": 256,   # From tokenizer YAML — not list
+        "resolution": 256,
         "in_channels": 3,
         "out_ch": 3,
         "ch": 128,
@@ -152,7 +163,7 @@ tokenizer.eval()
 for p in tokenizer.parameters():
     p.requires_grad = False
 print("Tokenizer ready ✓")
-
+print("Tokenizer type:", type(tokenizer))
 
 # ===================== STDiT =====================
 print("\n🎯 Loading STDiT (AdaLN training only)...")
@@ -185,30 +196,88 @@ optimizer = torch.optim.AdamW(train_params, lr=LR, weight_decay=0.01)
 print(f"Trainable parameters: {sum(p.numel() for p in train_params):,}")
 
 
+# =========================================================
+#              CHECKPOINT LOAD / SAVE
+# =========================================================
+def save_checkpoint(epoch, step):
+    ckpt = {
+        "epoch": epoch,
+        "step": step,
+        "model_state_dict": model.state_dict(),
+        "text_proj_state_dict": text_encoder.proj.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+    }
+    torch.save(ckpt, CHECKPOINT_PATH)
+    print(f"[CKPT] Saved checkpoint at epoch={epoch}, step={step} → {CHECKPOINT_PATH}")
+
+
+start_epoch = 0
+start_step = 0
+
+if os.path.exists(CHECKPOINT_PATH):
+    print(f"[CKPT] Found existing checkpoint: {CHECKPOINT_PATH}")
+    ckpt = torch.load(CHECKPOINT_PATH, map_location=device)
+
+    model.load_state_dict(ckpt["model_state_dict"], strict=False)
+    text_encoder.proj.load_state_dict(ckpt["text_proj_state_dict"], strict=False)
+    optimizer.load_state_dict(ckpt["optimizer_state_dict"])
+
+    start_epoch = ckpt.get("epoch", 0)
+    start_step = ckpt.get("step", 0) + 1  # continue from next step
+
+    print(f"[CKPT] Resuming from epoch={start_epoch}, step={start_step}")
+else:
+    print("[CKPT] No existing checkpoint found → starting from scratch")
+
+
 # ================ TOKENIZER LATENT ENCODING =================
 def encode_latents(imgs: torch.Tensor) -> torch.Tensor:
+    """
+    imgs: (B, F, C, H, W)
+    returns: (B, F, 32, 18, 32)
+    """
+    print("[ENCODE_LATENTS] Starting latent encoding...")
     B, F, C, H, W = imgs.shape
+    print(f"[ENCODE_LATENTS] Input shape: B={B}, F={F}, C={C}, H={H}, W={W}")
+
     imgs = imgs.reshape(B * F, C, H, W)
+    print(f"[ENCODE_LATENTS] Reshaped to: {(B * F, C, H, W)}")
 
     with torch.no_grad():
-        z = tokenizer.encode_first_stage(imgs)
-        latents, _, _ = tokenizer.quantize(z)
+        print("[ENCODE_LATENTS] Calling tokenizer.encode(...)")
+        encoded = tokenizer.encode(imgs)  # dict from VQModelIF.encode
+        quantized = encoded["quantized"]
 
-    return latents.view(B, F, 32, 18, 32)
+        if isinstance(quantized, tuple):
+            q_rec, q_sem = quantized
+            print("[ENCODE_LATENTS] Got tuple quantized: ",
+                  f"q_rec shape={tuple(q_rec.shape)}, q_sem shape={tuple(q_sem.shape)}")
+            lat = torch.cat([q_rec, q_sem], dim=1)  # (B*F, 32, 18, 32)
+        else:
+            print("[ENCODE_LATENTS] quantized is not a tuple, using as-is")
+            lat = quantized
+
+        print("[ENCODE_LATENTS] Latents after concat shape:", tuple(lat.shape))
+
+    latents = lat.view(B, F, 32, 18, 32)
+    print("[ENCODE_LATENTS] Final latent shape:", tuple(latents.shape))
+    return latents
 
 
 # ===================== TRAIN =====================
 print("\n🚀 Starting AdaLN Fine-Tuning...\n")
 model.train()
 
-import time
-
-for epoch in range(EPOCHS):
+for epoch in range(start_epoch, EPOCHS):
     pbar = tqdm(range(STEPS_PER_EPOCH), desc=f"Epoch {epoch}")
 
     for step in pbar:
+        # skip previously finished steps when resuming
+        if epoch == start_epoch and step < start_step:
+            continue
+
         step_start = time.time()
-        print(f"\n====================== STEP {step} ======================")
+        print(f"\n====================== E{epoch} STEP {step} ======================")
 
         # --------------------------------------------------------
         # 1) LOAD DATA
@@ -221,18 +290,18 @@ for epoch in range(EPOCHS):
         print(f"       • caption: {s['caption'][:60]}...")
 
         # --------------------------------------------------------
-        # 2) MOVE IMAGES TO GPU
+        # 2) MOVE IMAGES TO DEVICE
         # --------------------------------------------------------
         imgs = s["images"].unsqueeze(0)
-        print("[STEP] Moving images to GPU...")
+        print("[STEP] Moving images to device...")
         t0 = time.time()
         imgs = imgs.to(device)
-        print(f"[OK] Moved to GPU in {time.time() - t0:.3f} sec")
+        print(f"[OK] Moved to {device} in {time.time() - t0:.3f} sec")
 
         # --------------------------------------------------------
         # 3) TOKENIZER → LATENTS
         # --------------------------------------------------------
-        print("[STEP] Tokenizer: encode_first_stage + quantize...")
+        print("[STEP] Tokenizer: encode + concat codebooks...")
         t0 = time.time()
         latents = encode_latents(imgs)
         print(f"[OK] Tokenizer forward done in {time.time() - t0:.3f} sec")
@@ -263,7 +332,8 @@ for epoch in range(EPOCHS):
         noisy = torch.sqrt(alpha_bar) * target + torch.sqrt(1 - alpha_bar) * noise
         print(f"[OK] Noise prepared in {time.time() - t0:.3f} sec")
 
-        frame_rate = torch.tensor([s["frame_rate"]], device=device)
+        # ======== FRAME RATE FROM DATASET (LOCAL) =========
+        frame_rate = torch.tensor([train_ds.target_rate], device=device)
 
         # --------------------------------------------------------
         # 6) STDiT FORWARD
@@ -285,15 +355,20 @@ for epoch in range(EPOCHS):
         print(f"[OK] Optimizer step in {time.time() - t0:.3f} sec")
 
         # --------------------------------------------------------
-        # 8) TOTAL STEP TIME
+        # 8) SAVE CHECKPOINT (to survive 30-min jobs)
+        # --------------------------------------------------------
+        save_checkpoint(epoch, step)
+
+        # --------------------------------------------------------
+        # 9) TOTAL STEP TIME
         # --------------------------------------------------------
         total = time.time() - step_start
-        print(f"================ STEP {step} DONE: {total:.3f} sec ================\n")
+        print(f"================ E{epoch} STEP {step} DONE: {total:.3f} sec ================\n")
 
         pbar.set_postfix(loss=float(loss))
 
 
-# ================= SAVE =================
+# ================= SAVE FINAL =================
 torch.save({
     "state_dict": model.state_dict(),
     "text_proj": text_encoder.proj.state_dict(),
