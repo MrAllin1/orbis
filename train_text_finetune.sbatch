@@ -1,20 +1,21 @@
 #!/bin/bash
 #SBATCH --job-name=orbis_adaln
-#SBATCH --partition=gpu_a100_il
+#SBATCH --partition=lmbhiwi_gpu-rtx2080
+#SBATCH --account=lmbhiwi-dlc
 #SBATCH --gres=gpu:1
-#SBATCH --time=06:00:00
-#SBATCH --mem=48G
+#SBATCH --time=12:00:00
+#SBATCH --mem=40G
 #SBATCH --cpus-per-task=4
 #SBATCH --output=logs/%x-%j.out
 #SBATCH --error=logs/%x-%j.err
-
-echo "=== Starting SLURM Job on dev_gpu_h100 ==="
+# -----------------------------------------------------
+echo "=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ==="
 echo "Node: $(hostname)"
 echo "Job ID: $SLURM_JOB_ID"
 # -----------------------------------------------------
 # ACTIVATE your miniconda installation in HOME
 # -----------------------------------------------------
-source /home/fr/fr_fr/fr_aa533/miniconda3/bin/activate
+source /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/etc/profile.d/conda.sh
 conda activate orbis_env
 
 echo "Python = $(which python)"

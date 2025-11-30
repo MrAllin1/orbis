@@ -17,10 +17,13 @@ class CLIPTextEncoder(nn.Module):
     def forward(self, captions):
         """
         captions: list(str) of length B  (one string per video)
-        output:   (B, 1152)
+        output:   (B, 768)
         """
         tokens = clip.tokenize(captions).to(self.device)   # (B, T)
         with torch.no_grad():
             clip_emb = self.model.encode_text(tokens)      # (B, 512)
+
+        # 🔐 Fix: make sure dtype matches Linear weights (float32)
+        clip_emb = clip_emb.to(self.proj.weight.dtype)
 
         return self.proj(clip_emb)                         # (B, 768)

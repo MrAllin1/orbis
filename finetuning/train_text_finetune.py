@@ -16,14 +16,15 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using device: {device}")
 
 # ====== PATHS ======
-TOKENIZER_CKPT = "/home/fr/fr_fr/fr_aa533/work/orbis/logs_tk/tokenizer_288x512/checkpoints/tokenizer_288x512.ckpt"
-ORBIT_CKPT     = "/home/fr/fr_fr/fr_aa533/work/orbis/logs_wm/orbis_288x512/checkpoints/last.ckpt"
-CAPTIONS_DIR   = "/home/fr/fr_fr/fr_aa533/work/orbis/data/covla_captions"
-VIDEOS_DIR     = "/home/fr/fr_fr/fr_aa533/work/orbis/data/covla_100_videos"
-SAVE_PATH      = "/home/fr/fr_fr/fr_aa533/work/orbis/finetuning/finetuned_orbis_AdaLN.ckpt"
+BASE_WORK_UNIS = "/work/dlclarge2/alidemaa-text-control-orbis/orbis"
+BASE_WORK_KIS = "/home/fr/fr_fr/fr_aa533/work/orbis"
+TOKENIZER_CKPT = f"{BASE_WORK_UNIS}/logs_tk/tokenizer_288x512/checkpoints/tokenizer_288x512.ckpt"
+ORBIT_CKPT     = f"{BASE_WORK_UNIS}/logs_wm/orbis_288x512/checkpoints/last.ckpt"
+CAPTIONS_DIR   = f"{BASE_WORK_UNIS}/data/covla_captions"
+VIDEOS_DIR     = f"{BASE_WORK_UNIS}/data/covla_100_videos"
+SAVE_PATH      = f"{BASE_WORK_UNIS}/finetuning/finetuned_orbis_AdaLN.ckpt"
+CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_resume.ckpt"
 
-# checkpoint for resuming short jobs
-CHECKPOINT_PATH = "/home/fr/fr_fr/fr_aa533/work/orbis/finetuning/checkpoints/adaln_resume.ckpt"
 os.makedirs(os.path.dirname(CHECKPOINT_PATH), exist_ok=True)
 
 # ====== HYPERPARAMS ======

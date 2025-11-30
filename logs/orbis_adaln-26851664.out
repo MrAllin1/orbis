@@ -1,0 +1,75 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 26851664
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Sun Nov 30 21:45:01 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:1A:00.0 Off |                  N/A |
+| 22%   28C    P8             16W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:89:00.0 Off |                  N/A |
+| 22%   26C    P8             19W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B1:00.0 Off |                  N/A |
+| 22%   27C    P8              3W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 22%   26C    P8             53W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+Using device: cuda
+Text encoder initialized & frozen.
+
+🔍 Loading Tokenizer with correct YAML config...
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loading tokenizer weights from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_288x512/checkpoints/tokenizer_288x512.ckpt
+Tokenizer ready ✓
+Tokenizer type: <class 'models.first_stage.vqgan.VQModelIF'>
+
+🎯 Loading STDiT (AdaLN training only)...
+STDiT pretrained weights loaded.
+Trainable parameters: 129,143,040
+[CKPT] No existing checkpoint found → starting from scratch
+
+🚀 Starting AdaLN Fine-Tuning...
+
+
+====================== E0 STEP 0 ======================
+[STEP] Fetching sample from dataset...
+[OK] Sample loaded in 1.685 sec
+       • video_id: 0000b7dc6478371b
+       • caption: The ego vehicle is moving straight at a high speed. There is...
+[STEP] Moving images to device...
+[OK] Moved to cuda in 0.003 sec
+[STEP] Tokenizer: encode + concat codebooks...
+[ENCODE_LATENTS] Starting latent encoding...
+[ENCODE_LATENTS] Input shape: B=1, F=6, C=3, H=288, W=512
+[ENCODE_LATENTS] Reshaped to: (6, 3, 288, 512)
+[ENCODE_LATENTS] Calling tokenizer.encode(...)
+[ENCODE_LATENTS] Got tuple quantized:  q_rec shape=(6, 16, 18, 32), q_sem shape=(6, 16, 18, 32)
+[ENCODE_LATENTS] Latents after concat shape: (6, 32, 18, 32)
+[ENCODE_LATENTS] Final latent shape: (1, 6, 32, 18, 32)
+[OK] Tokenizer forward done in 4.740 sec
+       • latents shape: (1, 6, 32, 18, 32)
+[STEP] Text encoder forward...
+=== Job Finished ===

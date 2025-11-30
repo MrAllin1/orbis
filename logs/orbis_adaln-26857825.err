@@ -1,0 +1,59 @@
+cpu-bind=MASK - dagobert, task  0  0 [1600]: mask 0x300003 set
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG16_Weights.IMAGENET1K_V1`. You can also use `weights=VGG16_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+[2025-11-30 23:33:42] [INFO] Loaded pretrained LPIPS loss from .cache/lpips/vgg.pth
+[2025-11-30 23:33:44] [INFO] Loading pretrained weights from Hugging Face hub (timm/vit_base_patch14_dinov2.lvd142m)
+[2025-11-30 23:33:44] [INFO] [timm/vit_base_patch14_dinov2.lvd142m] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+[2025-11-30 23:33:44] [INFO] Resized position embedding: (37, 37) to (18, 32).
+[2025-11-30 23:33:48] [INFO] Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.mae)
+[2025-11-30 23:33:48] [INFO] [timm/vit_base_patch16_224.mae] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+[2025-11-30 23:33:48] [INFO] Resized position embedding: (14, 14) to (18, 32).
+/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/train_text_finetune.py:161: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  tk = torch.load(TOKENIZER_CKPT, map_location="cpu")
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/functional.py:534: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at /opt/conda/conda-bld/pytorch_1729647352509/work/aten/src/ATen/native/TensorShape.cpp:3595.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/train_text_finetune.py:183: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  stdit_ckpt = torch.load(ORBIT_CKPT, map_location="cpu")
+Epoch 0:   0%|          | 0/200 [00:00<?, ?it/s]Epoch 0:   0%|          | 0/200 [00:13<?, ?it/s]
+Traceback (most recent call last):
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/train_text_finetune.py", line 344, in <module>
+    pred = model(noisy, context, t, frame_rate, text_emb=text_emb)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/orbis/networks/DiT/dit.py", line 610, in forward
+    x = block(x, c)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/orbis/networks/DiT/dit.py", line 281, in forward
+    x_ = self.space_attn(x_modulated)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/orbis/networks/swin/swin_free_aspect_ratio.py", line 153, in forward
+    attn_windows = self.attn(x_windows, mask=self.attn_mask)  # nW*B, window_size*window_size, C
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/orbis/networks/swin/swin_free_aspect_ratio.py", line 262, in forward
+    qkv = self.qkv(x).reshape(B_, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/linear.py", line 125, in forward
+    return F.linear(input, self.weight, self.bias)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 32.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 19.12 MiB is free. Including non-PyTorch memory, this process has 10.55 GiB memory in use. Of the allocated memory 9.60 GiB is allocated by PyTorch, and 777.03 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
