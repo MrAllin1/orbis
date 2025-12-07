@@ -47,10 +47,10 @@ print(f"Train dataset target from YAML: {train_target}")
 
 # Optional: fallback for paths if they are NOT present in YAML
 CAPTIONS_DIR_DEFAULT = f"{BASE_WORK_UNIS}/data/covla_captions"
-VIDEOS_DIR_DEFAULT = f"{BASE_WORK_UNIS}/data/covla_100_videos"
+VIDEOS_DIR_DEFAULT   = f"{BASE_WORK_UNIS}/data/covla_100_videos"
 
 train_params.setdefault("captions_dir", CAPTIONS_DIR_DEFAULT)
-train_params.setdefault("videos_dir", VIDEOS_DIR_DEFAULT)
+train_params.setdefault("videos_dir",   VIDEOS_DIR_DEFAULT)
 
 YAML_SIZE        = train_params["size"]
 YAML_NUM_FRAMES  = train_params["num_frames"]
@@ -71,15 +71,15 @@ print(f"  videos_dir      = {train_params['videos_dir']}")
 # ====== OTHER PATHS ======
 ORBIT_CKPT      = f"{BASE_WORK_UNIS}/logs_wm/orbis_288x512/checkpoints/last.ckpt"
 SAVE_PATH       = f"{BASE_WORK_UNIS}/finetuning/finetuned_orbis_AdaLN.ckpt"
-CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_resume.ckpt"
+CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_debug.ckpt"  # separate debug ckpt
 
 os.makedirs(os.path.dirname(CHECKPOINT_PATH), exist_ok=True)
 
-# ====== HYPERPARAMS ======
+# ====== HYPERPARAMS (DEBUG) ======
 BATCH_SIZE      = 1
 LR              = 1e-4
-EPOCHS          = 30
-STEPS_PER_EPOCH = 200
+EPOCHS          = 2          # DEBUG: only 2 epochs
+STEPS_PER_EPOCH = 20         # DEBUG: fewer steps
 
 CONTEXT_FRAMES  = 3
 TARGET_FRAMES   = 3
@@ -156,6 +156,7 @@ GEN_DEPTH       = gen_cfg.get("depth", 12)
 GEN_NUM_HEADS   = gen_cfg.get("num_heads", 12)
 GEN_MLP_RATIO   = gen_cfg.get("mlp_ratio", 4)
 GEN_DROPOUT     = gen_cfg.get("dropout", 0.0)
+GEN_LEARN_SIGMA  = gen_cfg.get("learn_sigma", False)   # 🔴 ADD THIS
 
 model = STDiT(
     input_size=GEN_INPUT_SIZE,
@@ -167,26 +168,51 @@ model = STDiT(
     mlp_ratio=GEN_MLP_RATIO,
     max_num_frames=MAX_FRAMES,
     dropout=GEN_DROPOUT,
+    learn_sigma=GEN_LEARN_SIGMA,
 ).to(device)
+
+# DEBUG: check final_layer before loading pretrained weights
+print("DEBUG: final_layer.linear mean abs BEFORE ckpt load:",
+      model.final_layer.linear.weight.abs().mean().item())
 
 stdit_ckpt = torch.load(ORBIT_CKPT, map_location="cpu")
 model.load_state_dict(stdit_ckpt.get("state_dict", stdit_ckpt), strict=False)
+
+# DEBUG: check final_layer after loading pretrained weights
+print("DEBUG: final_layer.linear mean abs AFTER ckpt load:",
+      model.final_layer.linear.weight.abs().mean().item())
+
 print("STDiT pretrained weights loaded (strict=False).")
 
+# ===================== FREEZE / UNFREEZE (DEBUG) =====================
+# DEBUG: for this short run, unfreeze EVERYTHING in STDiT
+# to check if the training pipeline actually reduces loss.
 for name, p in model.named_parameters():
-    p.requires_grad = ("adaLN" in name)
+    p.requires_grad = True
 
+# Still train text_encoder.proj as well
 for p in text_encoder.proj.parameters():
     p.requires_grad = True
 
-train_params_list = [p for p in model.parameters() if p.requires_grad] + \
-                    list(text_encoder.proj.parameters())
+# DEBUG: log trainable params
+num_train_params = 0
+print("\nDEBUG: Trainable parameters in STDiT + text proj:")
+for name, p in model.named_parameters():
+    if p.requires_grad:
+        print("  TRAINABLE:", name, p.shape)
+        num_train_params += p.numel()
+print("Total trainable STDiT params:", num_train_params)
+
+proj_params = sum(p.numel() for p in text_encoder.proj.parameters() if p.requires_grad)
+print("Total trainable text_proj params:", proj_params)
+print("Total trainable params (all):", num_train_params + proj_params)
+
+train_params_list = list(model.parameters()) + list(text_encoder.proj.parameters())
 
 optimizer = torch.optim.AdamW(train_params_list, lr=LR, weight_decay=0.01)
-print(f"Trainable parameters: {sum(p.numel() for p in train_params_list):,}")
 
 # =========================================================
-#              CHECKPOINT LOAD / SAVE
+#              CHECKPOINT LOAD / SAVE (DEBUG)
 # =========================================================
 def save_checkpoint(epoch, step):
     """Atomic save of training state."""
@@ -245,12 +271,11 @@ def encode_latents(imgs: torch.Tensor) -> torch.Tensor:
     latents = latents.to(device)
     return latents
 
-# ===================== TRAIN =====================
-print("\nStarting AdaLN fine-tuning...\n")
+# ===================== TRAIN (DEBUG) =====================
+print("\nStarting AdaLN DEBUG fine-tuning (2 epochs, 20 steps)...\n")
 model.train()
 
 for epoch in range(start_epoch, EPOCHS):
-    # NEW: epoch-start log
     print(f"[TRAIN] Starting epoch {epoch + 1}/{EPOCHS}", flush=True)
 
     epoch_loss = 0.0
@@ -286,19 +311,28 @@ for epoch in range(start_epoch, EPOCHS):
         loss = torch.mean((pred - noise) ** 2)
         optimizer.zero_grad()
         loss.backward()
+
+        # DEBUG: print grad stats on first step
+        if epoch == start_epoch and step == 0:
+            with torch.no_grad():
+                print("DEBUG: loss on first step:", loss.item())
+                # check one or two layer grads
+                for name, p in model.named_parameters():
+                    if p.requires_grad and p.grad is not None:
+                        print("DEBUG: first trainable grad mean abs:",
+                              name, p.grad.abs().mean().item())
+                        break
+
         optimizer.step()
 
         epoch_loss += loss.item()
 
-    # === end of epoch ===
     avg_loss = epoch_loss / STEPS_PER_EPOCH
     print(f"Epoch {epoch} finished — avg_loss={avg_loss:.4f}", flush=True)
 
-    # save every 10 epochs (10, 20, 30, ...) and always at the final epoch
-    if ((epoch + 1) % 10 == 0) or (epoch == EPOCHS - 1):
-        save_checkpoint(epoch, step)
+    save_checkpoint(epoch, step)
 
-# ================= SAVE FINAL =================
+# ================= SAVE FINAL (DEBUG) =================
 torch.save(
     {
         "state_dict": model.state_dict(),
@@ -307,4 +341,4 @@ torch.save(
     SAVE_PATH,
 )
 
-print(f"\nDone! AdaLN fine-tune saved → {SAVE_PATH}")
+print(f"\nDone! DEBUG AdaLN fine-tune saved → {SAVE_PATH}")
