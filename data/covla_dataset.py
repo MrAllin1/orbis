@@ -82,7 +82,7 @@ class CoVLAOrbisMultiFrame(Dataset):
     - num_frames: number of frames per sample (context + target)
     - stored_data_frame_rate: fps of stored videos (e.g. 20)
     - target_frame_rate: logical fps for the model (e.g. 5)
-    - size: (H, W) final resolution, defaults to (288, 512)
+    - size: (H, W) final resolution
     - Returns:
         {
           "images": (F, 3, H, W) in [-1, 1],
@@ -130,18 +130,22 @@ class CoVLAOrbisMultiFrame(Dataset):
             self.custom_crop = RandomResizedCenterCropRect(
                 size=self.size, scale=(scale_min, scale_max)
             )
-            self.base_transform = transforms.Compose([
-                self.custom_crop,
-                transforms.ToTensor(),
-            ])
+            self.base_transform = transforms.Compose(
+                [
+                    self.custom_crop,
+                    transforms.ToTensor(),
+                ]
+            )
         elif aug == "resize_center":
             # deterministic resize + center crop (validation-like)
             self.custom_crop = None
-            self.base_transform = transforms.Compose([
-                transforms.Resize(min(self.size)),
-                transforms.CenterCrop(self.size),
-                transforms.ToTensor(),
-            ])
+            self.base_transform = transforms.Compose(
+                [
+                    transforms.Resize(min(self.size)),
+                    transforms.CenterCrop(self.size),
+                    transforms.ToTensor(),
+                ]
+            )
         else:
             raise ValueError(f"Unknown augmentation type: {aug}")
 
@@ -150,10 +154,7 @@ class CoVLAOrbisMultiFrame(Dataset):
             print("\n================= [INIT] CoVLAOrbisMultiFrame (LOCAL) =================")
             print(f"[INIT] Scanning videos in: {videos_dir}")
 
-        all_files = [
-            f for f in os.listdir(videos_dir)
-            if f.endswith(".mp4")
-        ]
+        all_files = [f for f in os.listdir(videos_dir) if f.endswith(".mp4")]
         all_files = sorted(all_files)
         self.video_ids = [os.path.splitext(f)[0] for f in all_files]
 
@@ -280,7 +281,7 @@ class CoVLAOrbisMultiFrame(Dataset):
             print("[GETITEM] Returning sample.\n")
 
         return {
-            "images": frames,       # (num_frames, 3, 288, 512) in [-1, 1]
+            "images": frames,       # (num_frames, 3, H, W) in [-1, 1]
             "caption": global_caption,
             "video_id": video_id,
         }

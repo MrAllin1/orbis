@@ -3,7 +3,7 @@
 #SBATCH --partition=lmbhiwi_gpu-rtx2080
 #SBATCH --account=lmbhiwi-dlc
 #SBATCH --gres=gpu:1
-#SBATCH --time=12:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mem=40G
 #SBATCH --cpus-per-task=4
 #SBATCH --output=logs/%x-%j.out
@@ -12,6 +12,7 @@
 echo "=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ==="
 echo "Node: $(hostname)"
 echo "Job ID: $SLURM_JOB_ID"
+export TK_WORK_DIR=/work/dlclarge2/dienertj-orbisshare/logs_tk
 # -----------------------------------------------------
 # ACTIVATE your miniconda installation in HOME
 # -----------------------------------------------------

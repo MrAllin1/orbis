@@ -1,0 +1,51 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 26962056
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Thu Dec  4 19:56:40 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:88:00.0 Off |                  N/A |
+| 22%   27C    P8             25W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/stage2_baseline_covla_bev.yaml
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  scale_min/max   = 0.75, 1.0
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_100_videos
+Text encoder initialized & frozen.
+
+🔍 Loading Tokenizer (small) from its own config...
+Tokenizer folder from YAML: /work/dlclarge2/dienertj-orbisshare/logs_tk/2025-08-20T21-18-10_stage1_vq_192x336_DLC101603_mixed_ft_dec_only
+Tokenizer ckpt from YAML:   /work/dlclarge2/dienertj-orbisshare/logs_tk/2025-08-20T21-18-10_stage1_vq_192x336_DLC101603_mixed_ft_dec_only/checkpoints/last.ckpt
+Tokenizer config path:      /work/dlclarge2/dienertj-orbisshare/logs_tk/2025-08-20T21-18-10_stage1_vq_192x336_DLC101603_mixed_ft_dec_only/config.yaml
+Removing unsupported encoder param 'use_pretrained_weights' from tokenizer config.
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Tokenizer ready ✓
+Tokenizer type: <class 'models.first_stage.vqgan.VQModel'>
+
+🎯 Loading STDiT (AdaLN training only) with shapes from YAML...
+=== Job Finished ===
