@@ -8,14 +8,21 @@ model:
   grad_acc_steps: 1
   target: models.second_stage.fm_model.Model
   params:
+    # --- init from pre-trained Stage2 world model ---
+    init_weights_path: $TK_WORK_DIR/logs_fm/2025-09-11T18-50-33_stage2_vq_if_192x336_DLC12406894/checkpoints/last.ckpt
+
     warmup_steps: 5000
     min_lr_multiplier: 0.1
-    enc_scale: 2.841
+    enc_scale: 4.0
     adjust_lr_to_batch_size: false
     num_pred_frames: 1
+
+    # --- Stage1 tokenizer (VQ) ---
     tokenizer_config:
-      folder: $TK_WORK_DIR/2025-08-20T21-18-10_stage1_vq_192x336_DLC101603_mixed_ft_dec_only
+      folder: $TK_WORK_DIR/logs_tok/2025-08-20T21-17-41_stage1_vq_if_192x336_DLC101602_mixed_ft_dec_only
       ckpt_path: checkpoints/last.ckpt
+
+    # --- Stage2 generator (world model) ---
     generator_config:
       target: networks.DiT.dit.STDiT
       params:

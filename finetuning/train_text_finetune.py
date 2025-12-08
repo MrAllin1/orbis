@@ -156,7 +156,7 @@ GEN_DEPTH       = gen_cfg.get("depth", 12)
 GEN_NUM_HEADS   = gen_cfg.get("num_heads", 12)
 GEN_MLP_RATIO   = gen_cfg.get("mlp_ratio", 4)
 GEN_DROPOUT     = gen_cfg.get("dropout", 0.0)
-GEN_LEARN_SIGMA  = gen_cfg.get("learn_sigma", False)   # 🔴 ADD THIS
+GEN_LEARN_SIGMA  = gen_cfg.get("learn_sigma", False)  
 
 model = STDiT(
     input_size=GEN_INPUT_SIZE,
