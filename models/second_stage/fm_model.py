@@ -89,18 +89,38 @@ class Model(pl.LightningModule):
         """
         Instantiate the tokenizer model from the config.
         """
-        
         tokenizer_folder = os.path.expandvars(tokenizer_config.folder)
         ckpt_path = tokenizer_config.ckpt_path if tokenizer_config.ckpt_path else "checkpoints/last.ckpt"
+
         # Load config and create
         tokenizer_config = OmegaConf.load(os.path.join(tokenizer_folder, "config.yaml"))
+
+        # ---- CLEAN unsupported encoder kwargs (like use_pretrained_weights) ----
+        try:
+            enc_params = tokenizer_config["model"]["params"]["encoder_config"]["params"]
+            if "use_pretrained_weights" in enc_params:
+                print("[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. "
+                      "Dropping this flag (it is false / handled by checkpoint).")
+                enc_params.pop("use_pretrained_weights")
+        except Exception:
+            # If structure is different, just skip
+            pass
+        # -----------------------------------------------------------------------
+
+        # Instantiate tokenizer from cleaned config
         model = instantiate_from_config(tokenizer_config.model)
+
         # Load checkpoint
-        checkpoint = torch.load(os.path.join(tokenizer_folder, ckpt_path), map_location="cpu", weights_only=True)["state_dict"]
+        checkpoint = torch.load(
+            os.path.join(tokenizer_folder, ckpt_path),
+            map_location="cpu",
+            weights_only=True
+        )["state_dict"]
         model.load_state_dict(checkpoint, strict=False)
         model.eval()
 
         return model
+
     
     def build_generator(self, generator_config):
         """
@@ -243,7 +263,7 @@ class Model(pl.LightningModule):
         self.log("val/loss", loss, prog_bar=True, logger=True, on_step=True, on_epoch=True, sync_dist=True)
 
 
-    def roll_out(self, x_0, num_gen_frames=25, latent_input=True, eta=0.0, NFE=20, sample_with_ema=True, num_samples=8):
+    def roll_out(self, x_0, num_gen_frames=25, latent_input=True, eta=0.0, NFE=20, sample_with_ema=True, num_samples=8,text_emb=None):
         b, f = x_0.size(0), x_0.size(1)
         if latent_input:
             x_c = x_0.clone()
@@ -253,7 +273,7 @@ class Model(pl.LightningModule):
         x_all = x_c.clone()
         samples = []
         for idx in tqdm(range(num_gen_frames), desc="Rolling out frames", leave=False):
-            x_last, sample = self.sample(images=x_c, latent=True, eta=eta, NFE=NFE, sample_with_ema=sample_with_ema, num_samples=num_samples)
+            x_last, sample = self.sample(images=x_c, latent=True, eta=eta, NFE=NFE, sample_with_ema=sample_with_ema, num_samples=num_samples, text_emb=text_emb)
             
             x_all = torch.cat([x_all, x_last.unsqueeze(1)], dim=1)
             x_c = torch.cat([x_c[:, 1:], x_last.unsqueeze(1)], dim=1)
@@ -264,7 +284,7 @@ class Model(pl.LightningModule):
         return x_all, samples
     
     @torch.no_grad()
-    def sample(self, images=None, latent=False, eta=0.0, NFE=20, sample_with_ema=True, num_samples=8, frame_rate=None):
+    def sample(self, images=None, latent=False, eta=0.0, NFE=20, sample_with_ema=True, num_samples=8, frame_rate=None,text_emb=None):
         self.ema_vit.eval()
         self.vit.eval()
         net = self.ema_vit if sample_with_ema else self.vit
@@ -291,7 +311,7 @@ class Model(pl.LightningModule):
         with torch.no_grad():
             for i in range(NFE):
                 t = t_steps[i].repeat(target_t.shape[0])
-                neg_v = net(target_t, context, t=t * self.timescale, frame_rate=frame_rate)
+                neg_v = net(target_t, context, t=t * self.timescale, frame_rate=frame_rate, text_emb=text_emb)
                 dt = t_steps[i] - t_steps[i+1] 
                 dw = torch.randn(target_t.size()).to(target_t.device) * torch.sqrt(dt)
                 diffusion = dt

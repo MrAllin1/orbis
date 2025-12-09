@@ -42,7 +42,7 @@ export WM_WORK_DIR=PATH_TO_logs_wm
 ## Autoregressive Video Generation (Roll-out)
 To roll-out using the example input frames, use:
 ```bash
-python evaluate/rollout.py --exp_dir logs_wm/orbis_288x512 --num_gen_frames 120 --num_steps 30
+python evaluate/rollout.py --exp_dir /work/dlclarge2/dienertj-orbisshare/logs_fm/2025-09-11T18-50-33_stage2_vq_if_192x336_DLC12406894 --num_gen_frames 120 --num_steps 30
 ```
 
 Alternatively, you can either specify a configuration file for the inference data:

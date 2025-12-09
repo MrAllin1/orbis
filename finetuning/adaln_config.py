@@ -30,10 +30,9 @@ CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_debug.ckpt"
 @dataclass
 class TrainHyperparams:
     batch_size: int = 1
-    # ! update to much smaller number
     lr: float = 1e-4
-    epochs: int = 2
-    steps_per_epoch: int = 20
+    epochs: int = 30
+    steps_per_epoch: int = 200
 
     context_frames: int = 3
     target_frames: int = 3

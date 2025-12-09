@@ -12,7 +12,7 @@
 echo "=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ==="
 echo "Node: $(hostname)"
 echo "Job ID: $SLURM_JOB_ID"
-export TK_WORK_DIR=/work/dlclarge2/dienertj-orbisshare
+export TK_WORK_DIR=/work/dlclarge2/dienertj-orbisshare/logs_tok
 # -----------------------------------------------------
 # ACTIVATE your miniconda installation in HOME
 # -----------------------------------------------------
@@ -31,6 +31,6 @@ nvidia-smi || true
 # -----------------------------------------------------
 # Run your script
 # -----------------------------------------------------
-python -m finetuning.train_adaln_debug
+python -m finetuning.rollout_text_finetune
 
 echo "=== Job Finished ==="

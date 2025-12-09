@@ -20,13 +20,14 @@ model:
     # --- Stage1 tokenizer (VQ) ---
     tokenizer_config:
       folder: $TK_WORK_DIR/logs_tok/2025-08-20T21-17-41_stage1_vq_if_192x336_DLC101602_mixed_ft_dec_only
-      ckpt_path: checkpoints/last.ckpt
+      ckpt_path: checkpoints/epoch-26_rfid_8_9.ckpt
+
 
     # --- Stage2 generator (world model) ---
     generator_config:
       target: networks.DiT.dit.STDiT
       params:
-        max_num_frames: 6
+        max_num_frames: 64
         hidden_size: 768
         depth: 12
         num_heads: 12

@@ -1,0 +1,66 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 26970790
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Mon Dec  8 19:35:47 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:88:00.0 Off |                  N/A |
+| 22%   27C    P8             23W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 22%   26C    P8             54W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/stage2_baseline_covla_bev.yaml
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  scale_min/max   = 0.75, 1.0
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_100_videos
+Text encoder initialized & frozen.
+
+Loading FM world model (Model from fm_model.py)...
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. Dropping this flag (it is false / handled by checkpoint).
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loaded world model ckpt. Missing keys: 4, unexpected: 0
+World model ready (STDiT backbone, tokenizer, noise schedule, sampling).
+[CKPT] No existing checkpoint found → starting from scratch
+
+Starting AdaLN fine-tuning using fm_model noise & encoder...
+
+[SAMPLE] Saved finetuning/samples/sample_before_train.png
+[TRAIN] Starting epoch 1/2
+DEBUG: first step loss = 3.0467615127563477
+Epoch 1 finished — avg_loss=1.2818
+[CKPT] Saved checkpoint at epoch=0, step=19
+[SAMPLE] Saved finetuning/samples/sample_epoch1.png
+[TRAIN] Starting epoch 2/2
+Epoch 2 finished — avg_loss=1.0062
+[CKPT] Saved checkpoint at epoch=1, step=19
+[SAMPLE] Saved finetuning/samples/sample_epoch2.png
+
+Done! AdaLN fine-tune saved → /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/finetuned_orbis_AdaLN.ckpt
+=== Job Finished ===

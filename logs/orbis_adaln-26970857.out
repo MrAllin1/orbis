@@ -1,0 +1,179 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 26970857
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Mon Dec  8 20:07:45 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:3D:00.0 Off |                  N/A |
+| 22%   27C    P8              5W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 22%   27C    P8             53W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/stage2_baseline_covla_bev.yaml
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  scale_min/max   = 0.75, 1.0
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_100_videos
+Text encoder initialized & frozen.
+
+Loading FM world model (Model from fm_model.py)...
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. Dropping this flag (it is false / handled by checkpoint).
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loaded world model ckpt. Missing keys: 4, unexpected: 0
+World model ready (STDiT backbone, tokenizer, noise schedule, sampling).
+[CKPT] No existing checkpoint found → starting from scratch
+[RUN] Saving samples to: finetuning/samples/26970857
+
+Starting AdaLN fine-tuning using fm_model noise & encoder...
+
+[SAMPLE] Saved finetuning/samples/26970857/sample_before_train.png
+[TRAIN] Starting epoch 1/30
+DEBUG: first step loss = 0.6576173901557922
+Epoch 1 finished — avg_loss=0.4474
+[CKPT] Saved checkpoint at epoch=0, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch1.png
+[TRAIN] Starting epoch 2/30
+Epoch 2 finished — avg_loss=0.4639
+[CKPT] Saved checkpoint at epoch=1, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch2.png
+[TRAIN] Starting epoch 3/30
+Epoch 3 finished — avg_loss=0.4506
+[CKPT] Saved checkpoint at epoch=2, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch3.png
+[TRAIN] Starting epoch 4/30
+Epoch 4 finished — avg_loss=0.4820
+[CKPT] Saved checkpoint at epoch=3, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch4.png
+[TRAIN] Starting epoch 5/30
+Epoch 5 finished — avg_loss=0.4652
+[CKPT] Saved checkpoint at epoch=4, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch5.png
+[TRAIN] Starting epoch 6/30
+Epoch 6 finished — avg_loss=0.4578
+[CKPT] Saved checkpoint at epoch=5, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch6.png
+[TRAIN] Starting epoch 7/30
+Epoch 7 finished — avg_loss=0.4666
+[CKPT] Saved checkpoint at epoch=6, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch7.png
+[TRAIN] Starting epoch 8/30
+Epoch 8 finished — avg_loss=0.4745
+[CKPT] Saved checkpoint at epoch=7, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch8.png
+[TRAIN] Starting epoch 9/30
+Epoch 9 finished — avg_loss=0.4544
+[CKPT] Saved checkpoint at epoch=8, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch9.png
+[TRAIN] Starting epoch 10/30
+Epoch 10 finished — avg_loss=0.4468
+[CKPT] Saved checkpoint at epoch=9, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch10.png
+[TRAIN] Starting epoch 11/30
+Epoch 11 finished — avg_loss=0.4604
+[CKPT] Saved checkpoint at epoch=10, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch11.png
+[TRAIN] Starting epoch 12/30
+Epoch 12 finished — avg_loss=0.4264
+[CKPT] Saved checkpoint at epoch=11, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch12.png
+[TRAIN] Starting epoch 13/30
+Epoch 13 finished — avg_loss=0.4665
+[CKPT] Saved checkpoint at epoch=12, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch13.png
+[TRAIN] Starting epoch 14/30
+Epoch 14 finished — avg_loss=0.4658
+[CKPT] Saved checkpoint at epoch=13, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch14.png
+[TRAIN] Starting epoch 15/30
+Epoch 15 finished — avg_loss=0.4408
+[CKPT] Saved checkpoint at epoch=14, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch15.png
+[TRAIN] Starting epoch 16/30
+Epoch 16 finished — avg_loss=0.4596
+[CKPT] Saved checkpoint at epoch=15, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch16.png
+[TRAIN] Starting epoch 17/30
+Epoch 17 finished — avg_loss=0.4531
+[CKPT] Saved checkpoint at epoch=16, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch17.png
+[TRAIN] Starting epoch 18/30
+Epoch 18 finished — avg_loss=0.4056
+[CKPT] Saved checkpoint at epoch=17, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch18.png
+[TRAIN] Starting epoch 19/30
+Epoch 19 finished — avg_loss=0.4800
+[CKPT] Saved checkpoint at epoch=18, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch19.png
+[TRAIN] Starting epoch 20/30
+Epoch 20 finished — avg_loss=0.4546
+[CKPT] Saved checkpoint at epoch=19, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch20.png
+[TRAIN] Starting epoch 21/30
+Epoch 21 finished — avg_loss=0.4574
+[CKPT] Saved checkpoint at epoch=20, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch21.png
+[TRAIN] Starting epoch 22/30
+Epoch 22 finished — avg_loss=0.4392
+[CKPT] Saved checkpoint at epoch=21, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch22.png
+[TRAIN] Starting epoch 23/30
+Epoch 23 finished — avg_loss=0.4471
+[CKPT] Saved checkpoint at epoch=22, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch23.png
+[TRAIN] Starting epoch 24/30
+Epoch 24 finished — avg_loss=0.4251
+[CKPT] Saved checkpoint at epoch=23, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch24.png
+[TRAIN] Starting epoch 25/30
+Epoch 25 finished — avg_loss=0.3999
+[CKPT] Saved checkpoint at epoch=24, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch25.png
+[TRAIN] Starting epoch 26/30
+Epoch 26 finished — avg_loss=0.4285
+[CKPT] Saved checkpoint at epoch=25, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch26.png
+[TRAIN] Starting epoch 27/30
+Epoch 27 finished — avg_loss=0.4260
+[CKPT] Saved checkpoint at epoch=26, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch27.png
+[TRAIN] Starting epoch 28/30
+Epoch 28 finished — avg_loss=0.4234
+[CKPT] Saved checkpoint at epoch=27, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch28.png
+[TRAIN] Starting epoch 29/30
+Epoch 29 finished — avg_loss=0.4410
+[CKPT] Saved checkpoint at epoch=28, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch29.png
+[TRAIN] Starting epoch 30/30
+Epoch 30 finished — avg_loss=0.4320
+[CKPT] Saved checkpoint at epoch=29, step=199
+[SAMPLE] Saved finetuning/samples/26970857/sample_epoch30.png
+
+Done! AdaLN fine-tune saved → /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/finetuned_orbis_AdaLN.ckpt
+=== Job Finished ===

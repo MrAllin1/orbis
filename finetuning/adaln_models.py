@@ -5,7 +5,7 @@ from omegaconf import OmegaConf
 
 from util import instantiate_from_config
 from finetuning.text_encoder import CLIPTextEncoder
-from networks.DiT.dit import STDiT
+from models.second_stage.fm_model import ModelIF as FMWorldModel  # NEW
 
 
 def create_text_encoder(device: torch.device):
@@ -18,6 +18,10 @@ def create_text_encoder(device: torch.device):
 
 
 def create_tokenizer(model_cfg, tokenizer_device: torch.device):
+    """
+    Kept for compatibility if you need the raw Stage1 AE somewhere else.
+    Not used anymore in train_adaln_debug.py after switching to fm_model.Model.
+    """
     print("\nLoading tokenizer from stage1 config...")
 
     tk_cfg = model_cfg["tokenizer_config"]
@@ -48,39 +52,39 @@ def create_tokenizer(model_cfg, tokenizer_device: torch.device):
 
 
 def create_world_model(model_cfg, max_frames: int, device: torch.device, orbit_ckpt_path: str):
-    print("\nLoading STDiT (world model)...")
+    """
+    Adapter that instantiates the *full* FM world model from models/second_stage/fm_model.py
 
-    gen_cfg = model_cfg["generator_config"]["params"]
-    GEN_INPUT_SIZE  = gen_cfg["input_size"]
-    GEN_IN_CHANNELS = gen_cfg["in_channels"]
-    GEN_HIDDEN_SIZE = gen_cfg.get("hidden_size", 768)
-    GEN_DEPTH       = gen_cfg.get("depth", 12)
-    GEN_NUM_HEADS   = gen_cfg.get("num_heads", 12)
-    GEN_MLP_RATIO   = gen_cfg.get("mlp_ratio", 4)
-    GEN_DROPOUT     = gen_cfg.get("dropout", 0.0)
-    GEN_LEARN_SIGMA = gen_cfg.get("learn_sigma", False)
+    This gives you:
+      - model.vit        -> STDiT backbone (where we plug AdaLN + text)
+      - model.ae         -> Stage1 tokenizer (VQ)
+      - model.add_noise  -> correct alpha/sigma schedule
+      - model.encode_frames / decode_frames
+      - model.roll_out / sample for generation
+    """
+    print("\nLoading FM world model (Model from fm_model.py)...")
 
-    model = STDiT(
-        input_size=GEN_INPUT_SIZE,
-        patch_size=1,
-        in_channels=GEN_IN_CHANNELS,
-        hidden_size=GEN_HIDDEN_SIZE,
-        depth=GEN_DEPTH,
-        num_heads=GEN_NUM_HEADS,
-        mlp_ratio=GEN_MLP_RATIO,
-        max_num_frames=max_frames,
-        dropout=GEN_DROPOUT,
-        learn_sigma=GEN_LEARN_SIGMA,
-    ).to(device)
+    # Wrap tokenizer_config & generator_config into config objects fm_model expects
+    tk_cfg = OmegaConf.create(model_cfg["tokenizer_config"])
+    gen_cfg = OmegaConf.create(model_cfg["generator_config"])
 
-    print("DEBUG: final_layer.linear mean abs BEFORE ckpt load:",
-          model.final_layer.linear.weight.abs().mean().item())
+    world_model = FMWorldModel(
+        tokenizer_config=tk_cfg,
+        generator_config=gen_cfg,
+        adjust_lr_to_batch_size=model_cfg.get("adjust_lr_to_batch_size", False),
+        sigma_min=model_cfg.get("sigma_min", 1e-5),
+        timescale=model_cfg.get("timescale", 1.0),
+        enc_scale=model_cfg.get("enc_scale", 4.0),
+        warmup_steps=model_cfg.get("warmup_steps", 5000),
+        min_lr_multiplier=model_cfg.get("min_lr_multiplier", 0.1),
+    )
 
-    stdit_ckpt = torch.load(orbit_ckpt_path, map_location="cpu")
-    model.load_state_dict(stdit_ckpt.get("state_dict", stdit_ckpt), strict=False)
+    # Load Stage2 FM checkpoint
+    ckpt = torch.load(orbit_ckpt_path, map_location="cpu")
+    state_dict = ckpt.get("state_dict", ckpt)
+    missing, unexpected = world_model.load_state_dict(state_dict, strict=False)
+    print(f"Loaded world model ckpt. Missing keys: {len(missing)}, unexpected: {len(unexpected)}")
 
-    print("DEBUG: final_layer.linear mean abs AFTER ckpt load:",
-          model.final_layer.linear.weight.abs().mean().item())
-
-    print("STDiT pretrained weights loaded (strict=False).")
-    return model
+    world_model = world_model.to(device)
+    print("World model ready (STDiT backbone, tokenizer, noise schedule, sampling).")
+    return world_model
