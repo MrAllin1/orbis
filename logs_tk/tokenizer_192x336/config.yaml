@@ -1,3 +1,4 @@
+callbacks_file: callbacks/configs/base_tok.yaml
 model:
   base_learning_rate: 8.0e-07
   adjust_learning_rate: true
@@ -6,26 +7,33 @@ model:
   params:
     monitor: val/rec_loss
     grad_acc_steps: 1
+    cont_ratio_trainig: 1.0
+    min_lr_multiplier: 0.1
+    only_decoder: true
     distill_model_type: VIT_DINOv2
+    scale_equivariance: false
     encoder_config:
       target: networks.tokenizer.pretrained_models.Encoder
       params:
         resolution:
-        - 288
-        - 512
+        - 192
+        - 336
+        pretrained_encoder: MAE
+        use_pretrained_weights: false
         patch_size: 16
         z_channels: 768
-        pretrained_encoder: MAE
         normalize_embedding: true
     decoder_config:
       target: networks.tokenizer.ae.Decoder
       params:
         double_z: false
         z_channels: 768
-        resolution: 256
+        resolution:
+        - 192
+        - 336
         in_channels: 3
         out_ch: 3
-        ch: 128
+        ch: 192
         ch_mult:
         - 1
         - 1
@@ -34,14 +42,14 @@ model:
         - 4
         num_res_blocks: 2
         attn_resolutions:
-        - 16
+        - 32
         dropout: 0.0
         normalize_embedding: false
     quantizer_config:
       target: modules.quantize.VectorQuantizer
       params:
         n_e: 16384
-        e_dim: 16
+        e_dim: 8
         beta: 0.25
         normalize_embedding: true
     loss_config:
@@ -57,6 +65,7 @@ model:
         perceptual_weight: 1.0
         l1_loss_weight: 1.0
         l2_loss_weight: 0.0
+        se_weight: 0.25
         warmup_steps: 5000
         beta_1: 0.5
         beta_2: 0.9
@@ -69,22 +78,24 @@ model:
 data:
   target: data.datamodule.DataModuleFromConfig
   params:
-    batch_size: 16
+    batch_size: 32
     num_workers: 14
     train:
       target: data.custom.MultiHDF5Dataset
       params:
-        hdf5_paths_file: HDF5_PATHS_FILE
+        #hdf5_paths_file: /e/project1/multiscale-wm/datasets/tokenizer/L4_500k_800x450/train.txt
+        hdf5_paths_file: /e/project1/multiscale-wm/datasets/tokenizer/L4_500k_800x450/val.txt
         size:
-        - 288
-        - 512
+        - 192
+        - 336
         aug: random_resize_center
-        scale_min: 0.75
+        scale_min: 0.5
         scale_max: 1.0
     validation:
       target: data.custom.MultiHDF5Dataset
       params:
-        hdf5_paths_file: HDF5_PATHS_FILE
+        hdf5_paths_file: /e/project1/multiscale-wm/datasets/tokenizer/L4_500k_800x450/val.txt
         size:
-        - 288
-        - 512
+        - 192
+        - 336
+-t: null

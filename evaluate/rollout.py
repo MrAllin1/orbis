@@ -106,7 +106,7 @@ def generate_images(args: argparse.Namespace, unknown_args: List[str]) -> None:
     # Build & load model
     model = instantiate_from_config(cfg.model)
     state = torch.load(str(args.ckpt), map_location="cpu")["state_dict"]
-    model.load_state_dict(state, strict=True)
+    model.load_state_dict(state, strict=False)
     model = model.to(device).eval()
 
     # Validation data config (optional)

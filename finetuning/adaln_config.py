@@ -3,28 +3,29 @@ import os
 import yaml
 from dataclasses import dataclass
 from omegaconf import OmegaConf
+import torch
 
 # Your repo
 BASE_WORK_UNIS = "/work/dlclarge2/alidemaa-text-control-orbis/orbis"
 BASE_WORK_KIT = "/home/fr/fr_fr/fr_aa533/work/orbis"  # if you ever want to switch
 
-# Shared dir with tokenizer + fm weights
-TK_WORK_DIR = os.environ.get(
-    "TK_WORK_DIR",
-    "/work/dlclarge2/dienertj-orbisshare"
-)
+# Path to your fine-tuning FM config (ModelIF + CoVLA)
+FM_CONFIG_PATH = f"{BASE_WORK_UNIS}/finetuning/fm_finetune_covla_modelif.yaml"
 
-FM_CONFIG_PATH = f"{BASE_WORK_UNIS}/finetuning/stage2_baseline_covla_bev.yaml"
+# === LOCAL CHECKPOINTS (your copies) ===
 
-# Use the new Stage2 FM checkpoint from logs_fm
+# Stage2 FM world model (ModelIF)
 ORBIT_CKPT = (
-    f"{TK_WORK_DIR}/logs_fm/"
-    "2025-09-11T18-50-33_stage2_vq_if_192x336_DLC12406894/"
-    "checkpoints/last.ckpt"
+    f"{BASE_WORK_UNIS}/logs_wm/orbis_288x512/checkpoints/last.ckpt"
 )
 
-SAVE_PATH       = f"{BASE_WORK_UNIS}/finetuning/finetuned_orbis_AdaLN.ckpt"
-CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_debug.ckpt"
+# Stage1 tokenizer (VQ, IF-style latents)
+TOKENIZER_ROOT = f"{BASE_WORK_UNIS}/logs_tk/tokenizer_192x336"
+TOKENIZER_CKPT_REL = "checkpoints/epoch-26_rfid_8_9.ckpt"
+
+# === OUTPUT PATHS FOR ADALN FINE-TUNE ===
+SAVE_PATH       = f"{BASE_WORK_UNIS}/finetuning/finetuned_orbis_text_conditioning.ckpt"
+CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_text_conditioning.ckpt"
 
 
 @dataclass
@@ -33,7 +34,7 @@ class TrainHyperparams:
     lr: float = 1e-4
     epochs: int = 30
     steps_per_epoch: int = 200
-
+    val_steps_per_epoch: int = 50   # NEW
     context_frames: int = 3
     target_frames: int = 3
 
@@ -41,45 +42,79 @@ class TrainHyperparams:
     beta_end: float = 0.02
     diffusion_steps: int = 1000
 
-
 def load_fm_config():
-    """Load YAML config and return (fm_cfg, model_cfg, train_params, train_ds_meta)."""
+    """Load YAML config and return (fm_cfg, model_cfg, train_params, val_params)."""
     print(f"Loading FM config from: {FM_CONFIG_PATH}")
     with open(FM_CONFIG_PATH, "r") as f:
         fm_cfg = yaml.safe_load(f)
 
+    # Model params (used by create_world_model → ModelIF)
     model_cfg = fm_cfg["model"]["params"]
     data_cfg = fm_cfg["data"]["params"]
 
-    train_entry = data_cfg["train"][0]
+    # --- OVERRIDE TOKENIZER PATHS TO YOUR LOCAL COPY ---
+    if "tokenizer_config" in model_cfg:
+        tk_cfg = model_cfg["tokenizer_config"]
+        tk_cfg["folder"] = TOKENIZER_ROOT
+        tk_cfg["ckpt_path"] = TOKENIZER_CKPT_REL
+        print("[FM CONFIG] Overriding tokenizer_config with local paths:")
+        print(f"  folder    = {tk_cfg['folder']}")
+        print(f"  ckpt_path = {tk_cfg['ckpt_path']}")
+
+    # ---------------- TRAIN PARAMS ----------------
+    train_cfg = data_cfg["train"]
+    if isinstance(train_cfg, list):
+        train_entry = train_cfg[0]
+    else:
+        train_entry = train_cfg
     train_target = train_entry["target"]
     train_params = dict(train_entry["params"])  # copy to allow setdefault
 
     print(f"Train dataset target from YAML: {train_target}")
 
-    # defaults for paths if not present in YAML
     captions_default = f"{BASE_WORK_UNIS}/data/covla_captions"
     videos_default   = f"{BASE_WORK_UNIS}/data/covla_100_videos"
 
     train_params.setdefault("captions_dir", captions_default)
     train_params.setdefault("videos_dir",   videos_default)
 
-    # log some debug info
+    # ---------------- VAL PARAMS ----------------
+    val_cfg = data_cfg.get("validation", None)
+    val_params = None
+    if val_cfg is not None:
+        val_entry = val_cfg
+        val_target = val_entry["target"]
+        val_params = dict(val_entry["params"])
+        print(f"Validation dataset target from YAML: {val_target}")
+
+        # Default captions_dir if missing
+        val_params.setdefault("captions_dir", captions_default)
+        # videos_dir is already in your YAML for validation
+
     print("YAML data params (train / CoVLA):")
     print(f"  size            = {train_params['size']}")
     print(f"  num_frames      = {train_params['num_frames']}")
     print(f"  stored_rate     = {train_params.get('stored_data_frame_rate', 20)}")
     print(f"  target_rate     = {train_params.get('target_frame_rate', 5)}")
-    print(f"  scale_min/max   = {train_params.get('scale_min', 0.75)}, {train_params.get('scale_max', 1.0)}")
     print(f"  captions_dir    = {train_params['captions_dir']}")
     print(f"  videos_dir      = {train_params['videos_dir']}")
 
-    return fm_cfg, model_cfg, train_params
+    if val_params is not None:
+        print("YAML data params (val / CoVLA):")
+        print(f"  size            = {val_params['size']}")
+        print(f"  num_frames      = {val_params['num_frames']}")
+        print(f"  stored_rate     = {val_params.get('stored_data_frame_rate', 20)}")
+        print(f"  target_rate     = {val_params.get('target_frame_rate', 5)}")
+        print(f"  captions_dir    = {val_params['captions_dir']}")
+        print(f"  videos_dir      = {val_params['videos_dir']}")
+
+    print("\n[FM CONFIG] Using Stage2 FM checkpoint:")
+    print(f"  ORBIT_CKPT = {ORBIT_CKPT}\n")
+
+    return fm_cfg, model_cfg, train_params, val_params
 
 
 def make_diffusion_schedule(beta_start, beta_end, num_steps, device):
-    import torch
-
     betas = torch.linspace(beta_start, beta_end, num_steps, device=device)
     alphas = 1.0 - betas
     alphas_cumprod = torch.cumprod(alphas, dim=0)

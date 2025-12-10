@@ -1,0 +1,74 @@
+model:
+  base_learning_rate: 5.0e-05
+  adjust_learning_rate: false
+  find_unused_parameters: true
+  gradient_clip_algorithm: norm
+  precision: 16-mixed
+  grad_clip: 1.0
+  grad_acc_steps: 4
+  target: models.second_stage.fm_model.ModelIF
+  params:
+    warmup_steps: 5000
+    min_lr_multiplier: 0.1
+    enc_scale: 4
+    adjust_lr_to_batch_size: false
+
+    # --- Stage1 tokenizer (same as pretraining) ---
+    tokenizer_config:
+      folder: /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_288x512
+      ckpt_path: checkpoints/epoch-26_rfid_8_9.ckpt
+
+    # --- STDiT generator config (same as your pretraining config) ---
+    generator_config:
+      target: networks.DiT.dit.STDiT
+      params:
+        max_num_frames: 64
+        hidden_size: 768
+        depth: 12
+        num_heads: 12
+        mlp_ratio: 4
+        input_size: [12, 21]
+        patch_size: 1
+        in_channels: 16
+        dropout: 0.0
+        ctx_noise_aug_ratio: 0.1
+        ctx_noise_aug_prob: 0.5
+        drop_ctx_rate: 0.1
+
+data:
+  target: data.datamodule.DataModuleFromConfig
+  params:
+    batch_size: 8
+    num_workers: 4
+
+    # ---------------- TRAIN: CoVLA dataset ----------------
+    train:
+      - target: data.covla_dataset.CoVLAOrbisMultiFrame
+        params:
+          num_frames: 6
+          stored_data_frame_rate: 20
+          target_frame_rate: 5
+          size: [192, 336]     # match BDD/ModelIF resolution
+          videos_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_100_videos
+          captions_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+          num_samples: null
+          debug: false
+          aug: random_resize_center
+          scale_min: 0.15
+          scale_max: 0.5
+
+    # ---------------- VAL: CoVLA validation ----------------
+    validation:
+      target: data.covla_dataset.CoVLAOrbisMultiFrame
+      params:
+        num_frames: 6
+        stored_data_frame_rate: 20
+        target_frame_rate: 5
+        size: [192, 336]
+        videos_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_20_validation
+        captions_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+        num_samples: null
+        debug: false
+        aug: resize_center        # deterministic for validation
+        scale_min: 0.75
+        scale_max: 1.0

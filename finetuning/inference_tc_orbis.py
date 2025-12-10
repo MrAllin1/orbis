@@ -112,7 +112,7 @@ frames_list = [
 gif_path = "generated_clip.gif"
 frames_list[0].save(
     gif_path,
-    save_all=True,
+    save_all=True, 
     append_images=frames_list[1:],
     duration=100,  # ms per frame
     loop=0,
