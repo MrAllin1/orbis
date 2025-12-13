@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=orbis_adaln
+#SBATCH --job-name=rollout_text_finetune_validation_video
 #SBATCH --partition=lmbhiwi_gpu-rtx2080
 #SBATCH --account=lmbhiwi-dlc
 #SBATCH --gres=gpu:1
@@ -12,7 +12,7 @@
 echo "=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ==="
 echo "Node: $(hostname)"
 echo "Job ID: $SLURM_JOB_ID"
-export TK_WORK_DIR=/work/dlclarge2/dienertj-orbisshare/logs_tok
+export TK_WORK_DIR=/work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_192x336
 # -----------------------------------------------------
 # ACTIVATE your miniconda installation in HOME
 # -----------------------------------------------------
@@ -31,6 +31,6 @@ nvidia-smi || true
 # -----------------------------------------------------
 # Run your script
 # -----------------------------------------------------
-python -m finetuning.rollout_text_finetune
+python -m finetuning.inference_tc_orbis
 
 echo "=== Job Finished ==="

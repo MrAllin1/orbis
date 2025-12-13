@@ -71,3 +71,155 @@ Starting AdaLN fine-tuning using fm_model noise & encoder...
 [TRAIN] Starting epoch 1/30
 DEBUG: first step loss = 0.8946195244789124
 [TRAIN] Epoch 1 finished — avg_loss=0.3184
+[VAL] Epoch 1 — avg_val_loss=0.2458
+[CKPT] Saved checkpoint at epoch=0, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch1.png
+[TRAIN] Starting epoch 2/30
+[TRAIN] Epoch 2 finished — avg_loss=0.3396
+[VAL] Epoch 2 — avg_val_loss=0.2231
+[CKPT] Saved checkpoint at epoch=1, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch2.png
+[TRAIN] Starting epoch 3/30
+[TRAIN] Epoch 3 finished — avg_loss=0.3399
+[VAL] Epoch 3 — avg_val_loss=0.2839
+[CKPT] Saved checkpoint at epoch=2, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch3.png
+[TRAIN] Starting epoch 4/30
+[TRAIN] Epoch 4 finished — avg_loss=0.3316
+[VAL] Epoch 4 — avg_val_loss=0.2243
+[CKPT] Saved checkpoint at epoch=3, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch4.png
+[TRAIN] Starting epoch 5/30
+[TRAIN] Epoch 5 finished — avg_loss=0.3203
+[VAL] Epoch 5 — avg_val_loss=0.2571
+[CKPT] Saved checkpoint at epoch=4, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch5.png
+[TRAIN] Starting epoch 6/30
+[TRAIN] Epoch 6 finished — avg_loss=0.3027
+[VAL] Epoch 6 — avg_val_loss=0.2959
+[CKPT] Saved checkpoint at epoch=5, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch6.png
+[TRAIN] Starting epoch 7/30
+[TRAIN] Epoch 7 finished — avg_loss=0.3056
+[VAL] Epoch 7 — avg_val_loss=0.2024
+[CKPT] Saved checkpoint at epoch=6, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch7.png
+[TRAIN] Starting epoch 8/30
+[TRAIN] Epoch 8 finished — avg_loss=0.3108
+[VAL] Epoch 8 — avg_val_loss=0.2248
+[CKPT] Saved checkpoint at epoch=7, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch8.png
+[TRAIN] Starting epoch 9/30
+[TRAIN] Epoch 9 finished — avg_loss=0.2907
+[VAL] Epoch 9 — avg_val_loss=0.2669
+[CKPT] Saved checkpoint at epoch=8, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch9.png
+[TRAIN] Starting epoch 10/30
+[TRAIN] Epoch 10 finished — avg_loss=0.2978
+[VAL] Epoch 10 — avg_val_loss=0.1918
+[CKPT] Saved checkpoint at epoch=9, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch10.png
+[TRAIN] Starting epoch 11/30
+[TRAIN] Epoch 11 finished — avg_loss=0.3026
+[VAL] Epoch 11 — avg_val_loss=0.2570
+[CKPT] Saved checkpoint at epoch=10, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch11.png
+[TRAIN] Starting epoch 12/30
+[TRAIN] Epoch 12 finished — avg_loss=0.2969
+[VAL] Epoch 12 — avg_val_loss=0.3107
+[CKPT] Saved checkpoint at epoch=11, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch12.png
+[TRAIN] Starting epoch 13/30
+[TRAIN] Epoch 13 finished — avg_loss=0.2673
+[VAL] Epoch 13 — avg_val_loss=0.2140
+[CKPT] Saved checkpoint at epoch=12, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch13.png
+[TRAIN] Starting epoch 14/30
+[TRAIN] Epoch 14 finished — avg_loss=0.3197
+[VAL] Epoch 14 — avg_val_loss=0.2899
+[CKPT] Saved checkpoint at epoch=13, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch14.png
+[TRAIN] Starting epoch 15/30
+[TRAIN] Epoch 15 finished — avg_loss=0.2973
+[VAL] Epoch 15 — avg_val_loss=0.2335
+[CKPT] Saved checkpoint at epoch=14, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch15.png
+[TRAIN] Starting epoch 16/30
+[TRAIN] Epoch 16 finished — avg_loss=0.3426
+[VAL] Epoch 16 — avg_val_loss=0.2153
+[CKPT] Saved checkpoint at epoch=15, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch16.png
+[TRAIN] Starting epoch 17/30
+[TRAIN] Epoch 17 finished — avg_loss=0.3479
+[VAL] Epoch 17 — avg_val_loss=0.2692
+[CKPT] Saved checkpoint at epoch=16, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch17.png
+[TRAIN] Starting epoch 18/30
+[TRAIN] Epoch 18 finished — avg_loss=0.3336
+[VAL] Epoch 18 — avg_val_loss=0.2846
+[CKPT] Saved checkpoint at epoch=17, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch18.png
+[TRAIN] Starting epoch 19/30
+[TRAIN] Epoch 19 finished — avg_loss=0.3186
+[VAL] Epoch 19 — avg_val_loss=0.2530
+[CKPT] Saved checkpoint at epoch=18, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch19.png
+[TRAIN] Starting epoch 20/30
+[TRAIN] Epoch 20 finished — avg_loss=0.3000
+[VAL] Epoch 20 — avg_val_loss=0.2987
+[CKPT] Saved checkpoint at epoch=19, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch20.png
+[TRAIN] Starting epoch 21/30
+[TRAIN] Epoch 21 finished — avg_loss=0.3016
+[VAL] Epoch 21 — avg_val_loss=0.2122
+[CKPT] Saved checkpoint at epoch=20, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch21.png
+[TRAIN] Starting epoch 22/30
+[TRAIN] Epoch 22 finished — avg_loss=0.3148
+[VAL] Epoch 22 — avg_val_loss=0.2583
+[CKPT] Saved checkpoint at epoch=21, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch22.png
+[TRAIN] Starting epoch 23/30
+[TRAIN] Epoch 23 finished — avg_loss=0.3045
+[VAL] Epoch 23 — avg_val_loss=0.2106
+[CKPT] Saved checkpoint at epoch=22, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch23.png
+[TRAIN] Starting epoch 24/30
+[TRAIN] Epoch 24 finished — avg_loss=0.3056
+[VAL] Epoch 24 — avg_val_loss=0.2219
+[CKPT] Saved checkpoint at epoch=23, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch24.png
+[TRAIN] Starting epoch 25/30
+[TRAIN] Epoch 25 finished — avg_loss=0.3277
+[VAL] Epoch 25 — avg_val_loss=0.2589
+[CKPT] Saved checkpoint at epoch=24, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch25.png
+[TRAIN] Starting epoch 26/30
+[TRAIN] Epoch 26 finished — avg_loss=0.3052
+[VAL] Epoch 26 — avg_val_loss=0.2004
+[CKPT] Saved checkpoint at epoch=25, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch26.png
+[TRAIN] Starting epoch 27/30
+[TRAIN] Epoch 27 finished — avg_loss=0.3219
+[VAL] Epoch 27 — avg_val_loss=0.2122
+[CKPT] Saved checkpoint at epoch=26, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch27.png
+[TRAIN] Starting epoch 28/30
+[TRAIN] Epoch 28 finished — avg_loss=0.3220
+[VAL] Epoch 28 — avg_val_loss=0.2121
+[CKPT] Saved checkpoint at epoch=27, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch28.png
+[TRAIN] Starting epoch 29/30
+[TRAIN] Epoch 29 finished — avg_loss=0.3490
+[VAL] Epoch 29 — avg_val_loss=0.2811
+[CKPT] Saved checkpoint at epoch=28, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch29.png
+[TRAIN] Starting epoch 30/30
+[TRAIN] Epoch 30 finished — avg_loss=0.2860
+[VAL] Epoch 30 — avg_val_loss=0.2833
+[CKPT] Saved checkpoint at epoch=29, step=199
+[SAMPLE] Saved finetuning/samples/26971717/sample_epoch30.png
+
+Done! AdaLN fine-tune saved → /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/finetuned_orbis_text_conditioning.ckpt
+[RUN] TensorBoard writer closed.
+=== Job Finished ===

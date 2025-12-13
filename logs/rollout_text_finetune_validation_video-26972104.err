@@ -1,0 +1,44 @@
+cpu-bind=MASK - dagobert, task  0  0 [5311]: mask 0x300003 set
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/timm/models/layers/__init__.py:48: FutureWarning: Importing from timm.models.layers is deprecated, please import via timm.layers
+  warnings.warn(f"Importing from {__name__} is deprecated, please import via timm.layers", FutureWarning)
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG16_Weights.IMAGENET1K_V1`. You can also use `weights=VGG16_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+[2025-12-10 18:56:39] [INFO] Loaded pretrained LPIPS loss from .cache/lpips/vgg.pth
+[2025-12-10 18:56:40] [INFO] Loading pretrained weights from Hugging Face hub (timm/vit_base_patch14_dinov2.lvd142m)
+[2025-12-10 18:56:41] [INFO] [timm/vit_base_patch14_dinov2.lvd142m] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+[2025-12-10 18:56:41] [INFO] Resized position embedding: (37, 37) to (12, 21).
+[2025-12-10 18:56:45] [INFO] Loading pretrained weights from Hugging Face hub (timm/vit_base_patch16_224.mae)
+[2025-12-10 18:56:45] [INFO] [timm/vit_base_patch16_224.mae] Safe alternative available for 'pytorch_model.bin' (as 'model.safetensors'). Loading weights using safetensors.
+[2025-12-10 18:56:45] [INFO] Resized position embedding: (14, 14) to (12, 21).
+/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/adaln_models.py:83: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(orbit_ckpt_path, map_location="cpu")
+/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/inference_tc_orbis.py:126: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(SAVE_PATH, map_location=device)
+Traceback (most recent call last):
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/inference_tc_orbis.py", line 238, in <module>
+    main()
+  File "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/inference_tc_orbis.py", line 154, in main
+    text_emb = text_encoder([TEXT_PROMPT])  # (1, 768)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1736, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1747, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/text_encoder.py", line 29, in forward
+    tokens = clip.tokenize(captions).to(self.device)   # (B, T)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/clip/clip.py", line 230, in tokenize
+    all_tokens = [[sot_token] + _tokenizer.encode(text) + [eot_token] for text in texts]
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/clip/clip.py", line 230, in <listcomp>
+    all_tokens = [[sot_token] + _tokenizer.encode(text) + [eot_token] for text in texts]
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/clip/simple_tokenizer.py", line 123, in encode
+    text = whitespace_clean(basic_clean(text)).lower()
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/clip/simple_tokenizer.py", line 51, in basic_clean
+    text = ftfy.fix_text(text)
+  File "/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/ftfy/__init__.py", line 348, in fix_text
+    while pos < len(text):
+TypeError: object of type 'NoneType' has no len()

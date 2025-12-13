@@ -1,0 +1,56 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 26972030
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Wed Dec 10 18:13:09 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:1A:00.0 Off |                  N/A |
+| 22%   28C    P8             16W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:89:00.0 Off |                  N/A |
+| 22%   26C    P8             19W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B1:00.0 Off |                  N/A |
+| 22%   27C    P8              1W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 22%   26C    P8             53W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+[INFO] Saving 16 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_20_validation/00ac512fa01910c6.mp4 to /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames
+  [OK] Saved frame 0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_00.png
+  [OK] Saved frame 39 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_01.png
+  [OK] Saved frame 79 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_02.png
+  [OK] Saved frame 119 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_03.png
+  [OK] Saved frame 159 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_04.png
+  [OK] Saved frame 199 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_05.png
+  [OK] Saved frame 239 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_06.png
+  [OK] Saved frame 279 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_07.png
+  [OK] Saved frame 319 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_08.png
+  [OK] Saved frame 359 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_09.png
+  [OK] Saved frame 399 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_10.png
+  [OK] Saved frame 439 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_11.png
+  [OK] Saved frame 479 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_12.png
+  [OK] Saved frame 519 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_13.png
+  [OK] Saved frame 559 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_14.png
+  [OK] Saved frame 599 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/frame_15.png
+=== Job Finished ===
