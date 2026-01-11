@@ -29,6 +29,8 @@ from omegaconf import ListConfig
 from ..swin.swin_free_aspect_ratio import SwinTransformerBlock, SwinAttention
 
 
+def safe_mean(t):
+    return t.abs().mean().item() if t is not None else 0.0
 
 def modulate(x, shift, scale):
     if len(x.shape) == 3:

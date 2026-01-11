@@ -24,6 +24,8 @@ from finetuning.adaln_utils import (
     save_checkpoint,
     load_checkpoint_if_exists,
 )
+def safe_mean(t):
+    return t.abs().mean().item() if t is not None else 0.0
 
 # ================== DEVICES ==================
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -246,83 +248,129 @@ for epoch in range(start_epoch, hp.epochs):
 
     for step in range(hp.steps_per_epoch):
         s = next(train_stream)
-        imgs = s["images"].unsqueeze(0).to(device)  # (1, F, C, H, W)
+        imgs = s["images"].unsqueeze(0).to(device)  # (B=1, F, C, H, W)
 
-        # ---- Encode frames to latents using fm_model ----
+        # ---- Encode frames to latents (uses tokenizer internally) ----
         with torch.no_grad():
             x = model.encode_frames(imgs)           # (B, F, E, H, W)
 
         B, F, E, H, W = x.size()
 
-        # Match FM pretraining temporal layout
         if F == 1:
             context = None
-            target = x.squeeze(1)                   # (B, E, H, W)
+            target = x.squeeze(1)
         else:
-            context = x[:, :-1].clone()             # (B, F-1, E, H, W)
-            target  = x[:, -1]                      # (B, E, H, W)
+            context = x[:, :-1].clone()
+            target  = x[:, -1]
 
         # ---- text encoder ----
         caption = s["caption"]
-        if isinstance(caption, str) and caption.strip():
-            text = caption.strip()
-        else:
-            text = "no caption"
+        text = caption.strip() if isinstance(caption, str) and caption.strip() else "no caption"
         text_emb = text_encoder([text]).to(device)  # (B, D)
 
-        # ======== ADD NOISE using fm_model.Model.add_noise ========
-        t = torch.rand((x.shape[0],), device=device)
-        target_t, noise = model.add_noise(target, t)   # both (B, E, H, W)
-        target_t = target_t.unsqueeze(1)               # (B, 1, E, H, W)
+        # ---- FM noise ----
+        if global_step < 1000:
+            t = torch.rand((B,), device=device)
+        else:
+            t = torch.rand((B,), device=device) ** 2
 
-        # Frame rate tensor (1D, length B); CoVLA uses fixed target_rate
-        frame_rate = torch.full((x.shape[0],), train_ds.target_rate, device=device)
+        target_t, noise = model.add_noise(target, t)
+        target_t = target_t.unsqueeze(1)
 
-        # ---- Forward through STDiT backbone (with text embedding) ----
-        pred = model.vit(
+        frame_rate = torch.full((B,), train_ds.target_rate, device=device)
+
+        # ================== FORWARD (TEXT ON) ==================
+        pred_text = model.vit(
             target_t,
             context,
             t,
             frame_rate=frame_rate,
             text_emb=text_emb,
-        )  # (B, 1, E, H, W)
+        )
 
-        # ===== FM-style velocity target (same as fm_model.training_step) =====
-        target_v = model.A(t) * target + model.B(t) * noise   # (B, E, H, W)
+        # ================== FORWARD (TEXT OFF) ==================
+        with torch.no_grad():
+            pred_no_text = model.vit(
+                target_t,
+                context,
+                t,
+                frame_rate=frame_rate,
+                text_emb=None,
+            )
 
-        loss = torch.mean((pred.squeeze(1) - target_v) ** 2)
+        # ---- FM velocity target ----
+        target_v = model.A(t) * target + model.B(t) * noise
+
+        loss = torch.mean((pred_text.squeeze(1) - target_v) ** 2)
 
         optimizer.zero_grad()
         loss.backward()
+
+        # ================== GRAD LOGS ==================
+        if global_step % 100 == 0:
+            # text MLP gradient
+            for name, p in model.vit.named_parameters():
+                if "text_mlp" in name and p.grad is not None:
+                    g = p.grad.norm().item()
+                    print(f"[GRAD][text_mlp] {name} | {g:.3e}")
+                    writer.add_scalar("grad/text_mlp", g, global_step)
+                    break
+
+            # AdaLN gradient
+            for name, p in model.vit.named_parameters():
+                if "adaLN_modulation" in name and p.grad is not None:
+                    g = p.grad.norm().item()
+                    writer.add_scalar("grad/adaLN", g, global_step)
+                    break
+
         optimizer.step()
 
+        # ================== WEIGHT LOGS ==================
+        if global_step % 200 == 0:
+            with torch.no_grad():
+                for name, p in model.vit.named_parameters():
+                    if "text_mlp" in name:
+                        w = p.abs().mean().item()
+                        writer.add_scalar("weights/text_mlp", w, global_step)
+                        break
+
+                for name, p in model.vit.named_parameters():
+                    if "adaLN_modulation" in name:
+                        w = p.abs().mean().item()
+                        writer.add_scalar("weights/adaLN", w, global_step)
+                        break
+
+        # ================== TEXT EFFECT METRIC ==================
+        with torch.no_grad():
+            text_delta = torch.mean(
+                (pred_text - pred_no_text).abs()
+            ).item()
+            writer.add_scalar("diagnostics/text_delta", text_delta, global_step)
+
         epoch_loss += loss.item()
-
-        # ====== TENSORBOARD: TRAIN STEP LOGS ======
-        global_step += 1
         writer.add_scalar("train/loss_step", loss.item(), global_step)
-
-        if epoch == start_epoch and step == 0:
-            print("DEBUG: first step loss =", loss.item())
+        global_step += 1
 
     avg_loss = epoch_loss / hp.steps_per_epoch
     print(f"[TRAIN] Epoch {epoch + 1} finished — avg_loss={avg_loss:.4f}", flush=True)
 
-    # TensorBoard: epoch-level train loss + LR
     writer.add_scalar("train/loss_epoch", avg_loss, epoch + 1)
-    current_lr = optimizer.param_groups[0]["lr"]
-    writer.add_scalar("train/lr", current_lr, epoch + 1)
+    writer.add_scalar("train/lr", optimizer.param_groups[0]["lr"], epoch + 1)
 
-    # ---- VALIDATION ----
+    # ================== VALIDATION ==================
     if val_stream is not None:
         val_steps = getattr(hp, "val_steps_per_epoch", 50)
-        val_loss = run_validation(model, text_encoder, val_stream, epoch, num_steps=val_steps)
+        val_loss = run_validation(
+            model, text_encoder, val_stream, epoch, num_steps=val_steps
+        )
         if val_loss is not None:
             writer.add_scalar("val/loss_epoch", val_loss, epoch + 1)
 
-    # ---- CHECKPOINT + SAMPLE ----
+    # ================== CHECKPOINT + SAMPLE ==================
     save_checkpoint(CHECKPOINT_PATH, epoch, step, model, text_encoder, optimizer)
     sample_and_save(model, train_stream, f"epoch{epoch+1}")
+
+
 
 # ================ SAVE FINAL =================
 torch.save(

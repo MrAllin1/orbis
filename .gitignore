@@ -10,3 +10,7 @@ orbis/logs_wm/orbis_288x512/gen_rollout/
 /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/checkpoints/adaln_debug.ckpt
 finetuning/finetuned_orbis_AdaLN_firsttt.ckpt
 finetuning/finetuned_orbis_AdaLN.ckpt
+
+# Ignore all PNG images
+*.png
+*.ckpt
