@@ -1,0 +1,99 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 26975209
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Sun Dec 14 00:47:09 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:1A:00.0 Off |                  N/A |
+| 22%   28C    P8             16W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B1:00.0 Off |                  N/A |
+| 22%   27C    P8              1W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 22%   26C    P8             53W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+[INFO] Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/fm_finetune_covla_modelif.yaml
+[FM CONFIG] Overriding tokenizer_config with local paths:
+  folder    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_192x336
+  ckpt_path = checkpoints/epoch-26_rfid_8_9.ckpt
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+Validation dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_100_videos
+YAML data params (val / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_20_validation
+
+[FM CONFIG] Using Stage2 FM checkpoint:
+  ORBIT_CKPT = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_wm/orbis_288x512/checkpoints/last.ckpt
+
+[INFO] Using frame size: 192x336
+[INFO] Using target_frame_rate: 5.0 fps
+[INFO] Found 5 frames in: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/5frames
+
+[INFO] Frames folder name (video_id): 5frames
+[INFO] Number of context frames provided: 5
+[INFO] Hardcoded caption: 'The ego vehicle is moving at a very high speed and turning right. There is no traffic light in the scene.'
+Text encoder initialized & frozen.
+
+Loading FM world model (Model from fm_model.py)...
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. Dropping this flag (it is false / handled by checkpoint).
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loaded world model ckpt. Missing keys: 4, unexpected: 0
+World model ready (STDiT backbone, tokenizer, noise schedule, sampling).
+
+[INFO] Loading finetuned AdaLN checkpoint from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/finetuned_orbis_text_conditioning.ckpt
+[INFO] Loaded finetuned world model weights.
+       Missing keys   : 0
+       Unexpected keys: 0
+[INFO] Loaded finetuned text projection weights.
+
+[INFO] Saving results to: finetuning/inference_samples_try4-no-promptt/run_20251214-004749_5frames
+[INFO] Encoded latents shape: torch.Size([1, 5, 16, 12, 21])
+[INFO] Using 5 context frames.
+[INFO] Target clip length: 20s
+[INFO] => total_frames_needed = 100
+[INFO] => num_gen_frames to generate = 95
+[INFO] Generated frames shape: torch.Size([1, 95, 3, 192, 336])
+[GIF] Saved combined GIF: finetuning/inference_samples_try4-no-promptt/run_20251214-004749_5frames/combined_context_plus_gen.gif
+[GIF] Saved generated-only GIF: finetuning/inference_samples_try4-no-promptt/run_20251214-004749_5frames/generated_only.gif
+
+[DONE]
+Context PNGs in      : finetuning/inference_samples_try4-no-promptt/run_20251214-004749_5frames/context_frames
+Generated PNGs in    : finetuning/inference_samples_try4-no-promptt/run_20251214-004749_5frames/gen_frames
+Combined GIF         : finetuning/inference_samples_try4-no-promptt/run_20251214-004749_5frames/combined_context_plus_gen.gif
+Generated-only GIF   : finetuning/inference_samples_try4-no-promptt/run_20251214-004749_5frames/generated_only.gif
+Frames folder (video_id) : 5frames
+Caption used         : 'The ego vehicle is moving at a very high speed and turning right. There is no traffic light in the scene.'
+=== Job Finished ===

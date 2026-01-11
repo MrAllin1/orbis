@@ -1,0 +1,379 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 26975217
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Sun Dec 14 01:44:42 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:1A:00.0 Off |                  N/A |
+| 22%   28C    P8             16W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B1:00.0 Off |                  N/A |
+| 22%   27C    P8              1W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 22%   27C    P8             52W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/fm_finetune_covla_modelif.yaml
+[FM CONFIG] Overriding tokenizer_config with local paths:
+  folder    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_192x336
+  ckpt_path = checkpoints/epoch-26_rfid_8_9.ckpt
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+Validation dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_100_videos
+YAML data params (val / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_20_validation
+
+[FM CONFIG] Using Stage2 FM checkpoint:
+  ORBIT_CKPT = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_wm/orbis_288x512/checkpoints/last.ckpt
+
+Text encoder initialized & frozen.
+
+Loading FM world model (Model from fm_model.py)...
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. Dropping this flag (it is false / handled by checkpoint).
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loaded world model ckpt. Missing keys: 4, unexpected: 0
+World model ready (STDiT backbone, tokenizer, noise schedule, sampling).
+[CKPT] No existing checkpoint found → starting from scratch
+[RUN] Saving samples to: finetuning/samples/26975217
+[RUN] TensorBoard logs in: finetuning/runs/26975217
+
+Starting AdaLN fine-tuning using fm_model noise & encoder...
+
+[SAMPLE] Saved finetuning/samples/26975217/sample_before_train.png
+[TRAIN] Starting epoch 1/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.81e-02
+DEBUG: first step loss = 0.09133359044790268
+[TRAIN] Epoch 1 finished — avg_loss=0.3146
+[VAL] Epoch 1 — avg_val_loss=0.2648
+[CKPT] Saved checkpoint at epoch=0, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch1.png
+[TRAIN] Starting epoch 2/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.81e-02
+[TRAIN] Epoch 2 finished — avg_loss=0.3043
+[VAL] Epoch 2 — avg_val_loss=0.3101
+[CKPT] Saved checkpoint at epoch=1, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch2.png
+[TRAIN] Starting epoch 3/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.82e-02
+[TRAIN] Epoch 3 finished — avg_loss=0.3142
+[VAL] Epoch 3 — avg_val_loss=0.2747
+[CKPT] Saved checkpoint at epoch=2, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch3.png
+[TRAIN] Starting epoch 4/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.82e-02
+[TRAIN] Epoch 4 finished — avg_loss=0.4274
+[VAL] Epoch 4 — avg_val_loss=0.2372
+[CKPT] Saved checkpoint at epoch=3, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch4.png
+[TRAIN] Starting epoch 5/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.82e-02
+[TRAIN] Epoch 5 finished — avg_loss=0.4650
+[VAL] Epoch 5 — avg_val_loss=0.2357
+[CKPT] Saved checkpoint at epoch=4, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch5.png
+[TRAIN] Starting epoch 6/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.82e-02
+[TRAIN] Epoch 6 finished — avg_loss=0.4785
+[VAL] Epoch 6 — avg_val_loss=0.2407
+[CKPT] Saved checkpoint at epoch=5, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch6.png
+[TRAIN] Starting epoch 7/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.83e-02
+[TRAIN] Epoch 7 finished — avg_loss=0.4399
+[VAL] Epoch 7 — avg_val_loss=0.2632
+[CKPT] Saved checkpoint at epoch=6, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch7.png
+[TRAIN] Starting epoch 8/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.83e-02
+[TRAIN] Epoch 8 finished — avg_loss=0.4815
+[VAL] Epoch 8 — avg_val_loss=0.2865
+[CKPT] Saved checkpoint at epoch=7, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch8.png
+[TRAIN] Starting epoch 9/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.83e-02
+[TRAIN] Epoch 9 finished — avg_loss=0.4628
+[VAL] Epoch 9 — avg_val_loss=0.2575
+[CKPT] Saved checkpoint at epoch=8, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch9.png
+[TRAIN] Starting epoch 10/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.83e-02
+[TRAIN] Epoch 10 finished — avg_loss=0.4322
+[VAL] Epoch 10 — avg_val_loss=0.2271
+[CKPT] Saved checkpoint at epoch=9, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch10.png
+[TRAIN] Starting epoch 11/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.83e-02
+[TRAIN] Epoch 11 finished — avg_loss=0.4880
+[VAL] Epoch 11 — avg_val_loss=0.2668
+[CKPT] Saved checkpoint at epoch=10, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch11.png
+[TRAIN] Starting epoch 12/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.83e-02
+[TRAIN] Epoch 12 finished — avg_loss=0.4549
+[VAL] Epoch 12 — avg_val_loss=0.2973
+[CKPT] Saved checkpoint at epoch=11, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch12.png
+[TRAIN] Starting epoch 13/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.83e-02
+[TRAIN] Epoch 13 finished — avg_loss=0.4735
+[VAL] Epoch 13 — avg_val_loss=0.2177
+[CKPT] Saved checkpoint at epoch=12, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch13.png
+[TRAIN] Starting epoch 14/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.84e-02
+[TRAIN] Epoch 14 finished — avg_loss=0.4586
+[VAL] Epoch 14 — avg_val_loss=0.2317
+[CKPT] Saved checkpoint at epoch=13, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch14.png
+[TRAIN] Starting epoch 15/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.84e-02
+[TRAIN] Epoch 15 finished — avg_loss=0.4616
+[VAL] Epoch 15 — avg_val_loss=0.1899
+[CKPT] Saved checkpoint at epoch=14, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch15.png
+[TRAIN] Starting epoch 16/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.84e-02
+[TRAIN] Epoch 16 finished — avg_loss=0.4685
+[VAL] Epoch 16 — avg_val_loss=0.2336
+[CKPT] Saved checkpoint at epoch=15, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch16.png
+[TRAIN] Starting epoch 17/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.84e-02
+[TRAIN] Epoch 17 finished — avg_loss=0.4589
+[VAL] Epoch 17 — avg_val_loss=0.2666
+[CKPT] Saved checkpoint at epoch=16, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch17.png
+[TRAIN] Starting epoch 18/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.85e-02
+[TRAIN] Epoch 18 finished — avg_loss=0.4745
+[VAL] Epoch 18 — avg_val_loss=0.2346
+[CKPT] Saved checkpoint at epoch=17, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch18.png
+[TRAIN] Starting epoch 19/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.85e-02
+[TRAIN] Epoch 19 finished — avg_loss=0.4845
+[VAL] Epoch 19 — avg_val_loss=0.2392
+[CKPT] Saved checkpoint at epoch=18, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch19.png
+[TRAIN] Starting epoch 20/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.85e-02
+[TRAIN] Epoch 20 finished — avg_loss=0.4855
+[VAL] Epoch 20 — avg_val_loss=0.3117
+[CKPT] Saved checkpoint at epoch=19, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch20.png
+[TRAIN] Starting epoch 21/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.85e-02
+[TRAIN] Epoch 21 finished — avg_loss=0.4663
+[VAL] Epoch 21 — avg_val_loss=0.2389
+[CKPT] Saved checkpoint at epoch=20, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch21.png
+[TRAIN] Starting epoch 22/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.85e-02
+[TRAIN] Epoch 22 finished — avg_loss=0.4548
+[VAL] Epoch 22 — avg_val_loss=0.2362
+[CKPT] Saved checkpoint at epoch=21, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch22.png
+[TRAIN] Starting epoch 23/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.85e-02
+[TRAIN] Epoch 23 finished — avg_loss=0.4563
+[VAL] Epoch 23 — avg_val_loss=0.2099
+[CKPT] Saved checkpoint at epoch=22, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch23.png
+[TRAIN] Starting epoch 24/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.85e-02
+[TRAIN] Epoch 24 finished — avg_loss=0.4576
+[VAL] Epoch 24 — avg_val_loss=0.2527
+[CKPT] Saved checkpoint at epoch=23, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch24.png
+[TRAIN] Starting epoch 25/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.85e-02
+[TRAIN] Epoch 25 finished — avg_loss=0.4854
+[VAL] Epoch 25 — avg_val_loss=0.2446
+[CKPT] Saved checkpoint at epoch=24, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch25.png
+[TRAIN] Starting epoch 26/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.86e-02
+[TRAIN] Epoch 26 finished — avg_loss=0.4835
+[VAL] Epoch 26 — avg_val_loss=0.2541
+[CKPT] Saved checkpoint at epoch=25, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch26.png
+[TRAIN] Starting epoch 27/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.86e-02
+[TRAIN] Epoch 27 finished — avg_loss=0.4869
+[VAL] Epoch 27 — avg_val_loss=0.2222
+[CKPT] Saved checkpoint at epoch=26, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch27.png
+[TRAIN] Starting epoch 28/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.86e-02
+[TRAIN] Epoch 28 finished — avg_loss=0.4808
+[VAL] Epoch 28 — avg_val_loss=0.2458
+[CKPT] Saved checkpoint at epoch=27, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch28.png
+[TRAIN] Starting epoch 29/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.86e-02
+[TRAIN] Epoch 29 finished — avg_loss=0.4738
+[VAL] Epoch 29 — avg_val_loss=0.2634
+[CKPT] Saved checkpoint at epoch=28, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch29.png
+[TRAIN] Starting epoch 30/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.86e-02
+[TRAIN] Epoch 30 finished — avg_loss=0.4580
+[VAL] Epoch 30 — avg_val_loss=0.2375
+[CKPT] Saved checkpoint at epoch=29, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch30.png
+[TRAIN] Starting epoch 31/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.86e-02
+[TRAIN] Epoch 31 finished — avg_loss=0.4691
+[VAL] Epoch 31 — avg_val_loss=0.2878
+[CKPT] Saved checkpoint at epoch=30, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch31.png
+[TRAIN] Starting epoch 32/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.86e-02
+[TRAIN] Epoch 32 finished — avg_loss=0.4491
+[VAL] Epoch 32 — avg_val_loss=0.2462
+[CKPT] Saved checkpoint at epoch=31, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch32.png
+[TRAIN] Starting epoch 33/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.87e-02
+[TRAIN] Epoch 33 finished — avg_loss=0.4776
+[VAL] Epoch 33 — avg_val_loss=0.2809
+[CKPT] Saved checkpoint at epoch=32, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch33.png
+[TRAIN] Starting epoch 34/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.87e-02
+[TRAIN] Epoch 34 finished — avg_loss=0.4304
+[VAL] Epoch 34 — avg_val_loss=0.2139
+[CKPT] Saved checkpoint at epoch=33, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch34.png
+[TRAIN] Starting epoch 35/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.87e-02
+[TRAIN] Epoch 35 finished — avg_loss=0.4282
+[VAL] Epoch 35 — avg_val_loss=0.2206
+[CKPT] Saved checkpoint at epoch=34, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch35.png
+[TRAIN] Starting epoch 36/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.87e-02
+[TRAIN] Epoch 36 finished — avg_loss=0.4498
+[VAL] Epoch 36 — avg_val_loss=0.2032
+[CKPT] Saved checkpoint at epoch=35, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch36.png
+[TRAIN] Starting epoch 37/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.87e-02
+[TRAIN] Epoch 37 finished — avg_loss=0.4814
+[VAL] Epoch 37 — avg_val_loss=0.2757
+[CKPT] Saved checkpoint at epoch=36, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch37.png
+[TRAIN] Starting epoch 38/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.87e-02
+[TRAIN] Epoch 38 finished — avg_loss=0.4501
+[VAL] Epoch 38 — avg_val_loss=0.2404
+[CKPT] Saved checkpoint at epoch=37, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch38.png
+[TRAIN] Starting epoch 39/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 39 finished — avg_loss=0.4906
+[VAL] Epoch 39 — avg_val_loss=0.2053
+[CKPT] Saved checkpoint at epoch=38, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch39.png
+[TRAIN] Starting epoch 40/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 40 finished — avg_loss=0.4805
+[VAL] Epoch 40 — avg_val_loss=0.3228
+[CKPT] Saved checkpoint at epoch=39, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch40.png
+[TRAIN] Starting epoch 41/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 41 finished — avg_loss=0.4722
+[VAL] Epoch 41 — avg_val_loss=0.2076
+[CKPT] Saved checkpoint at epoch=40, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch41.png
+[TRAIN] Starting epoch 42/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 42 finished — avg_loss=0.4822
+[VAL] Epoch 42 — avg_val_loss=0.2963
+[CKPT] Saved checkpoint at epoch=41, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch42.png
+[TRAIN] Starting epoch 43/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 43 finished — avg_loss=0.4717
+[VAL] Epoch 43 — avg_val_loss=0.2417
+[CKPT] Saved checkpoint at epoch=42, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch43.png
+[TRAIN] Starting epoch 44/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 44 finished — avg_loss=0.4323
+[VAL] Epoch 44 — avg_val_loss=0.2377
+[CKPT] Saved checkpoint at epoch=43, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch44.png
+[TRAIN] Starting epoch 45/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 45 finished — avg_loss=0.4719
+[VAL] Epoch 45 — avg_val_loss=0.2862
+[CKPT] Saved checkpoint at epoch=44, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch45.png
+[TRAIN] Starting epoch 46/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 46 finished — avg_loss=0.4824
+[VAL] Epoch 46 — avg_val_loss=0.2370
+[CKPT] Saved checkpoint at epoch=45, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch46.png
+[TRAIN] Starting epoch 47/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 47 finished — avg_loss=0.4782
+[VAL] Epoch 47 — avg_val_loss=0.2329
+[CKPT] Saved checkpoint at epoch=46, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch47.png
+[TRAIN] Starting epoch 48/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.88e-02
+[TRAIN] Epoch 48 finished — avg_loss=0.4561
+[VAL] Epoch 48 — avg_val_loss=0.3234
+[CKPT] Saved checkpoint at epoch=47, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch48.png
+[TRAIN] Starting epoch 49/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.89e-02
+[TRAIN] Epoch 49 finished — avg_loss=0.4609
+[VAL] Epoch 49 — avg_val_loss=0.2453
+[CKPT] Saved checkpoint at epoch=48, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch49.png
+[TRAIN] Starting epoch 50/50
+[AdaLN] blocks.0.adaLN_modulation.1.weight: mean|p| = 1.89e-02
+[TRAIN] Epoch 50 finished — avg_loss=0.4817
+[VAL] Epoch 50 — avg_val_loss=0.2785
+[CKPT] Saved checkpoint at epoch=49, step=299
+[SAMPLE] Saved finetuning/samples/26975217/sample_epoch50.png
+
+Done! AdaLN fine-tune saved → /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/finetuned_orbis_text_conditioning.ckpt
+[RUN] TensorBoard writer closed.
+=== Job Finished ===

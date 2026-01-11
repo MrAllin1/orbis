@@ -1,0 +1,272 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 26978771
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Wed Dec 17 18:49:37 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:88:00.0 Off |                  N/A |
+| 22%   26C    P8             25W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+[INFO] Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/fm_finetune_covla_modelif.yaml
+[FM CONFIG] Overriding tokenizer_config with local paths:
+  folder    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_192x336
+  ckpt_path = checkpoints/epoch-26_rfid_8_9.ckpt
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+Validation dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_100_videos
+YAML data params (val / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_20_validation
+
+[FM CONFIG] Using Stage2 FM checkpoint:
+  ORBIT_CKPT = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_wm/orbis_288x512/checkpoints/last.ckpt
+
+[INFO] Creating text encoder (FULLY TRAINABLE)
+Text encoder initialized & frozen.
+[INFO] Creating world model
+
+Loading FM world model (Model from fm_model.py)...
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. Dropping this flag (it is false / handled by checkpoint).
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loaded world model ckpt. Missing keys: 4, unexpected: 0
+World model ready (STDiT backbone, tokenizer, noise schedule, sampling).
+[INFO] Freezing tokenizer / AE
+[INFO] Trainable parameters (no tokenizer): 236.65M
+[CKPT] Found existing checkpoint: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/checkpoints/adaln_text_conditioning_third_train.ckpt
+[CKPT] Failed to load checkpoint (loaded state dict contains a parameter group that doesn't match the size of optimizer's group) → starting from scratch
+
+[TRAIN] Starting FULLY UNFROZEN (tokenizer frozen)
+
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_before_train.png
+[TRAIN] Epoch 1/50
+[TRAIN] Epoch 1 avg_loss=0.5035
+[CKPT] Saved checkpoint at epoch=0, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch1.png
+[TRAIN] Epoch 2/50
+[TRAIN] Epoch 2 avg_loss=0.4875
+[CKPT] Saved checkpoint at epoch=1, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch2.png
+[TRAIN] Epoch 3/50
+[TRAIN] Epoch 3 avg_loss=0.4734
+[CKPT] Saved checkpoint at epoch=2, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch3.png
+[TRAIN] Epoch 4/50
+[TRAIN] Epoch 4 avg_loss=0.4471
+[CKPT] Saved checkpoint at epoch=3, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch4.png
+[TRAIN] Epoch 5/50
+[TRAIN] Epoch 5 avg_loss=0.4238
+[CKPT] Saved checkpoint at epoch=4, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch5.png
+[TRAIN] Epoch 6/50
+[TRAIN] Epoch 6 avg_loss=0.5040
+[CKPT] Saved checkpoint at epoch=5, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch6.png
+[TRAIN] Epoch 7/50
+[TRAIN] Epoch 7 avg_loss=0.4665
+[CKPT] Saved checkpoint at epoch=6, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch7.png
+[TRAIN] Epoch 8/50
+[TRAIN] Epoch 8 avg_loss=0.5092
+[CKPT] Saved checkpoint at epoch=7, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch8.png
+[TRAIN] Epoch 9/50
+[TRAIN] Epoch 9 avg_loss=0.4208
+[CKPT] Saved checkpoint at epoch=8, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch9.png
+[TRAIN] Epoch 10/50
+[TRAIN] Epoch 10 avg_loss=0.4724
+[CKPT] Saved checkpoint at epoch=9, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch10.png
+[TRAIN] Epoch 11/50
+[TRAIN] Epoch 11 avg_loss=0.4787
+[CKPT] Saved checkpoint at epoch=10, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch11.png
+[TRAIN] Epoch 12/50
+[TRAIN] Epoch 12 avg_loss=0.4422
+[CKPT] Saved checkpoint at epoch=11, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch12.png
+[TRAIN] Epoch 13/50
+[TRAIN] Epoch 13 avg_loss=0.4708
+[CKPT] Saved checkpoint at epoch=12, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch13.png
+[TRAIN] Epoch 14/50
+[TRAIN] Epoch 14 avg_loss=0.4476
+[CKPT] Saved checkpoint at epoch=13, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch14.png
+[TRAIN] Epoch 15/50
+[TRAIN] Epoch 15 avg_loss=0.4094
+[CKPT] Saved checkpoint at epoch=14, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch15.png
+[TRAIN] Epoch 16/50
+[TRAIN] Epoch 16 avg_loss=0.4371
+[CKPT] Saved checkpoint at epoch=15, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch16.png
+[TRAIN] Epoch 17/50
+[TRAIN] Epoch 17 avg_loss=0.4224
+[CKPT] Saved checkpoint at epoch=16, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch17.png
+[TRAIN] Epoch 18/50
+[TRAIN] Epoch 18 avg_loss=0.5313
+[CKPT] Saved checkpoint at epoch=17, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch18.png
+[TRAIN] Epoch 19/50
+[TRAIN] Epoch 19 avg_loss=0.4872
+[CKPT] Saved checkpoint at epoch=18, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch19.png
+[TRAIN] Epoch 20/50
+[TRAIN] Epoch 20 avg_loss=0.4583
+[CKPT] Saved checkpoint at epoch=19, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch20.png
+[TRAIN] Epoch 21/50
+[TRAIN] Epoch 21 avg_loss=0.4440
+[CKPT] Saved checkpoint at epoch=20, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch21.png
+[TRAIN] Epoch 22/50
+[TRAIN] Epoch 22 avg_loss=0.4287
+[CKPT] Saved checkpoint at epoch=21, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch22.png
+[TRAIN] Epoch 23/50
+[TRAIN] Epoch 23 avg_loss=0.4814
+[CKPT] Saved checkpoint at epoch=22, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch23.png
+[TRAIN] Epoch 24/50
+[TRAIN] Epoch 24 avg_loss=0.4816
+[CKPT] Saved checkpoint at epoch=23, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch24.png
+[TRAIN] Epoch 25/50
+[TRAIN] Epoch 25 avg_loss=0.4297
+[CKPT] Saved checkpoint at epoch=24, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch25.png
+[TRAIN] Epoch 26/50
+[TRAIN] Epoch 26 avg_loss=0.4595
+[CKPT] Saved checkpoint at epoch=25, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch26.png
+[TRAIN] Epoch 27/50
+[TRAIN] Epoch 27 avg_loss=0.4404
+[CKPT] Saved checkpoint at epoch=26, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch27.png
+[TRAIN] Epoch 28/50
+[TRAIN] Epoch 28 avg_loss=0.4692
+[CKPT] Saved checkpoint at epoch=27, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch28.png
+[TRAIN] Epoch 29/50
+[TRAIN] Epoch 29 avg_loss=0.3961
+[CKPT] Saved checkpoint at epoch=28, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch29.png
+[TRAIN] Epoch 30/50
+[TRAIN] Epoch 30 avg_loss=0.5047
+[CKPT] Saved checkpoint at epoch=29, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch30.png
+[TRAIN] Epoch 31/50
+[TRAIN] Epoch 31 avg_loss=0.4728
+[CKPT] Saved checkpoint at epoch=30, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch31.png
+[TRAIN] Epoch 32/50
+[TRAIN] Epoch 32 avg_loss=0.4345
+[CKPT] Saved checkpoint at epoch=31, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch32.png
+[TRAIN] Epoch 33/50
+[TRAIN] Epoch 33 avg_loss=0.4472
+[CKPT] Saved checkpoint at epoch=32, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch33.png
+[TRAIN] Epoch 34/50
+[TRAIN] Epoch 34 avg_loss=0.4359
+[CKPT] Saved checkpoint at epoch=33, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch34.png
+[TRAIN] Epoch 35/50
+[TRAIN] Epoch 35 avg_loss=0.4139
+[CKPT] Saved checkpoint at epoch=34, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch35.png
+[TRAIN] Epoch 36/50
+[TRAIN] Epoch 36 avg_loss=0.4846
+[CKPT] Saved checkpoint at epoch=35, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch36.png
+[TRAIN] Epoch 37/50
+[TRAIN] Epoch 37 avg_loss=0.4003
+[CKPT] Saved checkpoint at epoch=36, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch37.png
+[TRAIN] Epoch 38/50
+[TRAIN] Epoch 38 avg_loss=0.4135
+[CKPT] Saved checkpoint at epoch=37, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch38.png
+[TRAIN] Epoch 39/50
+[TRAIN] Epoch 39 avg_loss=0.4330
+[CKPT] Saved checkpoint at epoch=38, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch39.png
+[TRAIN] Epoch 40/50
+[TRAIN] Epoch 40 avg_loss=0.4892
+[CKPT] Saved checkpoint at epoch=39, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch40.png
+[TRAIN] Epoch 41/50
+[TRAIN] Epoch 41 avg_loss=0.3892
+[CKPT] Saved checkpoint at epoch=40, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch41.png
+[TRAIN] Epoch 42/50
+[TRAIN] Epoch 42 avg_loss=0.4547
+[CKPT] Saved checkpoint at epoch=41, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch42.png
+[TRAIN] Epoch 43/50
+[TRAIN] Epoch 43 avg_loss=0.4343
+[CKPT] Saved checkpoint at epoch=42, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch43.png
+[TRAIN] Epoch 44/50
+[TRAIN] Epoch 44 avg_loss=0.4699
+[CKPT] Saved checkpoint at epoch=43, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch44.png
+[TRAIN] Epoch 45/50
+[TRAIN] Epoch 45 avg_loss=0.4491
+[CKPT] Saved checkpoint at epoch=44, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch45.png
+[TRAIN] Epoch 46/50
+[TRAIN] Epoch 46 avg_loss=0.4458
+[CKPT] Saved checkpoint at epoch=45, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch46.png
+[TRAIN] Epoch 47/50
+[TRAIN] Epoch 47 avg_loss=0.4472
+[CKPT] Saved checkpoint at epoch=46, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch47.png
+[TRAIN] Epoch 48/50
+[TRAIN] Epoch 48 avg_loss=0.4048
+[CKPT] Saved checkpoint at epoch=47, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch48.png
+[TRAIN] Epoch 49/50
+[TRAIN] Epoch 49 avg_loss=0.4509
+[CKPT] Saved checkpoint at epoch=48, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch49.png
+[TRAIN] Epoch 50/50
+[TRAIN] Epoch 50 avg_loss=0.4298
+[CKPT] Saved checkpoint at epoch=49, step=199
+[SAMPLE] finetuning/samples/fully_unfrozen_26978771/sample_epoch50.png
+
+[DONE] Fully unfrozen training finished (tokenizer frozen).
+=== Job Finished ===

@@ -1,0 +1,5 @@
+Before balancing: {'straight': 8755, 'right': 692, 'left': 457}
+After balancing: Counter({'straight': 2971, 'right': 692, 'left': 457})
+
+Balanced dataset written to: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced
+Video labels saved to: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_video_labels.txt
