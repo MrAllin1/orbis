@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=Fully_Unfrozen_Text_Finetune
+#SBATCH --job-name=Fully_Balanced_Text_Finetune_continue
 #SBATCH --partition=lmbhiwi_gpu-rtx2080
 #SBATCH --account=lmbhiwi-dlc
 #SBATCH --gres=gpu:1
@@ -31,6 +31,6 @@ nvidia-smi || true
 # -----------------------------------------------------
 # Run your script
 # -----------------------------------------------------
-python -m finetuning.fully_unfrozen
+python -m finetuning.train_adaln_debug
 
 echo "=== Job Finished ==="

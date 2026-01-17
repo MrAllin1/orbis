@@ -24,17 +24,17 @@ TOKENIZER_ROOT = f"{BASE_WORK_UNIS}/logs_tk/tokenizer_192x336"
 TOKENIZER_CKPT_REL = "checkpoints/epoch-26_rfid_8_9.ckpt"
 
 # === OUTPUT PATHS FOR ADALN FINE-TUNE ===
-SAVE_PATH       = "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/third_train.ckpt"
-CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_text_conditioning_third_train.ckpt"
+SAVE_PATH       = "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/balanced_train.ckpt"
+CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_text_conditioning_balanced_train.ckpt"
 
 
 @dataclass
 class TrainHyperparams:
     batch_size: int = 1
     lr: float = 1e-4
-    epochs: int = 50
-    steps_per_epoch: int = 200
-    val_steps_per_epoch: int = 50   # NEW
+    epochs: int =10
+    steps_per_epoch: int = 3708
+    val_steps_per_epoch: int = 412   # NEW
     context_frames: int = 4
     target_frames: int = 2
 
@@ -72,8 +72,8 @@ def load_fm_config():
 
     print(f"Train dataset target from YAML: {train_target}")
 
-    captions_default = f"{BASE_WORK_UNIS}/data/covla_captions"
-    videos_default   = f"{BASE_WORK_UNIS}/data/covla_100_videos"
+    captions_default = f"{BASE_WORK_UNIS}/data/covla_captions_balanced"
+    videos_default   = f"{BASE_WORK_UNIS}/data/covla_videos_balanced"
 
     train_params.setdefault("captions_dir", captions_default)
     train_params.setdefault("videos_dir",   videos_default)

@@ -1,0 +1,6 @@
+cpu-bind=MASK - dagobert, task  0  0 [12734]: mask 0xc0000c00 set
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/huggingface_hub/file_download.py:942: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/lib/python3.10/site-packages/huggingface_hub/file_download.py:979: UserWarning: `local_dir_use_symlinks` parameter is deprecated and will be ignored. The process to download files to a local folder has been updated and do not rely on symlinks anymore. You only need to pass a destination folder as`local_dir`.
+For more details, check out https://huggingface.co/docs/huggingface_hub/main/en/guides/download#download-files-to-local-folder.
+  warnings.warn(

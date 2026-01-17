@@ -49,8 +49,8 @@ data:
           stored_data_frame_rate: 20
           target_frame_rate: 5
           size: [192, 336]     # match BDD/ModelIF resolution
-          videos_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_100_videos
-          captions_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+          videos_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced
+          captions_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced
           num_samples: null
           debug: false
           aug: random_resize_center
@@ -65,8 +65,8 @@ data:
         stored_data_frame_rate: 20
         target_frame_rate: 5
         size: [192, 336]
-        videos_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_20_validation
-        captions_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions
+        videos_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val
+        captions_dir: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced
         num_samples: null
         debug: false
         aug: resize_center        # deterministic for validation

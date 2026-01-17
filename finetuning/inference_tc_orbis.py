@@ -24,10 +24,9 @@ from finetuning.adaln_models import (
 # CONFIG – EDIT THESE
 # ------------------------------------------------------------------------------------
 DESIRED_SECONDS = 20          # target total clip length in seconds
-BASE_OUT_DIR = "finetuning/inference_samples_try8"
-
-FRAMES_DIR = "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/rollout_frames/5frames"  # <--- EDIT
-TEXT_PROMPT = 'The ego vehicle is turning left left left left left'  # <--- EDIT
+BASE_OUT_DIR = "finetuning/balanced_dataset_rollouts/fighting_the_natural_turn_right_with_left_2"  # where to save results
+FRAMES_DIR = "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/example"  # <--- EDIT
+TEXT_PROMPT = 'The ego vehicle is turning right on the intersection than its taking a left turn'  # <--- EDIT
 def to_uint8_image(t: torch.Tensor) -> np.ndarray:
     """
     Convert a single image tensor (C,H,W) in [-1,1] or [0,1] to uint8 HWC.

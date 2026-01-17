@@ -13,4 +13,5 @@ finetuning/finetuned_orbis_AdaLN.ckpt
 
 # Ignore all PNG images
 *.png
+*.mp4
 *.ckpt

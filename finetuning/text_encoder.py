@@ -1,3 +1,4 @@
+from numpy import short
 import torch
 import clip
 import torch.nn as nn
@@ -26,7 +27,15 @@ class CLIPTextEncoder(nn.Module):
         output:   (B, 768), on self.device
         """
         # Tokenize on the same device as CLIP
-        tokens = clip.tokenize(captions).to(self.device)   # (B, T)
+        try:
+            tokens = clip.tokenize(captions).to(self.device)
+        except RuntimeError:
+            # crude but safe fallback: shorten each caption and retry
+            short = []
+            for t in captions:
+                t = t if isinstance(t, str) else ""
+                short.append(" ".join(t.split()[:40]))
+            tokens = clip.tokenize(short).to(self.device)
 
         with torch.no_grad():
             clip_emb = self.model.encode_text(tokens)      # (B, 512)

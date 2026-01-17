@@ -1,0 +1,185 @@
+=== CoVLA Balanced Downloader (direct MP4 download by video_id) ===
+Node: dagobert
+Start: Sun Jan 11 04:53:24 PM CET 2026
+Using Python: /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Conda env: orbis_env
+MKL_INTERFACE_LAYER=LP64,GNU
+[INFO] Python version: 3.10.14 | packaged by conda-forge | (main, Mar 20 2024, 12:45:18) [GCC 12.3.0]
+[INFO] CAPTIONS_DIR: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced
+[INFO] OUT_DIR: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced
+[INFO] REVISION: 0a6d39e41659903a26dde957744e70dbc360bb6d
+[INFO] CACHE_DIR: /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced/_hf_download_cache
+[INFO] Caption files (requested): 4120
+[INFO] Remaining to download: 4120
+[PROGRESS] 1/4120 | saved=0 | elapsed=0.0m | eta=0.0m
+[PROGRESS] 25/4120 | saved=24 | elapsed=1.5m | eta=249.9m
+[PROGRESS] 50/4120 | saved=49 | elapsed=2.8m | eta=229.3m
+[PROGRESS] 75/4120 | saved=74 | elapsed=4.1m | eta=223.3m
+[PROGRESS] 100/4120 | saved=99 | elapsed=5.7m | eta=230.4m
+[PROGRESS] 125/4120 | saved=124 | elapsed=7.0m | eta=224.3m
+[PROGRESS] 150/4120 | saved=149 | elapsed=8.3m | eta=219.1m
+[PROGRESS] 175/4120 | saved=174 | elapsed=9.6m | eta=216.5m
+[PROGRESS] 200/4120 | saved=199 | elapsed=10.9m | eta=214.6m
+[PROGRESS] 225/4120 | saved=224 | elapsed=12.3m | eta=213.1m
+[PROGRESS] 250/4120 | saved=249 | elapsed=13.7m | eta=211.6m
+[PROGRESS] 275/4120 | saved=274 | elapsed=14.9m | eta=208.5m
+[PROGRESS] 300/4120 | saved=299 | elapsed=16.2m | eta=205.7m
+[PROGRESS] 325/4120 | saved=324 | elapsed=17.5m | eta=204.8m
+[PROGRESS] 350/4120 | saved=349 | elapsed=18.9m | eta=203.1m
+[PROGRESS] 375/4120 | saved=374 | elapsed=20.2m | eta=202.2m
+[PROGRESS] 400/4120 | saved=399 | elapsed=21.5m | eta=199.8m
+[PROGRESS] 425/4120 | saved=424 | elapsed=23.0m | eta=199.6m
+[PROGRESS] 450/4120 | saved=449 | elapsed=24.5m | eta=199.7m
+[PROGRESS] 475/4120 | saved=474 | elapsed=25.9m | eta=198.6m
+[PROGRESS] 500/4120 | saved=499 | elapsed=27.2m | eta=196.9m
+[PROGRESS] 525/4120 | saved=524 | elapsed=28.6m | eta=195.9m
+[PROGRESS] 550/4120 | saved=549 | elapsed=29.8m | eta=193.7m
+[PROGRESS] 575/4120 | saved=574 | elapsed=31.2m | eta=192.4m
+[PROGRESS] 600/4120 | saved=599 | elapsed=32.5m | eta=190.4m
+[PROGRESS] 625/4120 | saved=624 | elapsed=33.8m | eta=189.3m
+[PROGRESS] 650/4120 | saved=649 | elapsed=35.2m | eta=187.7m
+[PROGRESS] 675/4120 | saved=674 | elapsed=36.4m | eta=186.0m
+[PROGRESS] 700/4120 | saved=699 | elapsed=37.8m | eta=184.7m
+[PROGRESS] 725/4120 | saved=724 | elapsed=39.1m | eta=183.1m
+[PROGRESS] 750/4120 | saved=749 | elapsed=40.4m | eta=181.4m
+[PROGRESS] 775/4120 | saved=774 | elapsed=41.7m | eta=180.1m
+[PROGRESS] 800/4120 | saved=799 | elapsed=43.0m | eta=178.4m
+[PROGRESS] 825/4120 | saved=824 | elapsed=44.3m | eta=176.9m
+[PROGRESS] 850/4120 | saved=849 | elapsed=45.6m | eta=175.3m
+[PROGRESS] 875/4120 | saved=874 | elapsed=46.9m | eta=173.9m
+[PROGRESS] 900/4120 | saved=899 | elapsed=48.2m | eta=172.4m
+[PROGRESS] 925/4120 | saved=924 | elapsed=49.5m | eta=171.0m
+[PROGRESS] 950/4120 | saved=949 | elapsed=50.8m | eta=169.4m
+[PROGRESS] 975/4120 | saved=974 | elapsed=52.1m | eta=168.1m
+[PROGRESS] 1000/4120 | saved=999 | elapsed=53.4m | eta=166.6m
+[PROGRESS] 1025/4120 | saved=1024 | elapsed=54.6m | eta=165.0m
+[PROGRESS] 1050/4120 | saved=1049 | elapsed=56.0m | eta=163.6m
+[PROGRESS] 1075/4120 | saved=1074 | elapsed=57.2m | eta=162.2m
+[PROGRESS] 1100/4120 | saved=1099 | elapsed=58.6m | eta=160.8m
+[PROGRESS] 1125/4120 | saved=1124 | elapsed=59.8m | eta=159.2m
+[PROGRESS] 1150/4120 | saved=1149 | elapsed=61.1m | eta=157.7m
+[PROGRESS] 1175/4120 | saved=1174 | elapsed=62.3m | eta=156.1m
+[PROGRESS] 1200/4120 | saved=1199 | elapsed=63.5m | eta=154.6m
+[PROGRESS] 1225/4120 | saved=1224 | elapsed=64.8m | eta=153.1m
+[PROGRESS] 1250/4120 | saved=1249 | elapsed=66.1m | eta=151.7m
+[PROGRESS] 1275/4120 | saved=1274 | elapsed=67.3m | eta=150.2m
+[PROGRESS] 1300/4120 | saved=1299 | elapsed=68.6m | eta=148.8m
+[PROGRESS] 1325/4120 | saved=1324 | elapsed=70.0m | eta=147.7m
+[PROGRESS] 1350/4120 | saved=1349 | elapsed=71.3m | eta=146.3m
+[PROGRESS] 1375/4120 | saved=1374 | elapsed=72.7m | eta=145.2m
+[PROGRESS] 1400/4120 | saved=1399 | elapsed=74.1m | eta=143.9m
+[PROGRESS] 1425/4120 | saved=1424 | elapsed=75.3m | eta=142.5m
+[PROGRESS] 1450/4120 | saved=1449 | elapsed=76.7m | eta=141.2m
+[PROGRESS] 1475/4120 | saved=1474 | elapsed=78.0m | eta=139.9m
+[PROGRESS] 1500/4120 | saved=1499 | elapsed=79.3m | eta=138.5m
+[PROGRESS] 1525/4120 | saved=1524 | elapsed=80.6m | eta=137.1m
+[PROGRESS] 1550/4120 | saved=1549 | elapsed=81.9m | eta=135.8m
+[PROGRESS] 1575/4120 | saved=1574 | elapsed=83.3m | eta=134.6m
+[PROGRESS] 1600/4120 | saved=1599 | elapsed=84.6m | eta=133.2m
+[PROGRESS] 1625/4120 | saved=1624 | elapsed=86.0m | eta=132.0m
+[PROGRESS] 1650/4120 | saved=1649 | elapsed=87.3m | eta=130.6m
+[PROGRESS] 1675/4120 | saved=1674 | elapsed=88.6m | eta=129.3m
+[PROGRESS] 1700/4120 | saved=1699 | elapsed=90.0m | eta=128.2m
+[PROGRESS] 1725/4120 | saved=1724 | elapsed=91.3m | eta=126.8m
+[PROGRESS] 1750/4120 | saved=1749 | elapsed=92.6m | eta=125.4m
+[PROGRESS] 1775/4120 | saved=1774 | elapsed=93.9m | eta=124.1m
+[PROGRESS] 1800/4120 | saved=1799 | elapsed=95.2m | eta=122.7m
+[PROGRESS] 1825/4120 | saved=1824 | elapsed=101.6m | eta=127.8m
+[PROGRESS] 1850/4120 | saved=1849 | elapsed=103.0m | eta=126.4m
+[PROGRESS] 1875/4120 | saved=1874 | elapsed=104.4m | eta=125.0m
+[PROGRESS] 1900/4120 | saved=1899 | elapsed=105.7m | eta=123.5m
+[PROGRESS] 1925/4120 | saved=1924 | elapsed=107.0m | eta=122.0m
+[PROGRESS] 1950/4120 | saved=1949 | elapsed=108.4m | eta=120.6m
+[PROGRESS] 1975/4120 | saved=1974 | elapsed=109.7m | eta=119.2m
+[PROGRESS] 2000/4120 | saved=1999 | elapsed=111.1m | eta=117.7m
+[PROGRESS] 2025/4120 | saved=2024 | elapsed=112.4m | eta=116.3m
+[PROGRESS] 2050/4120 | saved=2049 | elapsed=113.7m | eta=114.8m
+[PROGRESS] 2075/4120 | saved=2074 | elapsed=115.0m | eta=113.3m
+[PROGRESS] 2100/4120 | saved=2099 | elapsed=116.3m | eta=111.9m
+[PROGRESS] 2125/4120 | saved=2124 | elapsed=117.5m | eta=110.4m
+[PROGRESS] 2150/4120 | saved=2149 | elapsed=118.8m | eta=108.9m
+[PROGRESS] 2175/4120 | saved=2174 | elapsed=120.1m | eta=107.4m
+[PROGRESS] 2200/4120 | saved=2199 | elapsed=121.4m | eta=106.0m
+[PROGRESS] 2225/4120 | saved=2224 | elapsed=122.7m | eta=104.5m
+[PROGRESS] 2250/4120 | saved=2249 | elapsed=124.1m | eta=103.2m
+[PROGRESS] 2275/4120 | saved=2274 | elapsed=125.5m | eta=101.8m
+[PROGRESS] 2300/4120 | saved=2299 | elapsed=126.8m | eta=100.3m
+[PROGRESS] 2325/4120 | saved=2324 | elapsed=128.2m | eta=99.0m
+[PROGRESS] 2350/4120 | saved=2349 | elapsed=129.6m | eta=97.6m
+[PROGRESS] 2375/4120 | saved=2374 | elapsed=131.0m | eta=96.2m
+[PROGRESS] 2400/4120 | saved=2399 | elapsed=132.5m | eta=95.0m
+[PROGRESS] 2425/4120 | saved=2424 | elapsed=133.8m | eta=93.5m
+[PROGRESS] 2450/4120 | saved=2449 | elapsed=135.2m | eta=92.1m
+[PROGRESS] 2475/4120 | saved=2474 | elapsed=136.5m | eta=90.7m
+[PROGRESS] 2500/4120 | saved=2499 | elapsed=137.9m | eta=89.3m
+[PROGRESS] 2525/4120 | saved=2524 | elapsed=139.2m | eta=87.9m
+[PROGRESS] 2550/4120 | saved=2549 | elapsed=140.4m | eta=86.5m
+[PROGRESS] 2575/4120 | saved=2574 | elapsed=141.8m | eta=85.1m
+[PROGRESS] 2600/4120 | saved=2599 | elapsed=143.1m | eta=83.7m
+[PROGRESS] 2625/4120 | saved=2624 | elapsed=144.5m | eta=82.3m
+[PROGRESS] 2650/4120 | saved=2649 | elapsed=145.8m | eta=80.9m
+[PROGRESS] 2675/4120 | saved=2674 | elapsed=147.1m | eta=79.5m
+[PROGRESS] 2700/4120 | saved=2699 | elapsed=148.4m | eta=78.1m
+[PROGRESS] 2725/4120 | saved=2724 | elapsed=149.7m | eta=76.7m
+[PROGRESS] 2750/4120 | saved=2749 | elapsed=151.1m | eta=75.3m
+[PROGRESS] 2775/4120 | saved=2774 | elapsed=152.3m | eta=73.8m
+[PROGRESS] 2800/4120 | saved=2799 | elapsed=153.7m | eta=72.5m
+[PROGRESS] 2825/4120 | saved=2824 | elapsed=155.0m | eta=71.1m
+[PROGRESS] 2850/4120 | saved=2849 | elapsed=156.3m | eta=69.7m
+[PROGRESS] 2875/4120 | saved=2874 | elapsed=157.6m | eta=68.3m
+[PROGRESS] 2900/4120 | saved=2899 | elapsed=158.9m | eta=66.9m
+[PROGRESS] 2925/4120 | saved=2924 | elapsed=160.2m | eta=65.5m
+[PROGRESS] 2950/4120 | saved=2949 | elapsed=161.5m | eta=64.1m
+[PROGRESS] 2975/4120 | saved=2974 | elapsed=162.8m | eta=62.7m
+[PROGRESS] 3000/4120 | saved=2999 | elapsed=164.1m | eta=61.3m
+[PROGRESS] 3025/4120 | saved=3024 | elapsed=165.4m | eta=59.9m
+[PROGRESS] 3050/4120 | saved=3049 | elapsed=166.7m | eta=58.5m
+[PROGRESS] 3075/4120 | saved=3074 | elapsed=168.0m | eta=57.1m
+[PROGRESS] 3100/4120 | saved=3099 | elapsed=169.4m | eta=55.7m
+[PROGRESS] 3125/4120 | saved=3124 | elapsed=170.7m | eta=54.3m
+[PROGRESS] 3150/4120 | saved=3149 | elapsed=171.9m | eta=52.9m
+[PROGRESS] 3175/4120 | saved=3174 | elapsed=173.2m | eta=51.6m
+[PROGRESS] 3200/4120 | saved=3199 | elapsed=174.5m | eta=50.2m
+[PROGRESS] 3225/4120 | saved=3224 | elapsed=176.0m | eta=48.8m
+[PROGRESS] 3250/4120 | saved=3249 | elapsed=177.5m | eta=47.5m
+[PROGRESS] 3275/4120 | saved=3274 | elapsed=178.8m | eta=46.1m
+[PROGRESS] 3300/4120 | saved=3299 | elapsed=180.0m | eta=44.7m
+[PROGRESS] 3325/4120 | saved=3324 | elapsed=181.3m | eta=43.3m
+[PROGRESS] 3350/4120 | saved=3349 | elapsed=182.6m | eta=42.0m
+[PROGRESS] 3375/4120 | saved=3374 | elapsed=183.9m | eta=40.6m
+[PROGRESS] 3400/4120 | saved=3399 | elapsed=185.3m | eta=39.2m
+[PROGRESS] 3425/4120 | saved=3424 | elapsed=186.7m | eta=37.9m
+[PROGRESS] 3450/4120 | saved=3449 | elapsed=188.2m | eta=36.6m
+[PROGRESS] 3475/4120 | saved=3474 | elapsed=189.5m | eta=35.2m
+[PROGRESS] 3500/4120 | saved=3499 | elapsed=190.8m | eta=33.8m
+[PROGRESS] 3525/4120 | saved=3524 | elapsed=192.2m | eta=32.4m
+[PROGRESS] 3550/4120 | saved=3549 | elapsed=193.5m | eta=31.1m
+[PROGRESS] 3575/4120 | saved=3574 | elapsed=194.8m | eta=29.7m
+[PROGRESS] 3600/4120 | saved=3599 | elapsed=196.3m | eta=28.4m
+[PROGRESS] 3625/4120 | saved=3624 | elapsed=197.6m | eta=27.0m
+[PROGRESS] 3650/4120 | saved=3649 | elapsed=198.9m | eta=25.6m
+[PROGRESS] 3675/4120 | saved=3674 | elapsed=200.3m | eta=24.3m
+[PROGRESS] 3700/4120 | saved=3699 | elapsed=201.6m | eta=22.9m
+[PROGRESS] 3725/4120 | saved=3724 | elapsed=202.9m | eta=21.5m
+[PROGRESS] 3750/4120 | saved=3749 | elapsed=204.2m | eta=20.1m
+[PROGRESS] 3775/4120 | saved=3774 | elapsed=205.5m | eta=18.8m
+[PROGRESS] 3800/4120 | saved=3799 | elapsed=206.9m | eta=17.4m
+[PROGRESS] 3825/4120 | saved=3824 | elapsed=208.2m | eta=16.1m
+[PROGRESS] 3850/4120 | saved=3849 | elapsed=209.6m | eta=14.7m
+[PROGRESS] 3875/4120 | saved=3874 | elapsed=210.9m | eta=13.3m
+[PROGRESS] 3900/4120 | saved=3899 | elapsed=212.4m | eta=12.0m
+[PROGRESS] 3925/4120 | saved=3924 | elapsed=213.8m | eta=10.6m
+[PROGRESS] 3950/4120 | saved=3949 | elapsed=215.1m | eta=9.3m
+[PROGRESS] 3975/4120 | saved=3974 | elapsed=216.4m | eta=7.9m
+[PROGRESS] 4000/4120 | saved=3999 | elapsed=217.8m | eta=6.5m
+[PROGRESS] 4025/4120 | saved=4024 | elapsed=219.0m | eta=5.2m
+[PROGRESS] 4050/4120 | saved=4049 | elapsed=220.4m | eta=3.8m
+[PROGRESS] 4075/4120 | saved=4074 | elapsed=221.6m | eta=2.4m
+[PROGRESS] 4100/4120 | saved=4099 | elapsed=223.0m | eta=1.1m
+
+[DONE]
+  Requested: 4120
+  Newly saved: 4120
+  Missing (not found): 0
+  Failed (other errors): 0
+Finished: Sun Jan 11 08:37:34 PM CET 2026

@@ -1,0 +1,144 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 27005578
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Tue Jan 13 20:19:47 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:88:00.0 Off |                  N/A |
+| 22%   27C    P8             26W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/fm_finetune_covla_modelif.yaml
+[FM CONFIG] Overriding tokenizer_config with local paths:
+  folder    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_192x336
+  ckpt_path = checkpoints/epoch-26_rfid_8_9.ckpt
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+Validation dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced
+YAML data params (val / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val
+
+[FM CONFIG] Using Stage2 FM checkpoint:
+  ORBIT_CKPT = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_wm/orbis_288x512/checkpoints/last.ckpt
+
+Text encoder initialized & frozen.
+
+Loading FM world model (Model from fm_model.py)...
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. Dropping this flag (it is false / handled by checkpoint).
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loaded world model ckpt. Missing keys: 4, unexpected: 0
+World model ready (STDiT backbone, tokenizer, noise schedule, sampling).
+[CKPT] Found existing checkpoint: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/checkpoints/adaln_text_conditioning_balanced_train.ckpt
+[CKPT] Resuming from epoch=8
+[RUN] Saving samples to: finetuning/samples/27005578
+[RUN] TensorBoard logs in: finetuning/runs/27005578
+[CAPTION POOL] size=3708 (used for mismatch loss)
+
+Starting AdaLN fine-tuning using fm_model noise & encoder...
+
+[SAMPLE] Saved finetuning/samples/27005578/sample_before_train.png
+[TRAIN] Starting epoch 9/10
+[GRAD][text_mlp] text_mlp.1.weight | 2.951e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.185e-03
+[GRAD][text_mlp] text_mlp.1.weight | 2.463e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.673e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.096e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.372e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.357e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.477e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.415e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.105e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.950e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.985e-02
+[GRAD][text_mlp] text_mlp.1.weight | 7.902e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.689e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.544e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.927e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.872e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.954e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.251e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.269e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.818e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.704e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.384e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.009e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.231e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.985e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.979e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.268e-01
+[GRAD][text_mlp] text_mlp.1.weight | 7.615e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.574e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.620e-02
+[TRAIN] Epoch 9 finished — avg_loss=0.4608
+[VAL] Epoch 9 — avg_val_loss=0.2545
+[CKPT] Saved checkpoint at epoch=8, step=3707
+[SAMPLE] Saved finetuning/samples/27005578/sample_epoch9.png
+[TRAIN] Starting epoch 10/10
+[GRAD][text_mlp] text_mlp.1.weight | 6.755e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.970e-03
+[GRAD][text_mlp] text_mlp.1.weight | 4.931e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.164e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.375e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.391e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.116e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.333e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.060e-01
+[GRAD][text_mlp] text_mlp.1.weight | 3.482e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.263e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.843e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.070e-01
+[GRAD][text_mlp] text_mlp.1.weight | 2.331e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.057e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.487e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.998e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.604e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.657e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.586e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.691e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.064e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.076e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.750e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.588e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.329e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.268e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.039e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.033e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.377e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.850e-02
+[TRAIN] Epoch 10 finished — avg_loss=0.4644
+[VAL] Epoch 10 — avg_val_loss=0.2339
+[CKPT] Saved checkpoint at epoch=9, step=3707
+[SAMPLE] Saved finetuning/samples/27005578/sample_epoch10.png
+
+Done! AdaLN fine-tune saved → /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/balanced_train.ckpt
+[RUN] TensorBoard writer closed.
+=== Job Finished ===

@@ -1,6 +1,8 @@
 # finetuning/train_adaln.py
 import os
 import time
+import random
+
 import torch
 import torchvision.utils as vutils
 from torch.utils.tensorboard import SummaryWriter  # <-- NEW
@@ -24,8 +26,22 @@ from finetuning.adaln_utils import (
     save_checkpoint,
     load_checkpoint_if_exists,
 )
+
+
 def safe_mean(t):
     return t.abs().mean().item() if t is not None else 0.0
+
+
+# ================== TEXT CONDITIONING KNOBS ==================
+# Classifier-free guidance style caption dropout: sometimes train with no text
+COND_DROP_P = 0.15  # 10–20% typical
+
+# Mismatch objective: enforce correct caption predicts better than wrong caption
+USE_MISMATCH_LOSS = True
+MISMATCH_P = 0.50          # probability to apply mismatch loss on a given step (when text is present)
+LAMBDA_MISMATCH = 0.50     # weight of mismatch objective
+MARGIN = 0.01              # small margin in MSE space
+
 
 # ================== DEVICES ==================
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -44,10 +60,15 @@ MAX_FRAMES = CONTEXT_FRAMES + TARGET_FRAMES  # kept for clarity
 train_ds = CoVLAOrbisMultiFrame(**train_params)
 train_stream = infinite_stream(train_ds)
 
+# Make 1 "epoch" correspond to a full pass over the dataset (important after splitting)
+hp.steps_per_epoch = len(train_ds)
+
 # ---- VALIDATION DATASET + STREAM (if provided) ----
 if val_params is not None:
     val_ds = CoVLAOrbisMultiFrame(**val_params)
     val_stream = infinite_stream(val_ds)
+    # If you want stable validation, evaluate the whole val set per epoch
+    hp.val_steps_per_epoch = len(val_ds)
 else:
     val_ds = None
     val_stream = None
@@ -125,6 +146,45 @@ print(f"[RUN] TensorBoard logs in: {LOG_DIR}", flush=True)
 global_step = start_epoch * hp.steps_per_epoch
 
 
+# ================== HELPER: WRONG CAPTION WITHOUT DECODING VIDEO ==================
+def build_caption_pool(captions_dir: str | None, video_ids: list[str]) -> list[str]:
+    """
+    Build a list of captions by reading <video_id>.jsonl files only.
+    This avoids decoding videos just to fetch a "wrong caption".
+    """
+    if not captions_dir:
+        return ["no caption"]
+
+    pool: list[str] = []
+    for vid in video_ids:
+        p = os.path.join(captions_dir, f"{vid}.jsonl")
+        if not os.path.exists(p):
+            continue
+        try:
+            with open(p, "r") as f:
+                # take the first non-empty plain_caption (matches your dataset logic fairly well)
+                for line in f:
+                    entry = json.loads(line)  # noqa: F821 (json imported below in local scope)
+                    frame_idx_str = list(entry.keys())[0]
+                    cap = entry[frame_idx_str].get("plain_caption", "")
+                    if isinstance(cap, str) and cap.strip():
+                        pool.append(cap.strip())
+                        break
+        except Exception:
+            continue
+
+    if len(pool) == 0:
+        pool = ["no caption"]
+    return pool
+
+
+# json is only used for caption pool; keep import local to avoid changing other modules
+import json  # noqa: E402
+
+caption_pool = build_caption_pool(getattr(train_ds, "captions_dir", None), train_ds.video_ids)
+print(f"[CAPTION POOL] size={len(caption_pool)} (used for mismatch loss)", flush=True)
+
+
 # ================== SAMPLING UTILS ==================
 @torch.no_grad()
 def sample_and_save(model, data_stream, step_label="init"):
@@ -147,7 +207,7 @@ def sample_and_save(model, data_stream, step_label="init"):
         text = "no caption"
 
     # CLIPTextEncoder already runs on `device`
-    text_emb = text_encoder([text])  # (1, D)
+    text_emb = text_encoder([text]).to(device)  # (1, D)
 
     # --- encode frames to latents ---
     latents = model.encode_frames(imgs)          # (1, F, E, H, W)
@@ -263,10 +323,12 @@ for epoch in range(start_epoch, hp.epochs):
             context = x[:, :-1].clone()
             target  = x[:, -1]
 
-        # ---- text encoder ----
+        # ---- text encoder (with caption dropout) ----
         caption = s["caption"]
         text = caption.strip() if isinstance(caption, str) and caption.strip() else "no caption"
-        text_emb = text_encoder([text]).to(device)  # (B, D)
+
+        use_text = (torch.rand(()) > COND_DROP_P).item()
+        text_emb = text_encoder([text]).to(device) if use_text else None  # (B, D) or None
 
         # ---- FM noise ----
         if global_step < 1000:
@@ -279,7 +341,10 @@ for epoch in range(start_epoch, hp.epochs):
 
         frame_rate = torch.full((B,), train_ds.target_rate, device=device)
 
-        # ================== FORWARD (TEXT ON) ==================
+        # ---- FM velocity target ----
+        target_v = model.A(t) * target + model.B(t) * noise
+
+        # ================== FORWARD (COND) ==================
         pred_text = model.vit(
             target_t,
             context,
@@ -288,7 +353,33 @@ for epoch in range(start_epoch, hp.epochs):
             text_emb=text_emb,
         )
 
-        # ================== FORWARD (TEXT OFF) ==================
+        loss_text = torch.mean((pred_text.squeeze(1) - target_v) ** 2)
+
+        # ================== MISMATCH LOSS (forces text to matter) ==================
+        loss = loss_text
+        mismatch_applied = False
+        loss_wrong_val = None
+
+        if USE_MISMATCH_LOSS and (text_emb is not None) and (random.random() < MISMATCH_P):
+            wrong_text = random.choice(caption_pool) if len(caption_pool) > 0 else "no caption"
+            wrong_emb = text_encoder([wrong_text]).to(device)
+
+            pred_wrong = model.vit(
+                target_t,
+                context,
+                t,
+                frame_rate=frame_rate,
+                text_emb=wrong_emb,
+            )
+            loss_wrong = torch.mean((pred_wrong.squeeze(1) - target_v) ** 2)
+
+            # Enforce: correct caption should give lower loss than wrong caption (by a margin)
+            loss = loss_text + LAMBDA_MISMATCH * torch.relu(MARGIN + loss_text - loss_wrong)
+
+            mismatch_applied = True
+            loss_wrong_val = loss_wrong.item()
+
+        # ================== FORWARD (NO TEXT) for diagnostics only ==================
         with torch.no_grad():
             pred_no_text = model.vit(
                 target_t,
@@ -297,11 +388,6 @@ for epoch in range(start_epoch, hp.epochs):
                 frame_rate=frame_rate,
                 text_emb=None,
             )
-
-        # ---- FM velocity target ----
-        target_v = model.A(t) * target + model.B(t) * noise
-
-        loss = torch.mean((pred_text.squeeze(1) - target_v) ** 2)
 
         optimizer.zero_grad()
         loss.backward()
@@ -342,13 +428,19 @@ for epoch in range(start_epoch, hp.epochs):
 
         # ================== TEXT EFFECT METRIC ==================
         with torch.no_grad():
-            text_delta = torch.mean(
-                (pred_text - pred_no_text).abs()
-            ).item()
+            text_delta = torch.mean((pred_text - pred_no_text).abs()).item()
             writer.add_scalar("diagnostics/text_delta", text_delta, global_step)
 
+        # ================== LOSS LOGS ==================
         epoch_loss += loss.item()
         writer.add_scalar("train/loss_step", loss.item(), global_step)
+        writer.add_scalar("train/loss_text_step", loss_text.item(), global_step)
+        if mismatch_applied and loss_wrong_val is not None:
+            writer.add_scalar("train/loss_wrong_step", loss_wrong_val, global_step)
+            writer.add_scalar("train/mismatch_applied", 1.0, global_step)
+        else:
+            writer.add_scalar("train/mismatch_applied", 0.0, global_step)
+
         global_step += 1
 
     avg_loss = epoch_loss / hp.steps_per_epoch
@@ -359,7 +451,7 @@ for epoch in range(start_epoch, hp.epochs):
 
     # ================== VALIDATION ==================
     if val_stream is not None:
-        val_steps = getattr(hp, "val_steps_per_epoch", 50)
+        val_steps = getattr(hp, "val_steps_per_epoch", len(val_ds))
         val_loss = run_validation(
             model, text_encoder, val_stream, epoch, num_steps=val_steps
         )
@@ -369,7 +461,6 @@ for epoch in range(start_epoch, hp.epochs):
     # ================== CHECKPOINT + SAMPLE ==================
     save_checkpoint(CHECKPOINT_PATH, epoch, step, model, text_encoder, optimizer)
     sample_and_save(model, train_stream, f"epoch{epoch+1}")
-
 
 
 # ================ SAVE FINAL =================
