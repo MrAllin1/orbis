@@ -27,7 +27,7 @@ class Encoder(nn.Module):
         self.e_dim = e_dim
         
         self.init_transformer(pretrained_encoder)
-
+    
     def init_transformer(self, pretrained_encoder):
         if pretrained_encoder == 'VIT_DINO':
             pretrained_encoder_model = 'timm/vit_base_patch16_224.dino'
