@@ -1,0 +1,419 @@
+=== Starting SLURM Job on lmbhiwi_gpu-rtx2080 ===
+Node: dagobert
+Job ID: 27012321
+Python = /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+Torch CUDA available?:
+True
+Sun Jan 18 00:01:26 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:1A:00.0 Off |                  N/A |
+| 22%   31C    P8             13W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/fm_finetune_covla_modelif.yaml
+[FM CONFIG] Overriding tokenizer_config with local paths:
+  folder    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_192x336
+  ckpt_path = checkpoints/epoch-26_rfid_8_9.ckpt
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+Validation dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced_compact_3
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced
+YAML data params (val / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced_compact_3
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val
+
+[FM CONFIG] Using Stage2 FM checkpoint:
+  ORBIT_CKPT = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_wm/orbis_288x512/checkpoints/last.ckpt
+
+Text encoder initialized & frozen.
+
+Loading FM world model (Model from fm_model.py)...
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. Dropping this flag (it is false / handled by checkpoint).
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loaded world model ckpt. Missing keys: 4, unexpected: 0
+World model ready (STDiT backbone, tokenizer, noise schedule, sampling).
+[CKPT] No existing checkpoint found → starting from scratch
+[RUN] Saving samples to: finetuning/samples/27012321
+[RUN] TensorBoard logs in: finetuning/runs/27012321
+[CAPTION POOL] size=3708 (used for mismatch loss)
+
+Starting AdaLN fine-tuning using fm_model noise & encoder...
+
+[SAMPLE] Saved finetuning/samples/27012321/sample_before_train.png
+[TRAIN] Starting epoch 1/10
+[GRAD][text_mlp] text_mlp.1.weight | 0.000e+00
+[GRAD][text_mlp] text_mlp.1.weight | 1.038e-02
+[GRAD][text_mlp] text_mlp.1.weight | 7.100e-03
+[GRAD][text_mlp] text_mlp.1.weight | 8.571e-03
+[GRAD][text_mlp] text_mlp.1.weight | 6.354e-03
+[GRAD][text_mlp] text_mlp.1.weight | 1.218e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.567e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.546e-03
+[GRAD][text_mlp] text_mlp.1.weight | 3.229e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.573e-03
+[GRAD][text_mlp] text_mlp.1.weight | 1.671e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.967e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.272e-01
+[GRAD][text_mlp] text_mlp.1.weight | 1.732e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.088e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.016e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.763e-03
+[GRAD][text_mlp] text_mlp.1.weight | 2.526e-02
+[GRAD][text_mlp] text_mlp.1.weight | 8.347e-03
+[GRAD][text_mlp] text_mlp.1.weight | 8.358e-03
+[GRAD][text_mlp] text_mlp.1.weight | 1.250e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.253e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.156e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.159e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.823e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.971e-03
+[GRAD][text_mlp] text_mlp.1.weight | 2.617e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.367e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.905e-03
+[TRAIN] Epoch 1 finished — avg_loss=0.4278
+[VAL] Epoch 1 — avg_val_loss=0.2339
+[CKPT] Saved checkpoint at epoch=0, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch1.png
+[TRAIN] Starting epoch 2/10
+[GRAD][text_mlp] text_mlp.1.weight | 4.492e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.928e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.856e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.208e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.579e-03
+[GRAD][text_mlp] text_mlp.1.weight | 1.618e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.765e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.198e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.593e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.986e-03
+[GRAD][text_mlp] text_mlp.1.weight | 1.254e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.587e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.616e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.181e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.453e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.363e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.325e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.543e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.034e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.128e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.461e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.414e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.629e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.481e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.632e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.534e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.757e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.955e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.738e-02
+[TRAIN] Epoch 2 finished — avg_loss=0.4584
+[VAL] Epoch 2 — avg_val_loss=0.2361
+[CKPT] Saved checkpoint at epoch=1, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch2.png
+[TRAIN] Starting epoch 3/10
+[GRAD][text_mlp] text_mlp.1.weight | 6.381e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.027e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.828e-03
+[GRAD][text_mlp] text_mlp.1.weight | 1.829e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.283e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.010e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.573e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.455e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.285e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.369e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.651e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.436e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.464e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.980e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.843e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.423e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.665e-01
+[GRAD][text_mlp] text_mlp.1.weight | 1.842e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.112e-03
+[GRAD][text_mlp] text_mlp.1.weight | 2.298e-02
+[GRAD][text_mlp] text_mlp.1.weight | 8.317e-03
+[GRAD][text_mlp] text_mlp.1.weight | 6.120e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.518e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.151e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.157e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.843e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.175e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.462e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.423e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.478e-02
+[TRAIN] Epoch 3 finished — avg_loss=0.4761
+[VAL] Epoch 3 — avg_val_loss=0.2441
+[CKPT] Saved checkpoint at epoch=2, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch3.png
+[TRAIN] Starting epoch 4/10
+[GRAD][text_mlp] text_mlp.1.weight | 6.386e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.561e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.279e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.731e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.330e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.422e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.144e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.059e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.383e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.210e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.572e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.395e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.575e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.559e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.044e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.297e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.339e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.960e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.463e-02
+[GRAD][text_mlp] text_mlp.1.weight | 7.082e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.836e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.560e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.613e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.909e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.658e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.790e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.107e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.234e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.192e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.581e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.293e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.109e-02
+[TRAIN] Epoch 4 finished — avg_loss=0.4682
+[VAL] Epoch 4 — avg_val_loss=0.2467
+[CKPT] Saved checkpoint at epoch=3, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch4.png
+[TRAIN] Starting epoch 5/10
+[GRAD][text_mlp] text_mlp.1.weight | 1.508e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.490e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.083e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.333e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.754e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.492e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.313e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.041e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.113e-03
+[GRAD][text_mlp] text_mlp.1.weight | 2.827e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.149e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.325e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.954e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.719e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.417e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.188e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.114e-01
+[GRAD][text_mlp] text_mlp.1.weight | 1.141e-01
+[GRAD][text_mlp] text_mlp.1.weight | 2.561e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.171e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.244e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.252e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.646e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.644e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.343e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.224e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.347e-03
+[GRAD][text_mlp] text_mlp.1.weight | 3.813e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.563e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.283e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.236e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.514e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.492e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.892e-02
+[TRAIN] Epoch 5 finished — avg_loss=0.4620
+[VAL] Epoch 5 — avg_val_loss=0.2268
+[CKPT] Saved checkpoint at epoch=4, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch5.png
+[TRAIN] Starting epoch 6/10
+[GRAD][text_mlp] text_mlp.1.weight | 1.969e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.662e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.299e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.700e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.539e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.150e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.518e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.500e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.529e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.152e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.967e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.965e-03
+[GRAD][text_mlp] text_mlp.1.weight | 2.522e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.407e-03
+[GRAD][text_mlp] text_mlp.1.weight | 2.573e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.364e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.643e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.191e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.180e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.390e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.361e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.073e-01
+[GRAD][text_mlp] text_mlp.1.weight | 2.884e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.039e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.205e-01
+[GRAD][text_mlp] text_mlp.1.weight | 3.654e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.971e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.800e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.059e-02
+[GRAD][text_mlp] text_mlp.1.weight | 7.302e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.239e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.890e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.800e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.539e-02
+[TRAIN] Epoch 6 finished — avg_loss=0.4634
+[VAL] Epoch 6 — avg_val_loss=0.2464
+[CKPT] Saved checkpoint at epoch=5, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch6.png
+[TRAIN] Starting epoch 7/10
+[GRAD][text_mlp] text_mlp.1.weight | 2.053e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.433e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.535e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.993e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.539e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.011e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.283e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.440e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.744e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.131e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.686e-02
+[GRAD][text_mlp] text_mlp.1.weight | 8.825e-02
+[GRAD][text_mlp] text_mlp.1.weight | 7.614e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.331e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.766e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.695e-03
+[GRAD][text_mlp] text_mlp.1.weight | 4.245e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.460e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.762e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.466e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.290e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.893e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.437e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.626e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.055e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.297e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.141e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.864e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.957e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.913e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.424e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.952e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.578e-01
+[TRAIN] Epoch 7 finished — avg_loss=0.4634
+[VAL] Epoch 7 — avg_val_loss=0.2357
+[CKPT] Saved checkpoint at epoch=6, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch7.png
+[TRAIN] Starting epoch 8/10
+[GRAD][text_mlp] text_mlp.1.weight | 5.996e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.901e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.101e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.729e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.171e-02
+[GRAD][text_mlp] text_mlp.1.weight | 9.104e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.245e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.441e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.728e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.909e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.483e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.360e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.230e-02
+[GRAD][text_mlp] text_mlp.1.weight | 8.770e-03
+[GRAD][text_mlp] text_mlp.1.weight | 2.868e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.360e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.116e-01
+[GRAD][text_mlp] text_mlp.1.weight | 3.068e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.054e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.544e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.121e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.036e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.332e-02
+[TRAIN] Epoch 8 finished — avg_loss=0.4745
+[VAL] Epoch 8 — avg_val_loss=0.2511
+[CKPT] Saved checkpoint at epoch=7, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch8.png
+[TRAIN] Starting epoch 9/10
+[GRAD][text_mlp] text_mlp.1.weight | 2.985e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.354e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.383e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.273e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.472e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.793e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.452e-02
+[GRAD][text_mlp] text_mlp.1.weight | 8.898e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.664e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.844e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.920e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.341e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.237e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.528e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.354e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.975e-01
+[GRAD][text_mlp] text_mlp.1.weight | 3.568e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.471e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.079e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.712e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.357e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.793e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.759e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.545e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.660e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.702e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.341e-02
+[GRAD][text_mlp] text_mlp.1.weight | 8.890e-03
+[GRAD][text_mlp] text_mlp.1.weight | 4.311e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.433e-02
+[TRAIN] Epoch 9 finished — avg_loss=0.4675
+[VAL] Epoch 9 — avg_val_loss=0.2270
+[CKPT] Saved checkpoint at epoch=8, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch9.png
+[TRAIN] Starting epoch 10/10
+[GRAD][text_mlp] text_mlp.1.weight | 2.292e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.235e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.943e-02
+[GRAD][text_mlp] text_mlp.1.weight | 1.751e-02
+[GRAD][text_mlp] text_mlp.1.weight | 4.587e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.485e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.706e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.411e-02
+[GRAD][text_mlp] text_mlp.1.weight | 7.392e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.331e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.515e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.053e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.428e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.460e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.424e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.813e-02
+[GRAD][text_mlp] text_mlp.1.weight | 2.206e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.783e-02
+[GRAD][text_mlp] text_mlp.1.weight | 6.482e-02
+[GRAD][text_mlp] text_mlp.1.weight | 7.289e-03
+[GRAD][text_mlp] text_mlp.1.weight | 3.233e-02
+[GRAD][text_mlp] text_mlp.1.weight | 3.315e-02
+[GRAD][text_mlp] text_mlp.1.weight | 8.290e-02
+[GRAD][text_mlp] text_mlp.1.weight | 5.800e-02
+[TRAIN] Epoch 10 finished — avg_loss=0.4666
+[VAL] Epoch 10 — avg_val_loss=0.2479
+[CKPT] Saved checkpoint at epoch=9, step=3707
+[SAMPLE] Saved finetuning/samples/27012321/sample_epoch10.png
+
+Done! AdaLN fine-tune saved → /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/compact_train.ckpt
+[RUN] TensorBoard writer closed.
+=== Job Finished ===

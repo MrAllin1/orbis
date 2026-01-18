@@ -19,6 +19,7 @@ from finetuning.adaln_models import (
     create_text_encoder,
     create_world_model,
 )
+print("[INFO] Imported necessary modules and the orbis ckpt is at:", ORBIT_CKPT)
 
 # ------------------------------------------------------------------------------------
 # CONFIG – EDIT THESE
