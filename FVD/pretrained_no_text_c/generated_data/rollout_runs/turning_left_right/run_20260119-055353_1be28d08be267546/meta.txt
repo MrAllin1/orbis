@@ -1,0 +1,7 @@
+prompt_key=turning_left_right
+use_text=False
+disable_text_conditioning=True
+video_id=1be28d08be267546
+desired_seconds=20
+frame_rate=5.0
+job_tag=pretrained_no_text_seed42

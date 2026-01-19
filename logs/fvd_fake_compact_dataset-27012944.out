@@ -1,0 +1,1265 @@
+=== Starting SLURM Job ===
+Node: dagobert
+Job ID: 27012944
+Date: Sun Jan 18 08:41:10 PM CET 2026
+Python: /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+torch: 2.5.1
+cuda available: True
+Sun Jan 18 20:41:15 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:89:00.0 Off |                  N/A |
+| 22%   28C    P8             17W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B1:00.0 Off |                  N/A |
+| 22%   28C    P8              1W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 22%   27C    P8             57W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+[INFO] Using device: cuda
+Loading FM config from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/fm_finetune_covla_modelif.yaml
+[FM CONFIG] Overriding tokenizer_config with local paths:
+  folder    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_tk/tokenizer_192x336
+  ckpt_path = checkpoints/epoch-26_rfid_8_9.ckpt
+Train dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+Validation dataset target from YAML: data.covla_dataset.CoVLAOrbisMultiFrame
+YAML data params (train / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced_compact_3
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced
+YAML data params (val / CoVLA):
+  size            = [192, 336]
+  num_frames      = 6
+  stored_rate     = 20
+  target_rate     = 5
+  captions_dir    = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_captions_balanced_compact_3
+  videos_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val
+
+[FM CONFIG] Using Stage2 FM checkpoint:
+  ORBIT_CKPT = /work/dlclarge2/alidemaa-text-control-orbis/orbis/logs_wm/orbis_288x512/checkpoints/last.ckpt
+
+[INFO] Using frame size: 192x336
+[INFO] Using target_frame_rate: 5.0 fps
+Text encoder initialized & frozen.
+
+Loading FM world model (Model from fm_model.py)...
+[Warning] Fused window process have not been installed. Please refer to get_started.md for installation.
+[fm_model] WARNING: Encoder does not support 'use_pretrained_weights'. Dropping this flag (it is false / handled by checkpoint).
+VQLPIPSWithDiscriminator initialized with hinge loss.
+Loaded world model ckpt. Missing keys: 4, unexpected: 0
+World model ready (STDiT backbone, tokenizer, noise schedule, sampling).
+
+[INFO] Loading finetuned AdaLN checkpoint from: /work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/compact_train.ckpt
+[INJECT][2026-01-18 20:41:57] Injecting finetuned weights into world_model (strict=False)...
+[INFO] Injection complete. Missing=0 Unexpected=0
+[INJECT][2026-01-18 20:41:57] Injecting finetuned weights into text_encoder.proj (strict=True)...
+[INFO] Text projection injection complete.
+
+[COLLECT] Output root: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42
+[INFO] Will process 20 video(s). Each produces 5 generated MP4s.
+[INFO] Total generated MP4s expected: 100
+
+[VIDEO 1/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/7ecf702ffa027ce6.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/7ecf702ffa027ce6.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7ecf702ffa027ce6_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7ecf702ffa027ce6_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7ecf702ffa027ce6_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7ecf702ffa027ce6_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7ecf702ffa027ce6_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7ecf702ffa027ce6_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7ecf702ffa027ce6_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-204204_7ecf702ffa027ce6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-204204_7ecf702ffa027ce6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-204204_7ecf702ffa027ce6/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__7ecf702ffa027ce6__20260118-204204.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-204721_7ecf702ffa027ce6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-204721_7ecf702ffa027ce6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-204721_7ecf702ffa027ce6/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__7ecf702ffa027ce6__20260118-204721.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-205242_7ecf702ffa027ce6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-205242_7ecf702ffa027ce6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-205242_7ecf702ffa027ce6/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__7ecf702ffa027ce6__20260118-205242.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-205803_7ecf702ffa027ce6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-205803_7ecf702ffa027ce6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-205803_7ecf702ffa027ce6/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__7ecf702ffa027ce6__20260118-205803.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-210325_7ecf702ffa027ce6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-210325_7ecf702ffa027ce6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-210325_7ecf702ffa027ce6/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__7ecf702ffa027ce6__20260118-210325.mp4
+
+[VIDEO 2/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/908ae4e22c55688e.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/908ae4e22c55688e.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/908ae4e22c55688e_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/908ae4e22c55688e_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/908ae4e22c55688e_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/908ae4e22c55688e_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/908ae4e22c55688e_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/908ae4e22c55688e_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/908ae4e22c55688e_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-210853_908ae4e22c55688e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-210853_908ae4e22c55688e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-210853_908ae4e22c55688e/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__908ae4e22c55688e__20260118-210853.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-211416_908ae4e22c55688e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-211416_908ae4e22c55688e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-211416_908ae4e22c55688e/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__908ae4e22c55688e__20260118-211416.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-211938_908ae4e22c55688e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-211938_908ae4e22c55688e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-211938_908ae4e22c55688e/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__908ae4e22c55688e__20260118-211938.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-212500_908ae4e22c55688e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-212500_908ae4e22c55688e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-212500_908ae4e22c55688e/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__908ae4e22c55688e__20260118-212500.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-213023_908ae4e22c55688e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-213023_908ae4e22c55688e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-213023_908ae4e22c55688e/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__908ae4e22c55688e__20260118-213023.mp4
+
+[VIDEO 3/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/e7dd74f6b203ac70.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/e7dd74f6b203ac70.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e7dd74f6b203ac70_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e7dd74f6b203ac70_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e7dd74f6b203ac70_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e7dd74f6b203ac70_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e7dd74f6b203ac70_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e7dd74f6b203ac70_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e7dd74f6b203ac70_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-213551_e7dd74f6b203ac70
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-213551_e7dd74f6b203ac70/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-213551_e7dd74f6b203ac70/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__e7dd74f6b203ac70__20260118-213551.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-214112_e7dd74f6b203ac70
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-214112_e7dd74f6b203ac70/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-214112_e7dd74f6b203ac70/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__e7dd74f6b203ac70__20260118-214112.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-214634_e7dd74f6b203ac70
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-214634_e7dd74f6b203ac70/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-214634_e7dd74f6b203ac70/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__e7dd74f6b203ac70__20260118-214634.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-215158_e7dd74f6b203ac70
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-215158_e7dd74f6b203ac70/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-215158_e7dd74f6b203ac70/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__e7dd74f6b203ac70__20260118-215158.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-215719_e7dd74f6b203ac70
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-215719_e7dd74f6b203ac70/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-215719_e7dd74f6b203ac70/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__e7dd74f6b203ac70__20260118-215719.mp4
+
+[VIDEO 4/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/e4fc17735c60ef9a.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/e4fc17735c60ef9a.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e4fc17735c60ef9a_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e4fc17735c60ef9a_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e4fc17735c60ef9a_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e4fc17735c60ef9a_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e4fc17735c60ef9a_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e4fc17735c60ef9a_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e4fc17735c60ef9a_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-220248_e4fc17735c60ef9a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-220248_e4fc17735c60ef9a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-220248_e4fc17735c60ef9a/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__e4fc17735c60ef9a__20260118-220248.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-220811_e4fc17735c60ef9a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-220811_e4fc17735c60ef9a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-220811_e4fc17735c60ef9a/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__e4fc17735c60ef9a__20260118-220811.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-221332_e4fc17735c60ef9a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-221332_e4fc17735c60ef9a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-221332_e4fc17735c60ef9a/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__e4fc17735c60ef9a__20260118-221332.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-221852_e4fc17735c60ef9a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-221852_e4fc17735c60ef9a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-221852_e4fc17735c60ef9a/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__e4fc17735c60ef9a__20260118-221852.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-222414_e4fc17735c60ef9a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-222414_e4fc17735c60ef9a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-222414_e4fc17735c60ef9a/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__e4fc17735c60ef9a__20260118-222414.mp4
+
+[VIDEO 5/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/5bb254131ff44c0f.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/5bb254131ff44c0f.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/5bb254131ff44c0f_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/5bb254131ff44c0f_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/5bb254131ff44c0f_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/5bb254131ff44c0f_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/5bb254131ff44c0f_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/5bb254131ff44c0f_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/5bb254131ff44c0f_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-222941_5bb254131ff44c0f
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-222941_5bb254131ff44c0f/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-222941_5bb254131ff44c0f/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__5bb254131ff44c0f__20260118-222941.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-223502_5bb254131ff44c0f
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-223502_5bb254131ff44c0f/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-223502_5bb254131ff44c0f/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__5bb254131ff44c0f__20260118-223502.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-224024_5bb254131ff44c0f
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-224024_5bb254131ff44c0f/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-224024_5bb254131ff44c0f/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__5bb254131ff44c0f__20260118-224024.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-224545_5bb254131ff44c0f
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-224545_5bb254131ff44c0f/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-224545_5bb254131ff44c0f/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__5bb254131ff44c0f__20260118-224545.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-225106_5bb254131ff44c0f
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-225106_5bb254131ff44c0f/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-225106_5bb254131ff44c0f/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__5bb254131ff44c0f__20260118-225106.mp4
+
+[VIDEO 6/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/014f4440a8f75f0a.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/014f4440a8f75f0a.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/014f4440a8f75f0a_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/014f4440a8f75f0a_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/014f4440a8f75f0a_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/014f4440a8f75f0a_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/014f4440a8f75f0a_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/014f4440a8f75f0a_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/014f4440a8f75f0a_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-225633_014f4440a8f75f0a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-225633_014f4440a8f75f0a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-225633_014f4440a8f75f0a/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__014f4440a8f75f0a__20260118-225633.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-230153_014f4440a8f75f0a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-230153_014f4440a8f75f0a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-230153_014f4440a8f75f0a/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__014f4440a8f75f0a__20260118-230153.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-230714_014f4440a8f75f0a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-230714_014f4440a8f75f0a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-230714_014f4440a8f75f0a/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__014f4440a8f75f0a__20260118-230714.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-231316_014f4440a8f75f0a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-231316_014f4440a8f75f0a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-231316_014f4440a8f75f0a/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__014f4440a8f75f0a__20260118-231316.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-231922_014f4440a8f75f0a
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-231922_014f4440a8f75f0a/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-231922_014f4440a8f75f0a/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__014f4440a8f75f0a__20260118-231922.mp4
+
+[VIDEO 7/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/e9c9b3174dd5c728.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/e9c9b3174dd5c728.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e9c9b3174dd5c728_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e9c9b3174dd5c728_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e9c9b3174dd5c728_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e9c9b3174dd5c728_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e9c9b3174dd5c728_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e9c9b3174dd5c728_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/e9c9b3174dd5c728_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-232526_e9c9b3174dd5c728
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-232526_e9c9b3174dd5c728/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-232526_e9c9b3174dd5c728/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__e9c9b3174dd5c728__20260118-232526.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-233048_e9c9b3174dd5c728
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-233048_e9c9b3174dd5c728/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-233048_e9c9b3174dd5c728/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__e9c9b3174dd5c728__20260118-233048.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-233610_e9c9b3174dd5c728
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-233610_e9c9b3174dd5c728/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260118-233610_e9c9b3174dd5c728/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__e9c9b3174dd5c728__20260118-233610.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-234133_e9c9b3174dd5c728
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-234133_e9c9b3174dd5c728/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260118-234133_e9c9b3174dd5c728/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__e9c9b3174dd5c728__20260118-234133.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-234654_e9c9b3174dd5c728
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-234654_e9c9b3174dd5c728/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260118-234654_e9c9b3174dd5c728/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__e9c9b3174dd5c728__20260118-234654.mp4
+
+[VIDEO 8/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/06c63d5e996e222e.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/06c63d5e996e222e.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/06c63d5e996e222e_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/06c63d5e996e222e_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/06c63d5e996e222e_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/06c63d5e996e222e_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/06c63d5e996e222e_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/06c63d5e996e222e_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/06c63d5e996e222e_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-235221_06c63d5e996e222e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-235221_06c63d5e996e222e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260118-235221_06c63d5e996e222e/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__06c63d5e996e222e__20260118-235221.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-235742_06c63d5e996e222e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-235742_06c63d5e996e222e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260118-235742_06c63d5e996e222e/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__06c63d5e996e222e__20260118-235742.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-000303_06c63d5e996e222e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-000303_06c63d5e996e222e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-000303_06c63d5e996e222e/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__06c63d5e996e222e__20260119-000303.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-000824_06c63d5e996e222e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-000824_06c63d5e996e222e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-000824_06c63d5e996e222e/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__06c63d5e996e222e__20260119-000824.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-001345_06c63d5e996e222e
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-001345_06c63d5e996e222e/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-001345_06c63d5e996e222e/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__06c63d5e996e222e__20260119-001345.mp4
+
+[VIDEO 9/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/9b7d0e3fdfb1720b.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/9b7d0e3fdfb1720b.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/9b7d0e3fdfb1720b_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/9b7d0e3fdfb1720b_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/9b7d0e3fdfb1720b_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/9b7d0e3fdfb1720b_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/9b7d0e3fdfb1720b_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/9b7d0e3fdfb1720b_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/9b7d0e3fdfb1720b_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-001914_9b7d0e3fdfb1720b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-001914_9b7d0e3fdfb1720b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-001914_9b7d0e3fdfb1720b/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__9b7d0e3fdfb1720b__20260119-001914.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-002435_9b7d0e3fdfb1720b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-002435_9b7d0e3fdfb1720b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-002435_9b7d0e3fdfb1720b/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__9b7d0e3fdfb1720b__20260119-002435.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-002956_9b7d0e3fdfb1720b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-002956_9b7d0e3fdfb1720b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-002956_9b7d0e3fdfb1720b/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__9b7d0e3fdfb1720b__20260119-002956.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-003517_9b7d0e3fdfb1720b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-003517_9b7d0e3fdfb1720b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-003517_9b7d0e3fdfb1720b/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__9b7d0e3fdfb1720b__20260119-003517.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-004039_9b7d0e3fdfb1720b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-004039_9b7d0e3fdfb1720b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-004039_9b7d0e3fdfb1720b/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__9b7d0e3fdfb1720b__20260119-004039.mp4
+
+[VIDEO 10/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/1fb4843910c5a317.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/1fb4843910c5a317.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1fb4843910c5a317_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1fb4843910c5a317_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1fb4843910c5a317_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1fb4843910c5a317_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1fb4843910c5a317_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1fb4843910c5a317_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1fb4843910c5a317_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-004606_1fb4843910c5a317
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-004606_1fb4843910c5a317/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-004606_1fb4843910c5a317/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__1fb4843910c5a317__20260119-004606.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-005127_1fb4843910c5a317
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-005127_1fb4843910c5a317/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-005127_1fb4843910c5a317/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__1fb4843910c5a317__20260119-005127.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-005648_1fb4843910c5a317
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-005648_1fb4843910c5a317/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-005648_1fb4843910c5a317/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__1fb4843910c5a317__20260119-005648.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-010209_1fb4843910c5a317
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-010209_1fb4843910c5a317/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-010209_1fb4843910c5a317/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__1fb4843910c5a317__20260119-010209.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-010729_1fb4843910c5a317
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-010729_1fb4843910c5a317/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-010729_1fb4843910c5a317/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__1fb4843910c5a317__20260119-010729.mp4
+
+[VIDEO 11/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/7bd2bf7cc3a2b342.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/7bd2bf7cc3a2b342.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7bd2bf7cc3a2b342_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7bd2bf7cc3a2b342_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7bd2bf7cc3a2b342_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7bd2bf7cc3a2b342_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7bd2bf7cc3a2b342_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7bd2bf7cc3a2b342_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7bd2bf7cc3a2b342_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-011255_7bd2bf7cc3a2b342
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-011255_7bd2bf7cc3a2b342/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-011255_7bd2bf7cc3a2b342/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__7bd2bf7cc3a2b342__20260119-011255.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-011816_7bd2bf7cc3a2b342
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-011816_7bd2bf7cc3a2b342/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-011816_7bd2bf7cc3a2b342/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__7bd2bf7cc3a2b342__20260119-011816.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-012336_7bd2bf7cc3a2b342
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-012336_7bd2bf7cc3a2b342/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-012336_7bd2bf7cc3a2b342/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__7bd2bf7cc3a2b342__20260119-012336.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-012857_7bd2bf7cc3a2b342
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-012857_7bd2bf7cc3a2b342/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-012857_7bd2bf7cc3a2b342/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__7bd2bf7cc3a2b342__20260119-012857.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-013417_7bd2bf7cc3a2b342
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-013417_7bd2bf7cc3a2b342/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-013417_7bd2bf7cc3a2b342/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__7bd2bf7cc3a2b342__20260119-013417.mp4
+
+[VIDEO 12/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/8ca4d375c86ad6d0.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/8ca4d375c86ad6d0.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/8ca4d375c86ad6d0_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/8ca4d375c86ad6d0_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/8ca4d375c86ad6d0_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/8ca4d375c86ad6d0_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/8ca4d375c86ad6d0_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/8ca4d375c86ad6d0_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/8ca4d375c86ad6d0_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-013945_8ca4d375c86ad6d0
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-013945_8ca4d375c86ad6d0/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-013945_8ca4d375c86ad6d0/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__8ca4d375c86ad6d0__20260119-013945.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-014505_8ca4d375c86ad6d0
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-014505_8ca4d375c86ad6d0/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-014505_8ca4d375c86ad6d0/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__8ca4d375c86ad6d0__20260119-014505.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-015026_8ca4d375c86ad6d0
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-015026_8ca4d375c86ad6d0/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-015026_8ca4d375c86ad6d0/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__8ca4d375c86ad6d0__20260119-015026.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-015546_8ca4d375c86ad6d0
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-015546_8ca4d375c86ad6d0/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-015546_8ca4d375c86ad6d0/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__8ca4d375c86ad6d0__20260119-015546.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-020106_8ca4d375c86ad6d0
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-020106_8ca4d375c86ad6d0/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-020106_8ca4d375c86ad6d0/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__8ca4d375c86ad6d0__20260119-020106.mp4
+
+[VIDEO 13/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/1f5de8c6fc7c2de1.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/1f5de8c6fc7c2de1.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1f5de8c6fc7c2de1_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1f5de8c6fc7c2de1_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1f5de8c6fc7c2de1_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1f5de8c6fc7c2de1_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1f5de8c6fc7c2de1_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1f5de8c6fc7c2de1_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1f5de8c6fc7c2de1_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-020632_1f5de8c6fc7c2de1
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-020632_1f5de8c6fc7c2de1/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-020632_1f5de8c6fc7c2de1/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__1f5de8c6fc7c2de1__20260119-020632.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-021152_1f5de8c6fc7c2de1
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-021152_1f5de8c6fc7c2de1/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-021152_1f5de8c6fc7c2de1/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__1f5de8c6fc7c2de1__20260119-021152.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-021713_1f5de8c6fc7c2de1
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-021713_1f5de8c6fc7c2de1/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-021713_1f5de8c6fc7c2de1/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__1f5de8c6fc7c2de1__20260119-021713.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-022233_1f5de8c6fc7c2de1
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-022233_1f5de8c6fc7c2de1/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-022233_1f5de8c6fc7c2de1/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__1f5de8c6fc7c2de1__20260119-022233.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-022753_1f5de8c6fc7c2de1
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-022753_1f5de8c6fc7c2de1/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-022753_1f5de8c6fc7c2de1/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__1f5de8c6fc7c2de1__20260119-022753.mp4
+
+[VIDEO 14/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/7192d194d99c97c6.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/7192d194d99c97c6.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7192d194d99c97c6_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7192d194d99c97c6_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7192d194d99c97c6_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7192d194d99c97c6_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7192d194d99c97c6_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7192d194d99c97c6_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/7192d194d99c97c6_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-023320_7192d194d99c97c6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-023320_7192d194d99c97c6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-023320_7192d194d99c97c6/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__7192d194d99c97c6__20260119-023320.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-023839_7192d194d99c97c6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-023839_7192d194d99c97c6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-023839_7192d194d99c97c6/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__7192d194d99c97c6__20260119-023839.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-024400_7192d194d99c97c6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-024400_7192d194d99c97c6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-024400_7192d194d99c97c6/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__7192d194d99c97c6__20260119-024400.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-024920_7192d194d99c97c6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-024920_7192d194d99c97c6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-024920_7192d194d99c97c6/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__7192d194d99c97c6__20260119-024920.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-025440_7192d194d99c97c6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-025440_7192d194d99c97c6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-025440_7192d194d99c97c6/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__7192d194d99c97c6__20260119-025440.mp4
+
+[VIDEO 15/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/86930597930eee2c.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/86930597930eee2c.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/86930597930eee2c_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/86930597930eee2c_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/86930597930eee2c_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/86930597930eee2c_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/86930597930eee2c_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/86930597930eee2c_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/86930597930eee2c_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-030007_86930597930eee2c
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-030007_86930597930eee2c/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-030007_86930597930eee2c/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__86930597930eee2c__20260119-030007.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-030527_86930597930eee2c
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-030527_86930597930eee2c/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-030527_86930597930eee2c/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__86930597930eee2c__20260119-030527.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-031047_86930597930eee2c
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-031047_86930597930eee2c/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-031047_86930597930eee2c/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__86930597930eee2c__20260119-031047.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-031608_86930597930eee2c
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-031608_86930597930eee2c/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-031608_86930597930eee2c/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__86930597930eee2c__20260119-031608.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-032128_86930597930eee2c
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-032128_86930597930eee2c/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-032128_86930597930eee2c/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__86930597930eee2c__20260119-032128.mp4
+
+[VIDEO 16/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/6418198f23aa2eee.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/6418198f23aa2eee.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/6418198f23aa2eee_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/6418198f23aa2eee_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/6418198f23aa2eee_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/6418198f23aa2eee_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/6418198f23aa2eee_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/6418198f23aa2eee_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/6418198f23aa2eee_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-032654_6418198f23aa2eee
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-032654_6418198f23aa2eee/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-032654_6418198f23aa2eee/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__6418198f23aa2eee__20260119-032654.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-033215_6418198f23aa2eee
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-033215_6418198f23aa2eee/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-033215_6418198f23aa2eee/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__6418198f23aa2eee__20260119-033215.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-033735_6418198f23aa2eee
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-033735_6418198f23aa2eee/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-033735_6418198f23aa2eee/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__6418198f23aa2eee__20260119-033735.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-034255_6418198f23aa2eee
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-034255_6418198f23aa2eee/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-034255_6418198f23aa2eee/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__6418198f23aa2eee__20260119-034255.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-034815_6418198f23aa2eee
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-034815_6418198f23aa2eee/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-034815_6418198f23aa2eee/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__6418198f23aa2eee__20260119-034815.mp4
+
+[VIDEO 17/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/dc2f754f1a9a0ca7.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/dc2f754f1a9a0ca7.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/dc2f754f1a9a0ca7_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/dc2f754f1a9a0ca7_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/dc2f754f1a9a0ca7_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/dc2f754f1a9a0ca7_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/dc2f754f1a9a0ca7_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/dc2f754f1a9a0ca7_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/dc2f754f1a9a0ca7_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-035342_dc2f754f1a9a0ca7
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-035342_dc2f754f1a9a0ca7/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-035342_dc2f754f1a9a0ca7/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__dc2f754f1a9a0ca7__20260119-035342.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-035902_dc2f754f1a9a0ca7
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-035902_dc2f754f1a9a0ca7/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-035902_dc2f754f1a9a0ca7/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__dc2f754f1a9a0ca7__20260119-035902.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-040423_dc2f754f1a9a0ca7
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-040423_dc2f754f1a9a0ca7/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-040423_dc2f754f1a9a0ca7/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__dc2f754f1a9a0ca7__20260119-040423.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-040943_dc2f754f1a9a0ca7
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-040943_dc2f754f1a9a0ca7/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-040943_dc2f754f1a9a0ca7/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__dc2f754f1a9a0ca7__20260119-040943.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-041503_dc2f754f1a9a0ca7
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-041503_dc2f754f1a9a0ca7/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-041503_dc2f754f1a9a0ca7/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__dc2f754f1a9a0ca7__20260119-041503.mp4
+
+[VIDEO 18/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/1be28d08be267546.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/1be28d08be267546.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1be28d08be267546_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1be28d08be267546_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1be28d08be267546_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1be28d08be267546_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1be28d08be267546_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1be28d08be267546_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/1be28d08be267546_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-042030_1be28d08be267546
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-042030_1be28d08be267546/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-042030_1be28d08be267546/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__1be28d08be267546__20260119-042030.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-042550_1be28d08be267546
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-042550_1be28d08be267546/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-042550_1be28d08be267546/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__1be28d08be267546__20260119-042550.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-043110_1be28d08be267546
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-043110_1be28d08be267546/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-043110_1be28d08be267546/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__1be28d08be267546__20260119-043110.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-043630_1be28d08be267546
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-043630_1be28d08be267546/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-043630_1be28d08be267546/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__1be28d08be267546__20260119-043630.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-044150_1be28d08be267546
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-044150_1be28d08be267546/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-044150_1be28d08be267546/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__1be28d08be267546__20260119-044150.mp4
+
+[VIDEO 19/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/2db0812b1592dcb6.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/2db0812b1592dcb6.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/2db0812b1592dcb6_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/2db0812b1592dcb6_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/2db0812b1592dcb6_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/2db0812b1592dcb6_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/2db0812b1592dcb6_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/2db0812b1592dcb6_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/2db0812b1592dcb6_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-044716_2db0812b1592dcb6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-044716_2db0812b1592dcb6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-044716_2db0812b1592dcb6/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__2db0812b1592dcb6__20260119-044716.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-045236_2db0812b1592dcb6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-045236_2db0812b1592dcb6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-045236_2db0812b1592dcb6/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__2db0812b1592dcb6__20260119-045236.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-045756_2db0812b1592dcb6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-045756_2db0812b1592dcb6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-045756_2db0812b1592dcb6/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__2db0812b1592dcb6__20260119-045756.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-050316_2db0812b1592dcb6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-050316_2db0812b1592dcb6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-050316_2db0812b1592dcb6/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__2db0812b1592dcb6__20260119-050316.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-050836_2db0812b1592dcb6
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-050836_2db0812b1592dcb6/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-050836_2db0812b1592dcb6/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__2db0812b1592dcb6__20260119-050836.mp4
+
+[VIDEO 20/20] /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/723b9d8f3a113e1b.mp4
+[CTX] Saving 5 frames from /work/dlclarge2/alidemaa-text-control-orbis/orbis/data/covla_videos_balanced_val/723b9d8f3a113e1b.mp4 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/723b9d8f3a113e1b_seed42
+  [CTX] frame_idx=0 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/723b9d8f3a113e1b_seed42/frame_00.png
+  [CTX] frame_idx=10 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/723b9d8f3a113e1b_seed42/frame_01.png
+  [CTX] frame_idx=20 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/723b9d8f3a113e1b_seed42/frame_02.png
+  [CTX] frame_idx=30 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/723b9d8f3a113e1b_seed42/frame_03.png
+  [CTX] frame_idx=40 -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/723b9d8f3a113e1b_seed42/frame_04.png
+[INFO] Loaded context tensor: (1, 5, 3, 192, 336) from /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/_context_frames_cache/723b9d8f3a113e1b_seed42
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-051404_723b9d8f3a113e1b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-051404_723b9d8f3a113e1b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left/run_20260119-051404_723b9d8f3a113e1b/generated_only.mp4
+[COLLECT] turning_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left/compact_dataset_seed42__turning_left__723b9d8f3a113e1b__20260119-051404.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = training_caption
+[RUN] use_text     = True
+[RUN] caption      = 'Moving straight at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-051923_723b9d8f3a113e1b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-051923_723b9d8f3a113e1b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption/run_20260119-051923_723b9d8f3a113e1b/generated_only.mp4
+[COLLECT] training_caption -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/training_caption/compact_dataset_seed42__training_caption__723b9d8f3a113e1b__20260119-051923.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it slows down.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-052443_723b9d8f3a113e1b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-052443_723b9d8f3a113e1b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right/run_20260119-052443_723b9d8f3a113e1b/generated_only.mp4
+[COLLECT] turning_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right/compact_dataset_seed42__turning_right__723b9d8f3a113e1b__20260119-052443.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_left_right
+[RUN] use_text     = True
+[RUN] caption      = 'Turning left at moderate speed. No traffic lights. Later it turns right.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-053004_723b9d8f3a113e1b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-053004_723b9d8f3a113e1b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right/run_20260119-053004_723b9d8f3a113e1b/generated_only.mp4
+[COLLECT] turning_left_right -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_left_right/compact_dataset_seed42__turning_left_right__723b9d8f3a113e1b__20260119-053004.mp4
+
+------------------------------------------------------------------------------------------
+[RUN] prompt_key   = turning_right_left
+[RUN] use_text     = True
+[RUN] caption      = 'Turning right at moderate speed. No traffic lights. Later it turns left.'
+[RUN] out_dir      = /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-053524_723b9d8f3a113e1b
+[INFO] context_frames=5 total_frames=100 gen_frames=95
+[MP4] combined : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-053524_723b9d8f3a113e1b/combined_context_plus_gen.mp4
+[MP4] gen_only : /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left/run_20260119-053524_723b9d8f3a113e1b/generated_only.mp4
+[COLLECT] turning_right_left -> /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42/turning_right_left/compact_dataset_seed42__turning_right_left__723b9d8f3a113e1b__20260119-053524.mp4
+
+[ALL DONE]
+Collected MP4s under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/fvd_fake_by_prompt/compact_dataset_seed42
+=== Job Finished ===
+Date: Mon Jan 19 05:40:48 AM CET 2026

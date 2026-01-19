@@ -4114,7 +4114,7 @@ ffab96f0d6dd8396.jsonl	right	confidence=1.0	frames=577	counts={'right': 577}
 ffb0ae0b08d1825d.jsonl	straight	confidence=0.937	frames=600	counts={'straight': 562, 'right': 38}
 ffb4b6de574d869f.jsonl	straight	confidence=1.0	frames=600	counts={'straight': 600}
 ffbacf6fb9efb2b2.jsonl	right	confidence=0.826	frames=591	counts={'straight': 103, 'right': 488}
-ffbdb40d81bc89f3.jsonl	straight	confidence=1.0	frames=461	counts={'straight': 461}
+ffbdb40d81b..c89f3.jsonl	straight	confidence=1.0	frames=461	counts={'straight': 461}
 ffcc00a7c62c954d.jsonl	right	confidence=0.984	frames=579	counts={'right': 570, 'straight': 9}
 ffd44b098e7db8f4.jsonl	right	confidence=1.0	frames=600	counts={'right': 600}
 fff3cab24630fb66.jsonl	straight	confidence=0.788	frames=571	counts={'left': 84, 'straight': 450, 'right': 37}

@@ -1,0 +1,6 @@
+prompt_key=turning_left
+use_text=True
+video_id=1f5de8c6fc7c2de1
+desired_seconds=20
+frame_rate=5.0
+job_tag=balanced_v3_seed42

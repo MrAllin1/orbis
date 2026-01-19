@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Rollout Comparison</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 18px; }
+    video { width: 100%; max-width: 1200px; border: 1px solid #ccc; }
+    ul { max-width: 1200px; }
+    li { margin: 10px 0; }
+    span { color: #222; }
+  </style>
+</head>
+<body>
+  <h2>Rollout Comparison</h2>
+  <p>Use the controls to pause/rewind/scrub.</p>
+  <video controls preload="metadata">
+    <source src="comparison.mp4" type="video/mp4"/>
+    Your browser does not support MP4 playback.
+  </video>
+  <h3>Captions</h3>
+  <ul>
+    <li><b>GROUND_TRUTH</b><br/><span>real video</span></li><li><b>no_caption_at_all</b><br/><span><NONE> (text conditioning disabled)</span></li><li><b>same_caption_as_training_2nd_video</b><br/><span>Moving straight at moderate speed. No traffic lights. Later it slows down.</span></li><li><b>turning_left</b><br/><span>Turning left at moderate speed. No traffic lights. Later it slows down.</span></li><li><b>turning_left_left</b><br/><span>Turning left at moderate speed. No traffic lights. Later it turns left.</span></li><li><b>turning_right</b><br/><span>Turning right at moderate speed. No traffic lights. Later it slows down.</span></li>
+  </ul>
+</body>
+</html>

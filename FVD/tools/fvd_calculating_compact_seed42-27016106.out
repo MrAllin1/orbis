@@ -1,0 +1,78 @@
+=== FVD job start ===
+Node: dagobert
+Job ID: 27016106
+Date: Mon Jan 19 02:39:40 PM CET 2026
+Python: /work/dlclarge2/alidemaa-text-control-orbis/miniconda3/envs/orbis_env/bin/python
+torch: 2.5.1
+cuda available: True
+cuda device: NVIDIA GeForce RTX 2080 Ti
+Mon Jan 19 14:39:45 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.133.20             Driver Version: 570.133.20     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:88:00.0 Off |                  N/A |
+| 22%   28C    P8             23W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B1:00.0 Off |                  N/A |
+| 22%   28C    P8              1W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA GeForce RTX 2080 Ti     On  |   00000000:B2:00.0 Off |                  N/A |
+| 22%   27C    P8             54W /  250W |       1MiB /  11264MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+=== LEFT FVD ===
+[INFO] device: cuda
+[INFO] Found 102 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/real_by_class/left
+[INFO] Found 20 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left
+[INFO] tensor shape: (20, 3, 16, 192, 336)
+[INFO] num_videos=20 max_items_for_fvd=20 batch_size=4
+
+FVD(real=left, fake=turning_left) = 0.3268
+=== RIGHT FVD ===
+[INFO] device: cuda
+[INFO] Found 247 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/real_by_class/right
+[INFO] Found 20 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right
+[INFO] tensor shape: (20, 3, 16, 192, 336)
+[INFO] num_videos=20 max_items_for_fvd=20 batch_size=4
+
+FVD(real=right, fake=turning_right) = 0.2729
+=== STRAIGHT FVD ===
+[INFO] device: cuda
+[INFO] Found 300 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/real_by_class/straight
+[INFO] Found 20 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/training_caption
+[INFO] tensor shape: (20, 3, 16, 192, 336)
+[INFO] num_videos=20 max_items_for_fvd=20 batch_size=4
+
+FVD(real=straight, fake=training_caption) = 0.1828
+=== Left Right FVD ===
+[INFO] device: cuda
+[INFO] Found 102 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/real_by_class/left
+[INFO] Found 20 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_left_right
+[INFO] tensor shape: (20, 3, 16, 192, 336)
+[INFO] num_videos=20 max_items_for_fvd=20 batch_size=4
+
+FVD(real=left, fake=turning_left_right) = 0.2785
+===Right Left FVD ===
+[INFO] device: cuda
+[INFO] Found 247 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/real_by_class/right
+[INFO] Found 20 mp4 files under: /work/dlclarge2/alidemaa-text-control-orbis/orbis/FVD/compact_dataset/generated_data/rollout_runs/turning_right_left
+[INFO] tensor shape: (20, 3, 16, 192, 336)
+[INFO] num_videos=20 max_items_for_fvd=20 batch_size=4
+
+FVD(real=right, fake=turning_right_left) = 0.3146
+=== FVD job finished ===
+Date: Mon Jan 19 02:43:21 PM CET 2026

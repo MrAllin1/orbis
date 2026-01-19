@@ -28,11 +28,9 @@ def pick_video(path: Path) -> Path:
 
     return random.choice(mp4_files)
 
-
 def extract_frames(video_path: Path, out_dir: Path, num_frames: int = 5):
     """
-    Extract `num_frames` frames from `video_path` and save as PNGs into `out_dir`.
-    Frames are sampled roughly evenly across the whole video.
+    Extract the first `num_frames` frames from `video_path` and save as PNGs into `out_dir`.
     """
     vr = VideoReader(str(video_path), ctx=cpu(0))
     total = len(vr)
@@ -42,8 +40,8 @@ def extract_frames(video_path: Path, out_dir: Path, num_frames: int = 5):
     # If video has fewer than num_frames, just take all frames
     n = min(num_frames, total)
 
-    # Evenly spaced indices between 0 and total-1
-    indices = np.linspace(0, total - 1, num=n, dtype=int)
+    # First n frame indices: 0, 10, 20, ...
+    indices = np.arange(0, min(num_frames * 10, total), 10, dtype=int)
 
     out_dir.mkdir(parents=True, exist_ok=True)
     print(f"[INFO] Saving {n} frames from {video_path} to {out_dir}")

@@ -24,7 +24,7 @@ TOKENIZER_ROOT = f"{BASE_WORK_UNIS}/logs_tk/tokenizer_192x336"
 TOKENIZER_CKPT_REL = "checkpoints/epoch-26_rfid_8_9.ckpt"
 
 # === OUTPUT PATHS FOR ADALN FINE-TUNE ===
-SAVE_PATH       = "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/compact_train.ckpt"
+SAVE_PATH       = "/work/dlclarge2/alidemaa-text-control-orbis/orbis/finetuning/finetuning_version_3_balanced_dataset.ckpt"
 CHECKPOINT_PATH = f"{BASE_WORK_UNIS}/finetuning/checkpoints/adaln_text_conditioning_compact_train.ckpt"
 
 

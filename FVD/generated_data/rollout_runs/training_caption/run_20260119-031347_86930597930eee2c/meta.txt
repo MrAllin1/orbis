@@ -1,0 +1,6 @@
+prompt_key=training_caption
+use_text=True
+video_id=86930597930eee2c
+desired_seconds=20
+frame_rate=5.0
+job_tag=balanced_v3_seed42

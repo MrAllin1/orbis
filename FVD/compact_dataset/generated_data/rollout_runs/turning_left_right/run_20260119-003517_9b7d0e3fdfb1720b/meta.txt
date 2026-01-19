@@ -1,0 +1,6 @@
+prompt_key=turning_left_right
+use_text=True
+video_id=9b7d0e3fdfb1720b
+desired_seconds=20
+frame_rate=5.0
+job_tag=compact_dataset_seed42
